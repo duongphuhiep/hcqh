@@ -1,0 +1,28 @@
+{
+  "name": "marko-get-started",
+  "version": "0.0.1",
+  "authors": [
+    "hiep <duongphuhiep@gmail.com>"
+  ],
+  "description": "marko playground",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "marko",
+    "stealjs",
+    "Tutorial"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "~0.97.0"
+  }
+}
