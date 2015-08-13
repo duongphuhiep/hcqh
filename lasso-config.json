@@ -1,0 +1,17 @@
+{
+	"outputDir": "./gen",
+	"bundles": [
+		{
+			"name": "vendor.css",
+			"dependencies": [
+				"./vendor/**/*.css"
+			]
+		},
+		{
+			"name": "vendor.js",
+			"dependencies": [
+				"./vendor/**/*.js"
+			]
+		}
+	]
+}

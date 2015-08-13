@@ -1,5 +1,5 @@
 {
-  "name": "Que-Huong",
+  "name": "hcqh",
   "version": "1.0.0",
   "description": "Trang Web Hop ca",
   "main": "index.js",
@@ -7,17 +7,55 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server",
     "build:tags": "riot --ext rtg --m app gen/tags.js",
-    "build:typescript": "tsc --project app",
-    "build": "npm run build:tags && npm run build:typescript",
+    "build:dist": "steal-tools build --config steal-config.js",
+    "build": "npm run build:tags && npm run build:dist",
     "watch:tags": "riot --watch --ext rtg --m app gen/tags.js",
-    "watch:typescript": "tsc --watch --project app",
-    "watch": "parallelshell \"npm run watch:tags\" \"npm run watch:typescript\""
+    "watch:dist": "steal-tools build --config steal-config.js --watch",
+    "watch": "parallelshell \"npm run watch:tags\" \"npm run watch:dist\""
   },
   "author": "hiep",
   "license": "MIT",
   "devDependencies": {
     "live-server": "^0.7.1",
-    "riot": "^2.2.2",
-    "parallelshell": "^1.2.0"
+    "parallelshell": "^1.2.0",
+    "steal-tools": "^0.10.7"
+  },
+  "jspm": {
+    "directories": {},
+    "configFile": "jspm.config.js",
+    "dependencies": {
+      "riot": "npm:riot@^2.2.3"
+    },
+    "devDependencies": {
+      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
+      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
+    }
+  },
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "riot": "^2.2.4",
+    "steal": "^0.10.5"
+  },
+  "system": {
+    "paths": {
+      "*": "*.js",
+      "github:*": "jspm_packages/github/*.js",
+      "npm:*": "jspm_packages/npm/*.js",
+      "bower:*": "bower_components/*.js",
+      "vendor:*": "vendor/*",
+      "vendorjs:*": "vendor/js/*.js"
+    },
+    "map": {
+      "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min",
+      "riot": "bower:riot/riot",
+      "modernizr": "vendorjs:modernizr.custom.71422",
+      "deliver": "vendorjs:deliver",
+      "slidebars": "vendorjs:slidebars.min",
+      "jquery.slideme2": "vendorjs:jquery.slideme2"
+    },
+    "npmIgnore": [
+      "devDependencies",
+      "optionalDependencies"
+    ]
   }
 }

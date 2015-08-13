@@ -1,11 +1,11 @@
 {
-  "name": "marko-get-started",
+  "name": "Web Hop Ca",
   "version": "0.0.1",
   "authors": [
     "hiep <duongphuhiep@gmail.com>"
   ],
-  "description": "marko playground",
-  "main": "index.html",
+  "description": "Web Hop Ca Revamping",
+  "main": "app/index.html",
   "moduleType": [
     "globals"
   ],
@@ -23,6 +23,12 @@
     "tests"
   ],
   "dependencies": {
-    "materialize": "~0.97.0"
+    "riot": "~2.2.3",
+    "steal": "~0.10.5"
+  },
+  "system": {
+    "map": {
+      "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min"
+    }
   }
 }

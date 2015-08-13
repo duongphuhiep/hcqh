@@ -1,0 +1,19 @@
+<search-box>
+
+  <div class="search-box">
+  	<input id="searchInput" type="search" placeholder="Search..." onkeyup={ handleKeypress } />
+    <i class="fa fa-search"></i>
+  </div>
+
+  <script>
+  handleKeypress(event) {
+    var searchValue = this.searchInput.value;
+    if (searchValue && event.which == 13 && searchValue.length > 3) {
+      console.log("Search for "+searchValue)
+      //window.location.href = input.data('search-input') + ':' + input.val();
+    }
+    return false;
+  }
+  </script>
+
+</search-box>

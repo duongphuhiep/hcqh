@@ -82,22 +82,24 @@
 						Contact Us
 					</a>
 				</li>
-			</ul>                                                   <form class="search-box">
-			<input type="search" placeholder="Search..." value="" data-search-input="/grav/deliver/search/query" />
-			<script>
-				jQuery(document).ready(function($){
-					var input = $('[data-search-input]');
+			</ul>
+			<form class="search-box">
+				<input type="search" placeholder="Search..." value="" data-search-input="/grav/deliver/search/query" />
+				<!--<script>
+					jQuery(document).ready(function($){
+						var input = $('[data-search-input]');
 
-					input.on('keypress', function(event) {
-						if (event.which == 13 && input.val().length > 3) {
-							event.preventDefault();
-							window.location.href = input.data('search-input') + ':' + input.val();
-						}
+						input.on('keypress', function(event) {
+							if (event.which == 13 && input.val().length > 3) {
+								event.preventDefault();
+								window.location.href = input.data('search-input') + ':' + input.val();
+							}
+						});
 					});
-				});
-			</script>
-			<i class="fa fa-search"></i>
-		</form>                    <span class="panel-activation sb-toggle-left navbar-left menu-btn fa fa-bars"></span>
+				</script>-->
+				<i class="fa fa-search"></i>
+			</form>
+			<span class="panel-activation sb-toggle-left navbar-left menu-btn fa fa-bars"></span>
 		</div>
 	</header>
 
@@ -294,7 +296,7 @@
 				<div class="sidebar-content">
 					<h4>SimpleSearch</h4>
 					<input type="text" placeholder="Search..." value="" data-searchsidebar-input="/grav/deliver/search/query" />
-					<script>
+					<!--<script>
 						jQuery(document).ready(function($){
 							var input = $('[data-searchsidebar-input]');
 
@@ -305,7 +307,7 @@
 								}
 							});
 						});
-					</script>
+					</script>-->
 				</div>
 				<div class="sidebar-content">
 					<h4>Some Text Widget</h4>
@@ -484,14 +486,14 @@
 			</li>
 		</ul>                   </div>
 </div>
-<script>
+<!--<script>
 	$(function() {
 		$.slidebars({
 			hideControlClasses: true,
 			scrollLock: true
 		});
 	});
-</script>
+</script>-->
 </body>
 </html>
 
