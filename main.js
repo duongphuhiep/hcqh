@@ -33,5 +33,5 @@ $(function() {
 });
 
 var riot = require("riot");
-require("../gen/tags");
+require("gen/tags");
 riot.mount('*');
