@@ -20,42 +20,9 @@
     "parallelshell": "^1.2.0",
     "steal-tools": "^0.10.7"
   },
-  "jspm": {
-    "directories": {},
-    "configFile": "jspm.config.js",
-    "dependencies": {
-      "riot": "npm:riot@^2.2.3"
-    },
-    "devDependencies": {
-      "traceur": "github:jmcriffey/bower-traceur@0.0.88",
-      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88"
-    }
-  },
   "dependencies": {
     "jquery": "^2.1.4",
     "riot": "^2.2.4",
     "steal": "^0.10.5"
-  },
-  "system": {
-    "paths": {
-      "*": "*.js",
-      "github:*": "jspm_packages/github/*.js",
-      "npm:*": "jspm_packages/npm/*.js",
-      "bower:*": "bower_components/*.js",
-      "vendor:*": "vendor/*",
-      "vendorjs:*": "vendor/js/*.js"
-    },
-    "map": {
-      "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min",
-      "riot": "bower:riot/riot",
-      "modernizr": "vendorjs:modernizr.custom.71422",
-      "deliver": "vendorjs:deliver",
-      "slidebars": "vendorjs:slidebars.min",
-      "jquery.slideme2": "vendorjs:jquery.slideme2"
-    },
-    "npmIgnore": [
-      "devDependencies",
-      "optionalDependencies"
-    ]
   }
 }
