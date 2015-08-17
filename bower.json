@@ -25,6 +25,7 @@
     "tests"
   ],
   "dependencies": {
-    "i18next": "~1.10.2"
+    "i18next": "~1.10.2",
+    "commonmark": "~0.21.0"
   }
 }
