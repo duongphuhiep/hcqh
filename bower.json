@@ -1,0 +1,30 @@
+{
+  "name": "hcqh",
+  "version": "1.0.0",
+  "homepage": "https://github.com/duongphuhiep/hcqh",
+  "authors": [
+    "hiep <duongphuhiep@gmail.com>"
+  ],
+  "description": "Website Que Huong chorale",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Chorale",
+    "chansons",
+    "song",
+    "vocale"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "i18next": "~1.10.2"
+  }
+}

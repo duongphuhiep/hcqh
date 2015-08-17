@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title>Bootstrap Case</title>
 	<meta charset="utf-8">
@@ -7,30 +7,11 @@
 
 	<link rel="stylesheet" href="vendor/flags/css/flag-icon.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="main2.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-	<style>
-		/*make user acknowledge the language dropbox*/
-		@-webkit-keyframes notice-me {
-			0% { -webkit-transform: scale(1); }
-			50% { -webkit-transform: scale(1.5); }
-			100% { -webkit-transform: scale(1); }
-		}
-		#language_selector {
-			position: fixed;
-			bottom: 0;
-			right: 0;
-			-webkit-animation-name: notice-me;
-			-webkit-animation-duration: 200ms;
-			-webkit-transform-origin:50% 50%;
-			-webkit-animation-iteration-count: 5;
-			-webkit-animation-timing-function: linear;
-		}
-		body {
-			margin-top: 50px;
-		}
-	</style>
+	<script src="bower_components/i18next/i18next.min.js"></script>
+	<script src="main2.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" id="#myNavbar">
@@ -44,19 +25,20 @@
 			<span>
 				<img alt="Brand" src="content/favicon.png">
 			</span>
-			Hop ca Que Huong
+			<span data-i18n="Que Huong Chorale"></span>
 		</a>
 	</div>
 
 	<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Page 1</a></li>
-				<li><a href="#">Page 2</a></li>
-				<li><a href="#">Page 3</a></li>
-				<li><a href="#">Page 4</a></li>
-				<li><a href="#">Page 5</a></li>
+				<li class="active"><a href="#" data-i18n="Home"></a></li>
+				<li><a href="#" data-i18n>Page 1</a></li>
+				<li><a href="#" data-i18n>Page 2</a></li>
+				<li><a href="#" data-i18n>Page 3</a></li>
+				<li><a href="#" data-i18n>Page 4</a></li>
+				<li><a href="#" data-i18n>Page 5</a></li>
 			</ul>
+
 		<!--search panel on small screen-->
 		 <div class="visible-xs-block col-sm-3 col-md-3 pull-right">
 			<form class="navbar-form" role="search">
@@ -81,7 +63,7 @@
 </div>
 
 <select id="language_selector">
-    <option value="vn">Tiếng Việt</option>
+    <option value="vi">Tiếng Việt</option>
 	<option value="fr">Francçaise</option>
 	<option value="en">English</option>
 </select>
@@ -131,18 +113,5 @@
 	</div>
 </div>
 
-
-<script>
-	/* hide nav bar when click outside*/
-	$(function () {
-	    $(document).click(function (event) {
-	        var clickover = $(event.target);
-	        var _opened = $(".navbar-collapse").hasClass("collapse in");
-	        if (_opened === true && !clickover.hasClass("navbar-toggle") && !clickover.is('input')) {
-	            $("button.navbar-toggle").click();
-	        }
-	    });
-	});
-</script>
 </body>
 </html>
