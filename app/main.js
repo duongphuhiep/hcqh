@@ -6,7 +6,6 @@ i18n.init(option, function(err, t) {
 });
 
 $(function () {
-
     /* hide nav bar when click outside*/
     $(document).click(function (event) {
         var clickover = $(event.target);
@@ -16,16 +15,11 @@ $(function () {
         }
     });
 
-    /* switch lang */
-    $('#language_selector').change(function(e) {
-        var lang = $(this).val(); //vn, fr, en
-        console.log('switch lang to '+lang);
-        i18n.setLng(lang, function(err, t) {
-            $(document).i18n();
-        });
-    });
-
 });
+
+riot.mount('*');
+
+
 
 
 
