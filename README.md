@@ -1,10 +1,10 @@
 # Hop ca Que-Huong website
 
-Revamping...
+Revamping website
 
 ```
 npm install
-npm run build
-npm start
+bower install
+gulp            #build and watch file changes (npm install gulp -g) 
+live-server     #open browser, and auto-refresh to view website (npm install live-server -g) 
 ```
-

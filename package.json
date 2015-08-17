@@ -6,21 +6,31 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server",
-    "build:tags": "riot --ext rtg --m app gen/tags.js",
+    "build:tags": "riot --ext rtg app gen/tags.js",
+    "build:tagsAsModule": "riot --ext --m rtg app gen/tags.js",
     "build:dist": "steal-tools build --config steal-config.js",
     "build": "npm run build:tags && npm run build:dist",
-    "watch:tags": "riot --watch --ext rtg --m app gen/tags.js",
+    "watch:tagsAsModule": "riot --watch --ext rtg --m app gen/tags.js",
+    "watch:tags": "riot --watch --ext rtg app gen/tags.js",
     "watch:dist": "steal-tools build --config steal-config.js --watch",
     "watch": "parallelshell \"npm run watch:tags\" \"npm run watch:dist\""
   },
   "author": "hiep",
   "license": "MIT",
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-riot": "^0.2.18",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
     "live-server": "^0.7.1",
     "parallelshell": "^1.2.0",
-    "steal-tools": "^0.10.7"
+    "steal-tools": "^0.10.7",
+    "uglify-js": "^2.4.24"
   },
   "dependencies": {
+    "i18next": "^1.10.4",
     "jquery": "^2.1.4",
     "riot": "^2.2.4",
     "steal": "^0.10.5"
