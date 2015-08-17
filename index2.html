@@ -131,5 +131,18 @@
 	</div>
 </div>
 
+
+<script>
+	/* hide nav bar when click outside*/
+	$(function () {
+	    $(document).click(function (event) {
+	        var clickover = $(event.target);
+	        var _opened = $(".navbar-collapse").hasClass("collapse in");
+	        if (_opened === true && !clickover.hasClass("navbar-toggle") && !clickover.is('input')) {
+	            $("button.navbar-toggle").click();
+	        }
+	    });
+	});
+</script>
 </body>
 </html>
