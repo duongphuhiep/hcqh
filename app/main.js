@@ -1,6 +1,10 @@
 "use strict";
 
-var option = { resGetPath: 'content/locales/__lng__-__ns__.json' }; //default ns is translation
+/**
+ * the default namespace __ns__ is 'translation' so it fetch for
+ * vi-translation.json, en-US-translation.json...
+ */
+var option = { resGetPath: 'content/locales/__lng__-__ns__.json' };
 i18n.init(option, function(err, t) {
     $(document).i18n();
 });
@@ -14,13 +18,8 @@ $(function () {
             $("button.navbar-toggle").click();
         }
     });
-
 });
 
 riot.mount('*');
-
-
-
-
 
 
