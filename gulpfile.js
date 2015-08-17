@@ -4,6 +4,7 @@ var gulp = require('gulp');
     gp_rename = require('gulp-rename'),
     gp_uglify = require('gulp-uglify');
     gp_sourcemaps = require('gulp-sourcemaps');
+    gp_plumber = require('gulp-plumber');
 
 /**
 compile all riot tag to gen/**
@@ -19,6 +20,12 @@ compile all riot tag to gen/tags.js
  */
 gulp.task('bundle.tags', function(){
     return gulp.src(['app/**/*.rtg'])
+        .pipe(gp_plumber({
+            handleError: function (err) {
+                console.log(err);
+                this.emit('end');
+            }
+        }))
         .pipe(gp_riot())
         .pipe(gp_concat('tags.js'))
         .pipe(gulp.dest('gen'));
@@ -26,6 +33,12 @@ gulp.task('bundle.tags', function(){
 
 gulp.task('bundle', ['bundle.tags'], function(){
     return gulp.src(['gen/**/*.js', 'app/**/*.js'])
+        .pipe(gp_plumber({
+            handleError: function (err) {
+                console.log(err);
+                this.emit('end');
+            }
+        }))
         .pipe(gp_sourcemaps.init())
         .pipe(gp_concat('app.js'))
         .pipe(gulp.dest('dist'))

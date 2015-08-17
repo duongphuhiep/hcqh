@@ -20,6 +20,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-riot": "^0.2.18",
     "gulp-sourcemaps": "^1.5.2",

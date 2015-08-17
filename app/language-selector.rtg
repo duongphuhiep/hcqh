@@ -30,7 +30,7 @@
 	<script>
 
 	changeLanguage() {
-		var lang = this.language_selector.value; //vn, fr, en
+		var lang = this.language_selector.value; //vi, fr, en
         i18n.setLng(lang, function(err, t) {
             $(document).i18n();
         });
