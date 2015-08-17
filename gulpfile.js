@@ -2,8 +2,8 @@ var gulp = require('gulp');
 	gp_riot = require('gulp-riot'),
     gp_concat = require('gulp-concat'),
     gp_rename = require('gulp-rename'),
-    gp_uglify = require('gulp-uglify');
-    gp_sourcemaps = require('gulp-sourcemaps');
+    gp_uglify = require('gulp-uglify'),
+    gp_sourcemaps = require('gulp-sourcemaps'),
     gp_plumber = require('gulp-plumber');
 
 /**
