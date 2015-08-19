@@ -1,41 +1,25 @@
-<todo>
+<post-content>
+  <!-- Page Heading -->
+	<h1 class="row col-lg-12 page-header">Blog Post</h1>
 
-  <h3>{ opts.title }</h3>
+	<div class="row col-lg-8">
 
-  <ul>
-    <li each={ items }>
-      <label class={ completed: done }>
-        <input type="checkbox" checked={ done } onclick={ parent.toggle }> { title }
-      </label>
-    </li>
-  </ul>
+		<!-- Date/Time -->
+		<p>
+			<i class="glyphicon glyphicon-time"></i> Posted on August 24, 2013 at 9:00 PM
+			by <a href="#">Start Bootstrap</a>
+		</p>
 
-  <form onsubmit={ add }>
-    <input name="input" onkeyup={ edit }>
-    <button disabled={ !text }>Add #{ items.length + 1 }</button>
-  </form>
+		<!-- Preview Image -->
+		<img class="img-responsive" src="http://placehold.it/900x300" alt="">
 
-  <script type="javascript">
-    this.disabled = true
+		<!-- Post Content -->
+		<rg-markdown src="content/blog/markdown_cheatsheet.md"></rg-markdown>
 
-    this.items = opts.items
+	</div>
 
-    edit(e) {
-      this.text = e.target.value
-    }
+  <script>
 
-    add(e) {
-      if (this.text) {
-        this.items.push({ title: this.text })
-        this.text = this.input.value = ''
-      }
-    }
-
-    toggle(e) {
-      var item = e.item
-      item.done = !item.done
-      return true
-    }
   </script>
 
-</todo>
+</post-content>

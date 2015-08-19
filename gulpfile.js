@@ -9,11 +9,11 @@ var gulp = require('gulp');
 /**
 compile all riot tag to gen/**
 */
-gulp.task('compile.tags', function(){
-    return gulp.src(['app/**/*.rtg'])
-        .pipe(gp_riot())
-        .pipe(gulp.dest('gen/tags'));
-});
+// gulp.task('compile.tags', function(){
+//     return gulp.src(['app/**/*.rtg'])
+//         .pipe(gp_riot())
+//         .pipe(gulp.dest('gen/tags'));
+// });
 
 /**
 compile all riot tag to gen/tags.js
@@ -49,6 +49,11 @@ gulp.task('bundle', ['bundle.tags'], function(){
         .pipe(gulp.dest('dist'));
 });
 
-gulp.watch('app/**/*', ['bundle']);
+
+gulp.task('watch', ['bundle'], function(){
+    gulp.watch('app/**/*', ['bundle']);
+    gulp.watch('lib/**/*', ['bundle']);
+});
+
 
 gulp.task('default', ['bundle'], function(){});

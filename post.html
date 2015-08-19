@@ -12,13 +12,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.2.4/riot.min.js"></script>
-
-
-	<style>
-		.carousel-caption {
-			text-shadow: 1px 1px 8px #000000;
-		}
-	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/commonmark/0.21.0/commonmark.min.js"></script>
 </head>
 <body>
 
@@ -32,46 +26,7 @@
 
 <!-- Page Content -->
 <div class="container">
-
-	<!-- Page Heading -->
-	<h1 class="row col-lg-12 page-header">Blog Post</h1>
-
-	<!-- Content Row -->
-	<div class="row col-lg-8">
-
-		<!-- Blog Post Content Column -->
-
-		<!-- Blog Post -->
-
-
-		<!-- Date/Time -->
-		<p>
-			<i class="glyphicon glyphicon-time"></i> Posted on August 24, 2013 at 9:00 PM
-			by <a href="#">Start Bootstrap</a>
-		</p>
-
-
-		<!-- Preview Image -->
-		<img class="img-responsive" src="http://placehold.it/900x300" alt="">
-
-
-		<!-- Post Content -->
-		<rg-markdown src="content/blog/markdown_cheatsheet.md">
-		</rg-markdown>
-
-		<hr>
-
-		<!-- Blog Comments -->
-
-		<div class="well">
-			<!--<a class="muut" href="https://muut.com/i/test-hcqh">test-hcqh forum</a>
-			<script src="//cdn.muut.com/1/moot.fr.min.js"></script>-->
-
-			<a class="muut" href="https://muut.com/i/test-hcqh/comments" type="dynamic">test-hcqh forum</a>
-			<script src="//cdn.muut.com/1/moot.fr.min.js"></script>
-		</div>
-
-	</div>
+	<post-content src="2015-08-19 Tap hoc Markdown"></post-content>
 
 	<!-- Blog Sidebar Widgets Column -->
 	<div class="col-md-4">
@@ -132,16 +87,16 @@
 		</div>
 
 	</div>
+</div>
 	<!-- /.row -->
 
 	<language-selector></language-selector>
 
 	<script src="bower_components/i18next/i18next.min.js"></script>
-	<script src="bower_components/commonmark/dist/commonmark.min.js"></script>
+
 
 	<!--
-	<script src="gen/tags.js"></script>
-	<script src="app/main.js"></script>
+	<script src="dist/app.js"></script>
 	-->
 	<script src="dist/app.min.js"></script>
 

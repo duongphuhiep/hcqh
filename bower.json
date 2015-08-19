@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "i18next": "~1.10.2",
-    "commonmark": "~0.21.0"
+    "commonmark": "~0.21.0",
+    "js-cookie": "~2.0.3"
   }
 }

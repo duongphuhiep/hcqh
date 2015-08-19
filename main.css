@@ -2,3 +2,8 @@
 body {
 	margin-top: 50px;
 }
+
+/* make white text in the carousel more readable */
+.carousel-caption {
+	text-shadow: 1px 1px 8px #000000;
+}

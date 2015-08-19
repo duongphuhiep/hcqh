@@ -21,7 +21,11 @@ Responsive navigation bar with search form
 
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-				<yield/>
+				<li class={ active: pageName == 'home' }><a href="#" data-i18n="Home"></a></li>
+				<li class={ active: pageName == 'repertoire' }><a href="#repertoire" data-i18n="Repertoire"></a></li>
+				<li class={ active: pageName == 'member' }><a href="#member" data-i18n="Members"></a></li>
+				<li class={ active: pageName == 'blog' }><a href="#blog" data-i18n="Blog"></a></li>
+				<li class={ active: pageName == 'contact' }><a href="#contact" data-i18n="Contact"></a></li>
 			</ul>
 
 			<!--search panel on small screen-->
@@ -48,16 +52,29 @@ Responsive navigation bar with search form
 
 	<script>
 
-	$(function () {
-	    /* hide nav bar when click outside*/
-	    $(document).click(function (event) {
-	        var clickover = $(event.target);
-	        var _opened = $(".navbar-collapse").hasClass("collapse in");
-	        if (_opened === true && !clickover.hasClass("navbar-toggle") && !clickover.is('input')) {
-	            $("button.navbar-toggle").click();
-	        }
-	    });
-	});
+		_this = this;
+		RiotControl.addStore(_this);
+
+		_this.on('pageChange', function(e) {
+			_this.pageName = e.pageName;
+			_this.update();
+			console.log('pageChange '+e.pageName);
+		});
+
+		_this.mixin('routeInfo');
+		_this.pageName = _this.getCurrentPageName();
+		console.log('ctor');
+
+		$(function () {
+		    /* hide nav bar when click outside*/
+		    $(document).click(function (event) {
+		        var clickover = $(event.target);
+		        var _opened = $(".navbar-collapse").hasClass("collapse in");
+		        if (_opened === true && !clickover.hasClass("navbar-toggle") && !clickover.is('input')) {
+		            $("button.navbar-toggle").click();
+		        }
+		    });
+		});
 
 	</script>
 </navbar-search>

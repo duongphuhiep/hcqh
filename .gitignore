@@ -1,8 +1,8 @@
 .idea/
 bower_components/
 node_modules/
-gen/
-.draft
-dist/
-npm-debug.*
 jspm_packages/
+gen/
+dist/
+.draft
+npm-debug.*
