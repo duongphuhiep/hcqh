@@ -27,7 +27,7 @@ Responsive navigation bar with search form
 				<li class={ active: pageName == 'blog' }><a href="#blog" data-i18n="Blog"></a></li>
 				<li class={ active: pageName == 'contact' }><a href="#contact" data-i18n="Contact"></a></li>
 			</ul>
-
+	
 			<!--search panel on small screen-->
 			 <!--div class="visible-xs-block">
 				<form class="navbar-form" role="search">
@@ -51,19 +51,16 @@ Responsive navigation bar with search form
 	</div-->
 
 	<script>
-
-		_this = this;
+		var _this = this;
 		RiotControl.addStore(_this);
 
 		_this.on('pageChange', function(e) {
 			_this.pageName = e.pageName;
 			_this.update();
-			console.log('pageChange '+e.pageName);
 		});
 
 		_this.mixin('routeInfo');
 		_this.pageName = _this.getCurrentPageName();
-		console.log('ctor');
 
 		$(function () {
 		    /* hide nav bar when click outside*/
