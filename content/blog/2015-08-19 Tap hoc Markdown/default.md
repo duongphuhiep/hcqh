@@ -1,10 +1,6 @@
-Title: ezerzerzeerze
-Author: Tich Ky
-
-***
-
-Sample Markdown Cheat Sheet
-=========================== 
+Title: Learn write markdown
+Author: Hiep
+--
 
 This is a sample markdown file to help you write Markdown quickly :)
 
