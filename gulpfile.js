@@ -32,7 +32,7 @@ gulp.task('bundle.tags', function(){
 });
 
 gulp.task('bundle', ['bundle.tags'], function(){
-    return gulp.src(['gen/**/*.js', 'app/**/*.js'])
+    return gulp.src(['lib/**/*.js', 'gen/**/*.js', 'app/**/*.js'])
         .pipe(gp_plumber({
             handleError: function (err) {
                 console.log(err);
