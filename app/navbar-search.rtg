@@ -12,7 +12,7 @@ Responsive navigation bar with search form
 
 			<!--make logo bigger-->
 			<a class="navbar-brand" style="padding:0px" href="#">
-				<img alt="Brand" src="../content/favicon.png">
+				<img alt="Brand" src="../content/logo.svg">
 			</a>
 			<a class="navbar-brand" href="#">
 				<span data-i18n="Que Huong Chorale"></span>
