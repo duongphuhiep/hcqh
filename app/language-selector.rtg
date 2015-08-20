@@ -1,5 +1,5 @@
 <language-selector>
-	<select id="language_selector" onchange={ changeLanguage }>
+	<select id="language_selector" onchange={ changeLanguageFromComboBox }>
 	    <option value="vi">Tiếng Việt</option>
 		<option value="fr">Française</option>
 		<option value="en">English</option>
@@ -29,11 +29,61 @@
 
 	<script>
 
-	changeLanguage() {
-		var lang = this.language_selector.value; //vi, fr, en
-        i18n.setLng(lang, function(err, t) {
+	var _this = this;
+	/*RiotControl.addStore(_this);
+
+	//listen to other request to change language
+	_this.on("languageChange", function(lang) {
+		_this.setLanguage(lang);
+	});*/
+
+	setLanguage(lang) {
+		_this.language_selector.value = lang;
+
+		Cookies.set('lang', lang, { expires: 365 });
+		i18n.setLng(lang, function(err, t) {
             $(document).i18n();
         });
+	}
+
+	changeLanguageFromComboBox() {
+		var lang = _this.language_selector.value; //vi, fr, en
+		_this.setLanguage(lang);
+	}
+
+	getQueryStringParams(sParam) {
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+
+	    for (var i = 0; i < sURLVariables.length; i++) {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam)
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+	}​
+
+	/**
+	The current language comes from QueryString '?lang=en' or from the cookies
+	*/
+	getCurrentLanguage() {
+		var currentLang = _this.getQueryStringParams('lang');
+		if (!currentLang) {
+			currentLang = Cookies.get('lang');
+		}
+		return currentLang;
+	}
+
+
+	//init language
+	var currentLang = _this.getCurrentLanguage();
+
+	if (currentLang) {
+		_this.setLanguage(currentLang);	
+	}
+	else {
+		_this.setLanguage('vi'); //Tieng Viet for the first visit
 	}
 
 	</script>

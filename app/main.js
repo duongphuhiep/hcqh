@@ -6,7 +6,7 @@
      * the default namespace __ns__ is 'translation' so it fetch for
      * vi-translation.json, en-US-translation.json...
      */
-    var option = { resGetPath: 'content/locales/__lng__-__ns__.json' };
+    var option = { resGetPath: 'content/locales/__lng__-__ns__.json', detectLngQS: 'lang', cookieName: 'lang', fallbackLng: 'en' };
     i18n.init(option, function(err, t) {
         $(document).i18n();
     });
@@ -44,10 +44,9 @@
     }
 
     /**
-        notify navbar and content-router to change the view
+        notify navbar and content-route to change the view
     */
     riot.route(function(path) {
-        
         RiotControl.trigger('pageChange', parsePath(path));
     });
 
