@@ -4,14 +4,67 @@
 
 	<div class="container">
 
-		<div class="jumbotron">
-			<h1>My first Bootstrap website!</h1>
+		<section>
+			<h1>A vietnamese vocal ensemble in France<br><small>2 minutes introduction...</small></h1>
+			
 
-			<p>This page will grow as we add more and more components from Bootstrap...</p>
-			<a href="#" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-search"></span> Search</a>
-		</div>
+			<!-- 16:9 aspect ratio -->
+			<div class="embed-responsive embed-responsive-16by9 center-block">
+			  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w" ></iframe>
+			</div>
 
-		<div class="row">
+			<p class="btn center-block" data-toggle="collapse" data-target="#speechText">
+				Cannot see the video or subtitle?
+			</p>
+			<p class="collapse" id="speechText">
+				Hợp ca Quê hương ra đời vào tháng 4 năm 2009, khởi điểm chỉ với khoảng 15 thành viên cùng chung niềm đam mê âm nhạc. Dưới sự chỉ huy đầy tâm huyết của nhạc trưởng Nguyễn Ngân Hà cùng bao công sức và nỗ lực tập luyện của mỗi thành viên; Hôm nay, chúng tôi có thể tự tin đem lời ca, tiếng hát của mình góp phần phát huy và quảng bá nền âm nhạc Việt nam tới kiều bào và bạn bè quốc tế.
+				<br>
+				Nhưng trên tất cả, Hợp ca chúng tôi là mái nhà chung, là nơi giao lưu, gặp gỡ, của những người con xa nhà, là nơi cho chúng tôi mượn lời ca tiếng hát để thể hiện tình yêu quê hương đất nước Việt nam. Rất nhiều bản hợp xướng bất hủ như « Tiếng hát biên thùy » của Tô Hải, Du kích Sông Thao » của Đỗ Nhuận, "Ca ngợi Tổ quốc" " Hồ Bắc đã được chúng tôi dựng lại thành công trên nhiều sân khấu lớn nhỏ. Có thể nói, con đường và hành trình mà chúng tôi đã và đang bền bỉ theo đuổi được kết tinh bằng tình yêu, lòng đam mê và nhiệt huyết cháy bỏng với âm nhạc dân tộc. Đó là tinh thần quý báu mà mỗi thành viên luôn giữ trong tim. 
+			</p>
+		</section>
+		
+		<section>
+			<h1>We are recruiting</h1>
+
+			
+			<div class="row">
+				<div class='col-md-3 text-center'>
+					<img src="content/home/recruit.png" alt="Recruting" width="100px" height="100px">
+				</div>
+				<div class='col-md-6 pad10'>
+					The only requirement is your musical pasionate,	you don't neccessarily be a good singer. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+				</div>
+				<div class='col-md-3 text-center pad10'>
+					<a class="btn btn-primary btn-lg" href="#contact" role="button">Contact Us</a>
+				</div>
+			</div>
+		</section>
+			
+		<section>
+
+			<h1>On Facebook</h1>
+			<center>
+			<!-- <div id="fb-root"></div> -->
+			<div class="fb-page" 
+				data-href="https://www.facebook.com/hopcaquehuong?fref=ts" 
+				data-small-header="true" 
+				data-width="500"
+				data-adapt-container-width="true" 
+				data-hide-cover="false" 
+				data-show-facepile="true" 
+				data-show-posts="true"
+				>
+				<div class="fb-xfbml-parse-ignore">
+					<blockquote cite="https://www.facebook.com/hopcaquehuong?fref=ts">
+						<a href="https://www.facebook.com/hopcaquehuong?fref=ts">Hợp Ca Quê Hương</a>
+					</blockquote>
+				</div>
+			</div>
+			</center>
+		</section>
+
+
+		<!-- <div class="row">
 			<div class="col-md-3">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
 					dolore magna aliqua.</p>
@@ -40,10 +93,38 @@
 				</ul>
 			</div>
 			<div class="clearfix visible-lg"></div>
-		</div>
-	</div>
+		</div> -->
+	</div> 
+
+	<style scoped>
+		/* make white text in the carousel more readable */
+		.carousel-caption {
+			text-shadow: 1px 1px 8px #000000;
+		}
+
+		section {
+			padding-top: 80px;
+		}
+
+		section h1 {
+			padding-bottom: 30px;
+			text-align: center;
+		}
+
+		.pad10 {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		p {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+	</style>
 
 	<script>
+
+	
 	</script>
 
 </home-page>
