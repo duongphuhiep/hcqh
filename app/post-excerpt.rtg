@@ -1,0 +1,21 @@
+<post-excerpt>
+
+	<h2><a href="#">Blog Post Title</a></h2>
+
+	<p>
+	<i class="glyphicon glyphicon-time"></i> Posted on August 24, 2013 at 9:00 PM by <a href="#">Start Bootstrap</a>
+	</p>
+
+	<!-- <a href="blog-post.html">
+	    <img class="img-responsive img-hover" src="http://placehold.it/900x300" alt="">
+	</a>
+	<hr> -->
+
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.
+	</p>
+	<p class="text-right">
+	<a class="btn btn-default" href="#">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
+	</p>
+	<hr>
+
+</post-excerpt>
