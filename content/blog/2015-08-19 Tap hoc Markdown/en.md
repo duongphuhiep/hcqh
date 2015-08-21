@@ -1,7 +1,7 @@
-Title: ezerzerzeerze
-Author: Tich Ky
-
-***
+<!---
+Title: Sample Markdown Cheat Sheet
+Author: Hiep
+-->
 
 Sample Markdown Cheat Sheet
 =========================== 
@@ -299,4 +299,5 @@ This plugin and this sample file is proudly brought to you by the [revolunet tea
  [revolunet-logo]: http://www.revolunet.com/static/parisjs8/img/logo-revolunet-carre.jpg "revolunet logo"
  [gfm]: http://github.github.com/github-flavored-markdown/
  [emoji]: http://www.emoji-cheat-sheet.com/
+
 

@@ -14,7 +14,7 @@
 		<img class="img-responsive" src="http://placehold.it/900x300" alt="">
 
 		<!-- Post Content -->
-		<rg-markdown src="content/blog/markdown_cheatsheet.md"></rg-markdown>
+		<rg-markdown src="content/blog/2015-08-19 Tap hoc Markdown/en.md"></rg-markdown>
 
 	</div>
 

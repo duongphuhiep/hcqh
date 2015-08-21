@@ -19,6 +19,7 @@
 			markItDown(opts.content);
 		}
 
+
 		function markItDown(content) {
 			var parsed = reader.parse(content);
 			_this.root.innerHTML = writer.render(parsed);

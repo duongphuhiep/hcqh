@@ -39,8 +39,9 @@
 
 	setLanguage(lang) {
 		_this.language_selector.value = lang;
-
 		Cookies.set('lang', lang, { expires: 365 });
+		moment.locale(lang);
+		
 		i18n.setLng(lang, function(err, t) {
             $(document).i18n();
         });
