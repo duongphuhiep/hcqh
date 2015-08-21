@@ -3,7 +3,7 @@
 	<h2><a href="#{ postId }">{ title }</a></h2>
 
 	<p>
-	<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ author }}</em>
+	<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ author }</em>
 	</p>
 
 	<p>{ excerpt }
@@ -13,8 +13,7 @@
 	</p>
 	<hr>
 
-	<<script>
+	<script>
 		this.postId = this.publish +' '+ this.name;
 	</script>
-
 </post-excerpt>
