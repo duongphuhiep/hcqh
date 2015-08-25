@@ -1,0 +1,7 @@
+<page-404>
+	<h1>404</h1>
+	Page not found
+	
+	<script>
+	</script>
+</page-404>

@@ -10,7 +10,7 @@
 
 			<!-- 16:9 aspect ratio -->
 			<div class="embed-responsive embed-responsive-16by9 center-block">
-			  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>
+			  <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>-->
 			</div>
 
 			<p class="btn center-block" data-toggle="collapse" data-target="#speechText">

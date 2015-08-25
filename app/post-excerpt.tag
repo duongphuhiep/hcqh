@@ -1,0 +1,19 @@
+<post-excerpt>
+
+	<h2><a href="#{ postId }">{ title }</a></h2>
+
+	<p>
+	<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ author }</em>
+	</p>
+
+	<p>{ excerpt }
+	</p>
+	<p class="text-right">
+	<a class="btn btn-default" href="#{ postId }">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
+	</p>
+	<hr>
+
+	<script>
+		this.postId = this.publish +' '+ this.name;
+	</script>
+</post-excerpt>

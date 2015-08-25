@@ -9,6 +9,7 @@
 
 	<script>
 		var _this = this;
+		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
 		_this.on('pageChange', function(e) {
@@ -16,8 +17,8 @@
 			_this.update();
 		});
 
-		_this.mixin('routeInfo');
-		_this.pageName = _this.getCurrentPageName();
+		var route = require("../app/route");
+		_this.pageName = route.getCurrentPageName();
 		
 	</script>
 </content-route>

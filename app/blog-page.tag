@@ -1,0 +1,98 @@
+<blog-page>
+
+	 <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Blog Home One
+                    <small>Subheading</small>
+                </h1>
+            </div>
+        </div>
+
+        <!-- /.row -->
+
+        <div class="row">
+
+			<!-- Blog Entries Column -->
+			<div class="col-md-8">
+				Page { data.page }, count { data.count }. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+
+				
+				<post-excerpt each={ data.posts }></post-excerpt>
+				
+
+				<!-- Pager -->
+				<ul class="pager">
+					<li if={ data.page > 1 } class="previous"><a href="#blog/{ data.page - 1 }">&larr; Older</a></li>
+					<li class="next"><a href="#blog/{ data.page + 1 }">Newer &rarr;</a></li>
+				</ul>
+			</div>
+
+            <!-- Blog Sidebar Widgets Column -->
+			<div class="col-md-4">
+				<div class="well">
+					<h4>Recent posts</h4>
+					<ul>
+						<li><a href="#"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a></li>
+						<li><a href="#"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a></li>
+						<li><a href="#"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a></li>
+						<li><a href="#"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a></li>
+					</ul>
+				</div>
+				<div class="well">
+					<h4>Archive</h4>
+					<ul>
+						<li><a href="#">April 2010</a></li>
+						<li><a href="#">April 2010</a></li>
+						<li><a href="#">April 2010</a></li>
+						<li><a href="#">April 2010</a></li>
+					</ul>
+				</div>
+				
+			</div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+	<script>
+		var _this = this;
+		var RiotControl = require("RiotControl");
+		RiotControl.addStore(_this);
+
+		_this.on("pageChange", function(e) {
+			if (e.pageName !== 'blog') {
+				return; //not concerned
+			}
+			/*
+			possible route: 
+				blog/ must to fetch data from blog.php?page=1
+				blog/1 must to fetch data from blog.php?page=1
+				blog/2 must to fetch data from blog.php?page=2
+			*/
+			var page = e.params[0];
+			load('backend/blog.php?page='+page);
+		});
+
+		
+		function load(src) {
+			console.log('loading from '+src);
+			var oReq = new XMLHttpRequest();
+			oReq.onload = function () {
+				_this.data = JSON.parse(oReq.responseText);
+				console.log(_this.data);
+				_this.update();
+			};
+			oReq.open('get', src, opts.async || true);
+			oReq.send();	
+		}
+
+		//init fake data
+		load('backend/blogpage2.json')
+
+	</script>
+</blog-page>

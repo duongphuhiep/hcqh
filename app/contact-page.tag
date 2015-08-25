@@ -1,0 +1,7 @@
+<contact-page>
+	<h1>Contact</h1>
+	19 rue Albert
+	
+	<script>
+	</script>
+</contact-page>

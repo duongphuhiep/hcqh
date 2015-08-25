@@ -1,25 +1,27 @@
 var gulp = require('gulp');
-	gp_riot = require('gulp-riot'),
-    gp_concat = require('gulp-concat'),
-    gp_rename = require('gulp-rename'),
-    gp_uglify = require('gulp-uglify'),
-    gp_sourcemaps = require('gulp-sourcemaps'),
-    gp_plumber = require('gulp-plumber');
+var gp_riot = require('gulp-riot');
+var gp_concat = require('gulp-concat');
+var gp_rename = require('gulp-rename');
+var gp_uglify = require('gulp-uglify');
+var gp_sourcemaps = require('gulp-sourcemaps');
+var gp_plumber = require('gulp-plumber');
+var gp_browserify = require('gulp-browserify');
+var liveServer = require("live-server");
 
 /**
 compile all riot tag to gen/**
 */
-// gulp.task('compile.tags', function(){
-//     return gulp.src(['app/**/*.rtg'])
-//         .pipe(gp_riot())
-//         .pipe(gulp.dest('gen/tags'));
-// });
+ gulp.task('compile:tag', function(){
+     return gulp.src(['app/**/*.tag'])
+         .pipe(gp_riot({modular: true}))
+         .pipe(gulp.dest('gen'));
+ });
 
 /**
 compile all riot tag to gen/tags.js
  */
-gulp.task('bundle.tags', function(){
-    return gulp.src(['app/**/*.rtg'])
+gulp.task('bundle:tag', function(){
+    return gulp.src(['app/**/*.tag'])
         .pipe(gp_plumber({
             handleError: function (err) {
                 console.log(err);
@@ -31,29 +33,35 @@ gulp.task('bundle.tags', function(){
         .pipe(gulp.dest('gen'));
 });
 
-gulp.task('bundle', ['bundle.tags'], function(){
-    return gulp.src(['lib/**/*.js', 'gen/**/*.js', 'app/**/*.js'])
+// generate build/main.js
+gulp.task('bundle', ['bundle:tag'], function() {
+    // Single entry point to browserify
+    gulp.src('app/main.js')
         .pipe(gp_plumber({
             handleError: function (err) {
                 console.log(err);
                 this.emit('end');
             }
         }))
-        .pipe(gp_sourcemaps.init())
-        .pipe(gp_concat('app.js'))
+        .pipe(gp_browserify({
+          detectGlobal:true,
+          debug : true
+        }))
         .pipe(gulp.dest('dist'))
-        .pipe(gp_rename('app.min.js'))
 
+        //minify dist/main.js to dist/main.min.js
+
+        .pipe(gp_sourcemaps.init())
+        .pipe(gp_rename('main.min.js'))
         .pipe(gp_uglify())
         .pipe(gp_sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
 });
 
-
 gulp.task('watch', ['bundle'], function(){
     gulp.watch('app/**/*', ['bundle']);
     gulp.watch('lib/**/*', ['bundle']);
+    liveServer.start({ignore:'app,lib,tests,reports,gen'});
 });
-
 
 gulp.task('default', ['bundle'], function(){});

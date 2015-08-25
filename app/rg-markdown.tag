@@ -1,0 +1,29 @@
+<rg-markdown>
+
+	<div class="markdown"></div>
+
+	<script>
+		var _this = this;
+		var reader = new commonmark.Parser();
+		var writer = new commonmark.HtmlRenderer();
+
+		if (opts.src) {
+			var oReq = new XMLHttpRequest();
+			oReq.onload = function () {
+				markItDown(oReq.responseText);
+				_this.update();
+			};
+			oReq.open('get', opts.src, opts.async || true);
+			oReq.send();
+		} else {
+			markItDown(opts.content);
+		}
+
+
+		function markItDown(content) {
+			var parsed = reader.parse(content);
+			_this.root.innerHTML = writer.render(parsed);
+		}
+	</script>
+
+</rg-markdown>

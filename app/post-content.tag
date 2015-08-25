@@ -1,0 +1,25 @@
+<post-content>
+  <!-- Page Heading -->
+	<h1 class="row col-lg-12 page-header">Blog Post</h1>
+
+	<div class="row col-lg-8">
+
+		<!-- Date/Time -->
+		<p>
+			<i class="glyphicon glyphicon-time"></i> Posted on August 24, 2013 at 9:00 PM
+			by <a href="#">Start Bootstrap</a>
+		</p>
+
+		<!-- Preview Image -->
+		<img class="img-responsive" src="http://placehold.it/900x300" alt="">
+
+		<!-- Post Content -->
+		<rg-markdown src="content/blog/2015-08-19 Tap hoc Markdown/en.md"></rg-markdown>
+
+	</div>
+
+  <script>
+
+  </script>
+
+</post-content>

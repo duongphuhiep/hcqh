@@ -72,6 +72,7 @@ Responsive navigation bar with search form
 
 	<script>
 		var _this = this;
+		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
 		_this.on('pageChange', function(e) {
@@ -79,8 +80,8 @@ Responsive navigation bar with search form
 			_this.update();
 		});
 
-		_this.mixin('routeInfo');
-		_this.pageName = _this.getCurrentPageName();
+		var route = require("../app/route");
+		_this.pageName = route.getCurrentPageName();
 
 		$(function () {
 		    /* hide nav bar when click outside*/
