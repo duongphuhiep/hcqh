@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Try MockHttpRequest</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="lib/MockHttpRequest.js"></script>
+</head>
+<body>
+	<h1>Real XmlRequest</h1>
+	<pre id="real"></pre>
+
+	<h1>Mock XmlRequest</h1>
+	<pre id="fake"></pre>
+
+	<script>
+		function load(src, containerId) {
+			//console.log('loading from '+src);
+			var oReq = new XMLHttpRequest();
+			oReq.onload = function(e) {
+				console.log(oReq);
+			};
+			oReq.onreadystatechange = function (e) {
+				if (oReq.aborted) {
+					console.log('Timeout');
+				}
+			    if (oReq.readyState === 4) {
+			        if (oReq.status === 200) {
+				        var resu = oReq.responseText;
+						//var resu = JSON.parse(oReq.responseText);
+						$("#"+containerId).text(resu);
+			        } else {
+				        $("#"+containerId).text("ERROR "
+						        + oReq.status
+						        + " (" + oReq.statusText + "): "
+						        + oReq.responseText
+						        +" \n  "+JSON.stringify(oReq));
+			        }
+			    }
+			};
+
+			oReq.open('get', src);
+			oReq.send();
+		}
+
+		$(function(){
+			load('blogpage.json', 'real');
+			//load('backend/post.php?page=1&lang=fr', 'real');
+
+			var mockServer = new MockHttpServer();
+			mockServer.handle = function(request) {
+				request.setResponseHeader("Content-Type", "application/json");
+				//console.log(request.urlParts.queryKey.page)
+				var responseContent = {
+					"url":request.url,
+					"directory": request.urlParts.directory,
+					"file": request.urlParts.file,
+					"page": request.urlParts.queryKey.page,
+					"lang": request.urlParts.queryKey.lang
+				};
+
+				//response immediately
+				//request.receive(200, JSON.stringify(responseContent));
+
+				//or simulate connection latency: wait 2sec before response
+				//window.setTimeout(function(){
+				//	request.receive(200, JSON.stringify(responseContent));
+				//}, 2000);
+
+				//or generate response from other json file on localhost
+				var oReq = new OriginalHttpRequest(); //this is the real XMLHttpResponse
+				oReq.onload = function(e) {
+					console.log(e);
+					responseContent["JsonFromLocalhostFile"] = JSON.parse(oReq.responseText);
+					request.receive(200, JSON.stringify(responseContent));
+				};
+				oReq.open('get', "blogpage2.json"); //grab a json file from localhost to use as response to this request
+				oReq.send();
+			};
+			mockServer.start();
+			load('backend/blog.php?page=1&lang=fr', 'fake');
+			mockServer.stop();
+		});
+	</script>
+</body>
+</html>
