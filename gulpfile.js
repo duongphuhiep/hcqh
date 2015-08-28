@@ -33,9 +33,9 @@ gulp.task('bundle:tag', function(){
         .pipe(gulp.dest('gen'));
 });
 
-// generate build/main.js
+// generate dist/*.js with browserify
 gulp.task('bundle', ['bundle:tag'], function() {
-    // Single entry point to browserify
+    // generate dist/main.*.js
     gulp.src('app/main.js')
         .pipe(gp_plumber({
             handleError: function (err) {
@@ -44,8 +44,8 @@ gulp.task('bundle', ['bundle:tag'], function() {
             }
         }))
         .pipe(gp_browserify({
-          detectGlobal:true,
-          debug : true
+            detectGlobal:true,
+            debug : true
         }))
         .pipe(gulp.dest('dist'))
 
@@ -56,12 +56,32 @@ gulp.task('bundle', ['bundle:tag'], function() {
         .pipe(gp_uglify())
         .pipe(gp_sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
+
+    // generate dist/fake-backend.js
+    gulp.src('backend_mock/fake-backend.js')
+        .pipe(gp_plumber({
+            handleError: function (err) {
+                console.log(err);
+                this.emit('end');
+            }
+        }))
+        .pipe(gp_browserify({
+            detectGlobal:true,
+            debug : true
+        }))
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['bundle'], function(){
     gulp.watch('app/**/*', ['bundle']);
     gulp.watch('lib/**/*', ['bundle']);
-    liveServer.start({ignore:'app,lib,tests,reports,gen'});
+    gulp.watch('backend_mock/**/*', ['bundle']);
+
+    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen', open:false});
 });
 
-gulp.task('default', ['bundle'], function(){});
+gulp.task('default', ['bundle'], function(){
+    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen'});
+});
+
+//gulp.task('default', ['bundle'], function(){});
