@@ -19,7 +19,7 @@
  * - authenticate(user, password)
  *
  */
-function MockHttpRequest () {
+var MockHttpRequest = function () {
     // These are internal flags and data structures
     this.error = false;
     this.sent = false;
@@ -417,8 +417,15 @@ MockHttpRequest.prototype = {
 
 
 /*
- * A small mock "server" that intercepts XMLHttpRequest calls and
+ * A small mock "server" that intercepts XMLHttpRequest calls (or MockXMLHttpRequest calls in mode hybrid) and
  * diverts them to your handler.
+ *
+ * If hybrid is true, we can use both MockXMLHttpRequest and the real XMLHttpRequest
+ * - all the MockXMLHttpRequest will be handle by MockHttpServer
+ * - the real XMLHttpRequest don't change
+ * - The hybrid mode is useful to partly mock your application. In a component you can choose between
+ * new XMLHttpRequest() or new MockXMLHttpRequest(), by using some factory pattern or dependency
+ * injection technique
  *
  * Usage:
  *
@@ -436,9 +443,10 @@ MockHttpRequest.prototype = {
  *
  * 5. Profit!
  */
-function MockHttpServer (handler) {
+function MockHttpServer (hybrid, handler) {
     if (handler) {
         this.handle = handler;
+        this.hybrid = hybrid;
     }
 };
 MockHttpServer.prototype = {
@@ -454,12 +462,24 @@ MockHttpServer.prototype = {
         }
         Request.prototype = MockHttpRequest.prototype;
 
-        window.OriginalHttpRequest = window.XMLHttpRequest;
-        window.XMLHttpRequest = Request;
+        if (self.hybrid) {
+            window.OriginalMockXMLHttpRequest = window.MockXMLHttpRequest;
+            window.MockXMLHttpRequest = Request;
+        }
+        else {
+            window.OriginalHttpRequest = window.XMLHttpRequest;
+            window.XMLHttpRequest = Request;
+        }
     },
 
     stop: function () {
-        window.XMLHttpRequest = window.OriginalHttpRequest;
+        var self = this;
+        if (self.hybrid) {
+            window.MockXMLHttpRequest = window.OriginalMockXMLHttpRequest;
+        }
+        else {
+            window.XMLHttpRequest = window.OriginalHttpRequest;
+        }
     },
 
     handle: function (request) {

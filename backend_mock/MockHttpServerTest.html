@@ -4,53 +4,53 @@
 	<meta charset="UTF-8">
 	<title>Try MockHttpRequest</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="lib/MockHttpRequest.js"></script>
+	<script src="lib/MockHttpServer.js"></script>
 </head>
 <body>
-	<h1>Real XmlRequest</h1>
+	<h1>Real Response</h1>
 	<pre id="real"></pre>
 
-	<h1>Mock XmlRequest</h1>
+	<h1>Fake Response</h1>
 	<pre id="fake"></pre>
 
 	<script>
 		function load(src, containerId) {
-			//console.log('loading from '+src);
 			var oReq = new XMLHttpRequest();
 			oReq.onload = function(e) {
-				console.log(oReq);
+				console.log("onLoad", oReq);
 			};
 			oReq.onreadystatechange = function (e) {
+				console.log(oReq.method);
 				if (oReq.aborted) {
 					console.log('Timeout');
 				}
 			    if (oReq.readyState === 4) {
 			        if (oReq.status === 200) {
-				        var resu = oReq.responseText;
-						//var resu = JSON.parse(oReq.responseText);
-						$("#"+containerId).text(resu);
+						var resu = JSON.parse(oReq.responseText); //the json response is parsed to a javascript object
+						$("#"+containerId).text(JSON.stringify(resu, null, 2)); //display this object in a pretty json format
 			        } else {
 				        $("#"+containerId).text("ERROR "
 						        + oReq.status
 						        + " (" + oReq.statusText + "): "
 						        + oReq.responseText
-						        +" \n  "+JSON.stringify(oReq));
+						        +" \n"+JSON.stringify(oReq, null, 2)); //pretty json print
 			        }
 			    }
 			};
 
 			oReq.open('get', src);
+			oReq.timeout = 3000;
 			oReq.send();
 		}
 
 		$(function(){
+			//Use real XMLHttpRequest
 			load('blogpage.json', 'real');
-			//load('backend/post.php?page=1&lang=fr', 'real');
 
+			//Use mock XMLHttpRequest
 			var mockServer = new MockHttpServer();
 			mockServer.handle = function(request) {
 				request.setResponseHeader("Content-Type", "application/json");
-				//console.log(request.urlParts.queryKey.page)
 				var responseContent = {
 					"url":request.url,
 					"directory": request.urlParts.directory,
@@ -63,14 +63,13 @@
 				//request.receive(200, JSON.stringify(responseContent));
 
 				//or simulate connection latency: wait 2sec before response
-				//window.setTimeout(function(){
-				//	request.receive(200, JSON.stringify(responseContent));
-				//}, 2000);
+//				window.setTimeout(function(){
+//					request.receive(200, JSON.stringify(responseContent));
+//				}, 2000);
 
 				//or generate response from other json file on localhost
 				var oReq = new OriginalHttpRequest(); //this is the real XMLHttpResponse
 				oReq.onload = function(e) {
-					console.log(e);
 					responseContent["JsonFromLocalhostFile"] = JSON.parse(oReq.responseText);
 					request.receive(200, JSON.stringify(responseContent));
 				};
