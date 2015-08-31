@@ -32,8 +32,8 @@ possible route:
 				<post-excerpt each={ data.posts }></post-excerpt>
 				<!-- Pager -->
 				<ul class="pager">
-					<li if={ data.page > 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
-					<li if={ data.page < data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
+					<li hide={ data.page <= 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
+					<li hide={ data.page >= data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
 				</ul>
 			</div>
 
@@ -126,11 +126,11 @@ possible route:
 
 		//init like this to display the two buttons (older, newer)
 		// at the first time so that they will initially translated
-		_this.data = {
-			"page": 2,
-			"totalpages": 3,
-			"totalposts": 0
-		}
+		//_this.data = {
+		//	"page": 2,
+		//	"totalpages": 3,
+		//	"totalposts": 0
+		//}
 
 	</script>
 </blog-page>
