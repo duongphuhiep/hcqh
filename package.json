@@ -18,15 +18,13 @@
   },
   "browser": {
     "RiotControl": "./lib/riotcontrol.js",
-    "jscookie": "./lib/js.cookie.js",
-    "MockHttpServer": "./backend_mock/lib/MockHttpServer.js"
+    "jscookie": "./lib/js.cookie.js"
   },
   "browserify-shim": {
     "jquery": "global:jQuery",
     "riot": "global:riot",
     "i18next": "global:i18n",
-    "commonmark": "global:commonmark",
-    "./backend_mock/lib/MockHttpServer.js": "MockHttpServer"
+    "commonmark": "global:commonmark"
   },
   "devDependencies": {
     "browserify": "^11.0.1",

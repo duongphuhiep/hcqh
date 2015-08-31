@@ -18,7 +18,7 @@
 		});
 
 		var route = require("../app/route");
-		_this.pageName = route.getCurrentPageName();
+		_this.pageName = route.getCurrentPageInfo().pageName;
 		
 	</script>
 </content-route>

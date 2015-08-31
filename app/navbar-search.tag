@@ -1,5 +1,5 @@
 /**
-Responsive navigation bar with search form
+Responsive navigation bar
 */
 <navbar-search>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -81,7 +81,7 @@ Responsive navigation bar with search form
 		});
 
 		var route = require("../app/route");
-		_this.pageName = route.getCurrentPageName();
+		_this.pageName = route.getCurrentPageInfo().pageName;
 
 		$(function () {
 		    /* hide nav bar when click outside*/

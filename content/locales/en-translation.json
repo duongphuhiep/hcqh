@@ -1,11 +1,14 @@
 {
-	"Que Huong Chorale": "Que Huong Chorale",
-
-	"Home": "Home",
-	"Repertoire": "Repertoire",
-	"Members": "Members",
-	"Blog": "Blog",
-	"Contact": "Contact",
-
-	"Search": "Search"
+  "Que Huong Chorale": "Que Huong Chorale",
+  "Home": "Home",
+  "Repertoire": "Repertoire",
+  "Members": "Members",
+  "Blog": "Blog",
+  "Contact": "Contact",
+  "Search": "Search",
+  "Newer":"Newer",
+  "Older": "Older",
+  "Loading":"Loading",
+  "We are recruiting": "We are recruiting",
+  "RecruitmentMessage": "The only requirement is your musical pasionate, you don't neccessarily be a good singer. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
 }

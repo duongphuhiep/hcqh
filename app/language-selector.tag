@@ -30,65 +30,23 @@
 	<script>
 
 	var _this = this;
-	var i18n = require('i18next');
-
-	/*RiotControl.addStore(_this);
+	var Lang = require('../app/lang');
+	var RiotControl = require("RiotControl");
+	RiotControl.addStore(_this);
 
 	//listen to other request to change language
 	_this.on("languageChange", function(lang) {
-		_this.setLanguage(lang);
-	});*/
-
-	var Cookies = require("jscookie");
-
-	setLanguage(lang) {
 		_this.language_selector.value = lang;
-		Cookies.set('lang', lang, { expires: 365 });
-		moment.locale(lang);
-		
-		i18n.setLng(lang, function(err, t) {
-            $(document).i18n();
-        });
-	}
+	});
 
-	changeLanguageFromComboBox() {
+	_this.changeLanguageFromComboBox = function() {
 		var lang = _this.language_selector.value; //vi, fr, en
-		_this.setLanguage(lang);
-	}
-
-	getQueryStringParams(sParam) {
-	    var sPageURL = window.location.search.substring(1);
-	    var sURLVariables = sPageURL.split('&');
-
-	    for (var i = 0; i < sURLVariables.length; i++) {
-	        var sParameterName = sURLVariables[i].split('=');
-	        if (sParameterName[0] == sParam)
-	        {
-	            return sParameterName[1];
-	        }
-	    }
-	}​
-
-	/**
-	The current language comes from QueryString '?lang=en' or from the cookies
-	*/
-	getCurrentLanguage() {
-		var currentLang = _this.getQueryStringParams('lang');
-		if (!currentLang) {
-			currentLang = Cookies.get('lang');
-		}
-		return currentLang;
-	}
+		Lang.setLanguage(lang);
+	};
 
 	//init language
-	var currentLang = _this.getCurrentLanguage();
-
-	if (currentLang) {
-		_this.setLanguage(currentLang);	
-	}
-	else {
-		_this.setLanguage('vi'); //Tieng Viet for the first visit
-	}
+	var currentLang = Lang.getCurrentLanguage();
+	Lang.setLanguage(currentLang);
 
 	</script>
 </language-selector>

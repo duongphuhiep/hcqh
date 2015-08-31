@@ -1,4 +1,14 @@
+/*
+Display a page blog
+possible route:
+	blog/ must to render data from blog.php?page=1
+	blog/1 must to render data from blog.php?page=1
+	blog/2 must to render data from blog.php?page=2
+*/
 <blog-page>
+	<rg-loading show="{ loading }" spinner="true">
+		<span data-i18n="Loading"></span>
+	</rg-loading>
 
 	 <!-- Page Content -->
     <div class="container">
@@ -19,15 +29,11 @@
 			<!-- Blog Entries Column -->
 			<div class="col-md-8">
 				Page { data.page }, count { data.count }. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-
-				
 				<post-excerpt each={ data.posts }></post-excerpt>
-				
-
 				<!-- Pager -->
 				<ul class="pager">
-					<li if={ data.page > 1 } class="previous"><a href="#blog/{ data.page - 1 }">&larr; Older</a></li>
-					<li class="next"><a href="#blog/{ data.page + 1 }">Newer &rarr;</a></li>
+					<li if={ data.page > 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
+					<li if={ data.page < data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
 				</ul>
 			</div>
 
@@ -64,35 +70,67 @@
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
-		_this.on("pageChange", function(e) {
-			if (e.pageName !== 'blog') {
+		var i18n = require("i18next");
+		var Lang = require("../app/lang");
+		var Route = require("../app/route");
+
+		_this.on("pageChange languageChange", function(type, e) {
+			var currentPageInfo = Route.getCurrentPageInfo();
+			if (currentPageInfo.pageName !== 'blog') {
 				return; //not concerned
 			}
-			/*
-			possible route: 
-				blog/ must to fetch data from blog.php?page=1
-				blog/1 must to fetch data from blog.php?page=1
-				blog/2 must to fetch data from blog.php?page=2
-			*/
-			var page = e.params[0];
-			load('backend/blog.php?page='+page);
+
+			var pageNumber;
+			if (currentPageInfo.params) {
+				pageNumber = currentPageInfo.params[0];
+			}
+			if (!pageNumber) {
+				pageNumber = 1; //fallback to 1 as default pageNumber
+			}
+
+			load(pageNumber, Lang.getCurrentLanguage());
 		});
 
-		
-		function load(src) {
-			console.log('loading from '+src);
+		var $ = require("jquery");
+		_this.on("update", function(){
+			$(_this.root).i18n();
+		});
+
+		function load(pageNumber, lang) {
+			var src = 'backend/blog.php?page='+pageNumber+'&lang='+lang;
+
+			console.log('loading '+src);
+
+			_this.waitMsg = src;
+			_this.loading = true;
+			_this.update();
+
 			var oReq = new XMLHttpRequest();
-			oReq.onload = function () {
-				_this.data = JSON.parse(oReq.responseText);
-				console.log(_this.data);
-				_this.update();
+			oReq.open('get', src);
+			oReq.onreadystatechange = function (e) {
+				if (oReq.readyState === 4) {
+					if (oReq.status === 200) {
+						_this.data = JSON.parse(oReq.responseText);
+					} else {
+						console.log("ERROR "
+							+ oReq.status
+							+ " (" + oReq.statusText + "): "
+							+ oReq.responseText);
+					}
+					_this.loading = false;
+					_this.update();
+				}
 			};
-			oReq.open('get', src, opts.async || true);
-			oReq.send();	
+			oReq.send();
 		}
 
-		//init fake data
-		load('backend/blogpage2.json')
+		//init like this to display the two buttons (older, newer)
+		// at the first time so that they will initially translated
+		_this.data = {
+			"page": 2,
+			"totalpages": 3,
+			"totalposts": 0
+		}
 
 	</script>
 </blog-page>

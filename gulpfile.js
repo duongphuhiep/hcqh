@@ -58,18 +58,18 @@ gulp.task('bundle', ['bundle:tag'], function() {
         .pipe(gulp.dest('dist'));
 
     // generate dist/fake-backend.js
-    gulp.src('backend_mock/fake-backend.js')
-        .pipe(gp_plumber({
-            handleError: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe(gp_browserify({
-            detectGlobal:true,
-            debug : true
-        }))
-        .pipe(gulp.dest('dist'));
+    //gulp.src('backend_mock/fake-backend.js')
+    //    .pipe(gp_plumber({
+    //        handleError: function (err) {
+    //            console.log(err);
+    //            this.emit('end');
+    //        }
+    //    }))
+    //    .pipe(gp_browserify({
+    //        detectGlobal:true,
+    //        debug : true
+    //    }))
+    //    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['bundle'], function(){

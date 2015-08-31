@@ -1,5 +1,14 @@
 {
-	"Que Huong Chorale": "Hợp ca Quê Hương",
-	"Home": "Trang chủ",
-	"Search": "Tìm kiếm"
+  "Que Huong Chorale": "Hợp ca Quê Hương",
+  "Home": "Trang chủ",
+  "Repertoire": "Tác phẩm",
+  "Members": "Thành viên",
+  "Blog": "Hồi ký",
+  "Contact": "Liên hệ",
+  "Search": "Tìm kiếm",
+  "Newer":"Bài mới hơn",
+  "Older": "Bài cũ hơn",
+  "Loading":"Đang tải",
+  "We are recruiting": "Tuyển thành viên",
+  "RecruitmentMessage": "Đam mê ca hát là điều kiện duy nhất, bạn không nhất thiết phải hát hay. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
 }

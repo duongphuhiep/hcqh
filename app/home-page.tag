@@ -34,15 +34,13 @@
 		</section>
 		
 		<section>
-			<h1>We are recruiting</h1>
+			<h1 data-i18n="We are recruiting"></h1>
 
-			
 			<div class="row">
 				<div class='col-md-3 text-center'>
 					<img src="content/home/recruit.png" alt="Recruting" width="100px" height="100px">
 				</div>
-				<div class='col-md-6 pad10'>
-					The only requirement is your musical pasionate,	you don't neccessarily be a good singer. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+				<div class='col-md-6 pad10' data-i18n="RecruitmentMessage">
 				</div>
 				<div class='col-md-3 text-center pad10'>
 					<a class="btn btn-primary btn-lg" href="#contact" role="button">Contact Us</a>

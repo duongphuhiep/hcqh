@@ -1,5 +1,14 @@
 {
-	"Que Huong Chorale": "Ensemble Vocal Que Huong",
-	"Home": "Accueil",
-	"Search": "Recherche"
+  "Que Huong Chorale": "Ensemble Vocal Que Huong",
+  "Home": "Accueil",
+  "Repertoire": "Répertoire",
+  "Members": "Membres",
+  "Blog": "Blog",
+  "Contact": "Contact",
+  "Search": "Recherche",
+  "Newer":"Précédent",
+  "Older": "Suivant",
+  "Loading":"Chargement en cours",
+  "We are recruiting": "Recrutement",
+  "RecruitmentMessage": "Votre passion de la musique est la seule requis, aucune problem si vous ne sentez pas encore à l'aise avec votre voix. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
 }

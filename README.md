@@ -22,5 +22,11 @@ gulp watch      ##open browser, listen for files change, rebuilt and auto-refres
 * Website contents is configured in the `content` folder by Cô Chú
 * The `backend` folder hosts the future PHP API service
 
-## Notice
-* No module loader yet (because the website is still simple)
+## Gulp task
+`gulp watch` command will watch file changes during the developement, foreach changes:
+* it will compile riot tags in `/app` to `/gen`
+  * you can do it manually with `gulp bundle:tag`
+* then use `browserify` discovers from `app/main.js` and bundle all applicatif modules to `dist/main.js`
+* then minify it `/dist/main.min.js`
+  * you can manually compile `/dist/main*.js` with `gulp bundle`
+* then `live-server` will see changes in `/dist` and ask to browser to refresh the local web page `localhost:8080`
