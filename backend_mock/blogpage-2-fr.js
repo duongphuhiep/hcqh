@@ -1,4 +1,4 @@
-module.exports.blogpageFakeData =
+module.exports =
 {
   "page": 2,
   "totalpages": 2,

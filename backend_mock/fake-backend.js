@@ -3,12 +3,12 @@ var utils = require('../lib/utils');
 //var $ = require('jquery');
 
 var blogpageFakeData = {
-	"blogpage-1-en": require('../backend_mock/blogpage-1-en').blogpageFakeData,
-	"blogpage-1-fr": require('../backend_mock/blogpage-1-fr').blogpageFakeData,
-	"blogpage-1-vi": require('../backend_mock/blogpage-1-vi').blogpageFakeData,
-	"blogpage-2-en": require('../backend_mock/blogpage-2-en').blogpageFakeData,
-	"blogpage-2-fr": require('../backend_mock/blogpage-2-fr').blogpageFakeData,
-	"blogpage-2-vi": require('../backend_mock/blogpage-2-vi').blogpageFakeData
+	"blogpage-1-en": require('../backend_mock/blogpage-1-en'),
+	"blogpage-1-fr": require('../backend_mock/blogpage-1-fr'),
+	"blogpage-1-vi": require('../backend_mock/blogpage-1-vi'),
+	"blogpage-2-en": require('../backend_mock/blogpage-2-en'),
+	"blogpage-2-fr": require('../backend_mock/blogpage-2-fr'),
+	"blogpage-2-vi": require('../backend_mock/blogpage-2-vi')
 };
 
 var xhr = sinon.useFakeXMLHttpRequest(); //in fact xhr === sinon.FakeXMLHttpRequest
@@ -25,7 +25,7 @@ xhr.addFilter(function(method, url, async, username, password) {
 	return true; //return true to use the native XMLHttpRequest
 });
 
-var server = sinon.fakeServer.create({autoRespond : true, autoRespondAfter : 1000});
+var server = sinon.fakeServer.create({autoRespond : true, autoRespondAfter : 10});
 
 //server.respondWith(/\/post\.php\?id=(\d+)/, function (request, id) {
 //	console.log("response with", request, id);
