@@ -3,7 +3,6 @@ module.exports =
   "page": 2,
   "totalpages": 2,
   "totalposts": 5,
-  "count": 2,
   "lang": "en",
   "posts": [
 	{
@@ -18,7 +17,7 @@ module.exports =
 	  "publish": "2009-08-01",
 	  "name": "Bai viet 01",
 	  "title": "Cảm nhận 01",
-	  "author": "Tích Kỳ",
+	  "author": "Hiệp",
 	  "lang": "vi",
 	  "excerpt": "Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01"
 	}

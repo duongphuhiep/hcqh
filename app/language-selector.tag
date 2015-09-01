@@ -35,18 +35,14 @@
 	RiotControl.addStore(_this);
 
 	//listen to other request to change language
-	_this.on("languageChange", function(lang) {
-		_this.language_selector.value = lang;
+	_this.on("mount languageChange", function() {
+		_this.language_selector.value = Lang.getCurrentLanguage();
 	});
 
 	_this.changeLanguageFromComboBox = function() {
 		var lang = _this.language_selector.value; //vi, fr, en
 		Lang.setLanguage(lang);
 	};
-
-	//init language
-	var currentLang = Lang.getCurrentLanguage();
-	Lang.setLanguage(currentLang);
 
 	</script>
 </language-selector>
