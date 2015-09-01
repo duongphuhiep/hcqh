@@ -1,4 +1,15 @@
-DEBUG = true; //other module use this global variable to detect if the DEBUG mode is on
+//other module use this global variable to detect if the DEBUG mode is on
+DEBUG = {
+	/**
+	 * Disable some debounced functions to become normal function, in order to detect deeper problem. Eg:
+	 * Without debouncing, a XHR request was called 2 times consecutive (due to some events triggering),
+	 * It is not normal, some events was triggering too much. It won't happen in production because
+	 * the function was debounced so that the XHR request was called only 1 times on production, Debouncing
+	 * had saved the situation and we won't see the deeper issue
+	 */
+	disableDebouncing: false
+};
+
 var sinon = require("sinon");
 var utils = require('../lib/utils');
 //var $ = require('jquery');
@@ -26,7 +37,7 @@ xhr.addFilter(function(method, url, async, username, password) {
 	return true; //return true to use the native XMLHttpRequest
 });
 
-var server = sinon.fakeServer.create({autoRespond : true, autoRespondAfter : 10});
+var server = sinon.fakeServer.create({autoRespond : true, autoRespondAfter : 1000});
 
 //server.respondWith(/\/post\.php\?id=(\d+)/, function (request, id) {
 //	console.log("response with", request, id);

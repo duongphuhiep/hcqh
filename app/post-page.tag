@@ -39,17 +39,31 @@ route:
 		var commonmark = require("commonmark");
 		var Route = require("../app/route");
 		var Lang = require("../app/lang");
+		var debounce = require("lodash.debounce");
+
 
 		_this.reader = new commonmark.Parser();
 		_this.writer = new commonmark.HtmlRenderer();
 
-		_this.reloadState = function() {
-			//extract the postId from route
-			var postId;
+
+		_this.on("mount pageChange languageChange", function(type) {
 			var routeInfo = Route.getCurrentPageInfo();
 			if (routeInfo.pageName !== "post") {
 				return; //not concern
 			}
+			_this.reloadState();
+		});
+
+		if (DEBUG && DEBUG.disableDebouncing) {
+			_this.reloadState = _reloadState;
+		}
+		else {
+			_this.reloadState = debounce(_reloadState, 200);
+		}
+		function _reloadState() {
+			//extract the postId from route
+			var postId;
+			var routeInfo = Route.getCurrentPageInfo();
 			postId =  routeInfo.params[0];
 			if (!postId) {
 				riot.route("404");
@@ -60,7 +74,7 @@ route:
 
 			var postFolderPath = Route.pathToBlogFolder + postId + "/";
 
-			console.log(postFolderPath);
+			//console.log(postFolderPath);
 
 			//load the post in the current language
 			$.ajax({
@@ -84,13 +98,24 @@ route:
 					riot.route("404");
 				});
 			});
-		};
 
-		_this.on("mount pageChange languageChange", function(type) {
-			//console.log(type);
-			_this.reloadState();
-			$(_this.root).i18n();
+			_this.reloadTranslation();
+		}
+
+
+		_this.on('update', function() {
+			_this.reloadTranslation();
 		});
+		if (DEBUG && DEBUG.disableDebouncing) {
+			_this.reloadTranslation = _reloadTranslation;
+		}
+		else {
+			_this.reloadTranslation = debounce(_reloadTranslation, 200);
+		}
+		function _reloadTranslation() {
+			$(_this.root).i18n();
+		}
+
 
 		_this.markItDown = function(content) {
 			var parsed = _this.reader.parse(content);
@@ -111,7 +136,7 @@ route:
 				}
 			});
 			return head;
-		};
+		}
 	</script>
 
 </post-page>

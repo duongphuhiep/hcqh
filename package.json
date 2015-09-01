@@ -29,6 +29,7 @@
   "devDependencies": {
     "browserify": "^11.0.1",
     "browserify-shim": "^3.8.10",
+    "commonmark": "^0.22.0",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",
@@ -37,7 +38,9 @@
     "gulp-riot": "^0.2.18",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
+    "jquery": "^2.1.4",
     "live-server": "^0.7.1",
+    "node-jquery": "^0.1.0",
     "riot": "^2.2.4",
     "riotify": "^0.1.2",
     "sinon": "^1.16.1",
@@ -47,6 +50,7 @@
   "dependencies": {
     "i18next": "^1.10.4",
     "jquery": "^2.1.4",
+    "lodash.debounce": "^3.1.1",
     "riot": "^2.2.4",
     "steal": "^0.10.5",
     "strip-markdown": "^0.3.1"

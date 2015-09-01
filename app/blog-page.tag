@@ -70,58 +70,97 @@ possible route:
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
+		var riot = require("riot");
 		var i18n = require("i18next");
 		var Lang = require("../app/lang");
 		var Route = require("../app/route");
+		var $ = require("jquery");
+		var debounce = require("lodash.debounce");
 
-		_this.on("pageChange languageChange", function(type, e) {
-			var currentPageInfo = Route.getCurrentPageInfo();
-			if (currentPageInfo.pageName !== 'blog') {
+
+		_this.on("mount pageChange languageChange", function(type, e) {
+			var currentRouteInfo = Route.getCurrentPageInfo();
+			if (currentRouteInfo.pageName !== 'blog') {
 				return; //not concerned
 			}
+			_this.reloadState();
+		});
 
+		if (DEBUG && DEBUG.disableDebouncing) {
+			_this.reloadState = _reloadState;
+		}
+		else {
+			_this.reloadState = debounce(_reloadState, 200);
+		}
+		function _reloadState() {
+			var currentRouteInfo = Route.getCurrentPageInfo();
+
+			//Get the pageNumber from route info or defaulting to 1
 			var pageNumber;
-			if (currentPageInfo.params) {
-				pageNumber = currentPageInfo.params[0];
+			if (currentRouteInfo.params) {
+				pageNumber = currentRouteInfo.params[0];
 			}
 			if (!pageNumber) {
 				pageNumber = 1; //fallback to 1 as default pageNumber
 			}
 
 			load(pageNumber, Lang.getCurrentLanguage());
-		});
+			_this.reloadTranslation();
+		}
 
-		var $ = require("jquery");
-		_this.on("update", function(){
-			$(_this.root).i18n();
+
+
+		_this.on('update', function() {
+			_this.reloadTranslation();
 		});
+		if (DEBUG && DEBUG.disableDebouncing) {
+			_this.reloadTranslation = _reloadTranslation;
+		}
+		else {
+			_this.reloadTranslation = debounce(_reloadTranslation, 200);
+		}
+		function _reloadTranslation() {
+			$(_this.root).i18n();
+		}
+
+
 
 		function load(pageNumber, lang) {
-			var src = 'backend/blog.php?page='+pageNumber+'&lang='+lang;
+//			var src = 'backend/blog.php?page='+pageNumber+'&lang='+lang;
+//			console.log('loading '+src);
+			//_this.waitMsg = src;
 
-			console.log('loading '+src);
+			_this.loading = true; _this.update();
 
-			_this.waitMsg = src;
-			_this.loading = true;
-			_this.update();
+			$.ajax({
+				url: 'backend/blog.php?page='+pageNumber+'&lang='+lang,
+				dataType: 'json'
+			}).done(function (data) {
+				_this.data = data;
+			}).fail(function (error) {
+				console.log(error);
+				riot.route("404");
+			}).always(function() {
+				_this.loading = false; _this.update();
+			});
 
-			var oReq = new XMLHttpRequest();
-			oReq.open('get', src);
-			oReq.onreadystatechange = function (e) {
-				if (oReq.readyState === 4) {
-					if (oReq.status === 200) {
-						_this.data = JSON.parse(oReq.responseText);
-					} else {
-						console.log("ERROR "
-							+ oReq.status
-							+ " (" + oReq.statusText + "): "
-							+ oReq.responseText);
-					}
-					_this.loading = false;
-					_this.update();
-				}
-			};
-			oReq.send();
+//			var oReq = new XMLHttpRequest();
+//			oReq.open('get', src);
+//			oReq.onreadystatechange = function (e) {
+//				if (oReq.readyState === 4) {
+//					if (oReq.status === 200) {
+//						_this.data = JSON.parse(oReq.responseText);
+//					} else {
+//						console.log("ERROR "
+//							+ oReq.status
+//							+ " (" + oReq.statusText + "): "
+//							+ oReq.responseText);
+//						riot.route('404');
+//					}
+//					_this.loading = false; _this.update();
+//				}
+//			};
+//			oReq.send();
 		}
 
 		//init like this to display the two buttons (older, newer)

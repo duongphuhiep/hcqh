@@ -2,21 +2,31 @@
 
 Work in progress...
 
-Revamping website
+The website tends to be a Single Page application
 
-* Base on [jquery](http://jquery.com/) / [bootstrap](http://getbootstrap.com/), try to keep the default bootstrap style as much as possible
-* Use [riotjs](http://riotjs.com/) to group related html, javascript, css together as component (ref. `app/*.rtg`)
-* Use [i18next](http://i18next.com/) for internationalization
-* Use [browserify](http://browserify.org/) for modularization and bundling
-
+* Front-end
+ * Base on [jquery](http://jquery.com/) / [bootstrap](http://getbootstrap.com/), try to keep the default bootstrap style as much as possible so that we switch between many available bootstrap themes
+ * Try to use [CDN](http://htmlcheats.com/cdn-2/6-reasons-use-cdn/) whenever possible, but to be consider latter 
+    * It is debatable, I might choose some reliable CDN for the big scripts and switch other to local. It is easy to migrate anyway 
+ * Use [browserify](http://browserify.org/) for modularization and bundling
+ * [riotjs](http://riotjs.com/) for templating (ref. [`app/*.tag`](app))
+ * [i18next](http://i18next.com/) for internationalization
+ * [commonmarkjs](https://github.com/jgm/commonmark.js) to render Markdown data
+ * [sinonjs](http://sinonjs.org/docs/#server) to fake ajax request (in order to simulate the backend API)
+ * [lodash.debounce](https://lodash.com/docs#debounce)
+ 
+* Back-end - provide API to access to database
+ * PHP 
+ * the database is files-based in the `/content` folder, and will be manipulated by Cô Chú 
+ 
 ## Local installation  
 Require: [nodejs](https://nodejs.org/)
 
 ```
 npm install
 bower install
-gulp            #build dist/* 
-gulp watch      ##open browser, listen for files change, rebuilt and auto-refresh the browser 
+gulp            #build dist/* and open browser which auto-refresh for each changes in the dist/* 
+gulp watch      ##listen for files change to rebuilt the dist/* 
 ```
 
 * Website contents is configured in the `content` folder by Cô Chú
