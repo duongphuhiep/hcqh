@@ -4,6 +4,7 @@
 	<repertoire-page if={ pageName == 'repertoire' }></repertoire-page>
 	<member-page if={ pageName == 'member' }></member-page>
 	<blog-page if={ pageName == 'blog' }></blog-page>
+	<post-page if={ pageName == 'post' }></post-page>
 	<contact-page if={ pageName == 'contact' }></contact-page>
 	<page-404 if={ pageName == '404' }></page-404>
 

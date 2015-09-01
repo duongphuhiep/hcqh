@@ -36,10 +36,7 @@
 		}
 	}
 
-	/**
-	 * The current language comes from QueryString '?lang=en' or from the cookies, otherwise it fallback to "vi"
-	 */
-	module.exports.getCurrentLanguage = function() {
+	function getCurrentLanguage() {
 		var currentLang = getQueryStringParams('lang');
 		if (!currentLang) {
 			currentLang = Cookies.get('lang');
@@ -51,12 +48,20 @@
 	};
 
 	/**
+	 * The current language comes from QueryString '?lang=en' or from the cookies, otherwise it fallback to "vi"
+	 */
+	module.exports.getCurrentLanguage = getCurrentLanguage;
+
+	/**
 	 * Set the current language flag, and fire "languageChange" event
 	 */
 	module.exports.setLanguage = function(lang) {
 		if (!lang) {
 			return;
 		}
+
+		var previousLang = getCurrentLanguage();
+
 		Cookies.set('lang', lang, { expires: 365 });
 		moment.locale(lang);
 
@@ -64,6 +69,11 @@
             $(document).i18n();
         });
 
-		RiotControl.trigger("languageChange", lang);
+		if (previousLang !== lang) {
+			RiotControl.trigger("languageChange", lang);
+		}
+		else {
+			console.log("Ignore languageChange event");
+		}
 	};
 })();

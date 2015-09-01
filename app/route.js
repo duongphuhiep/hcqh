@@ -49,6 +49,7 @@
     });
 
     module.exports.getCurrentPageInfo = function() {return  currentPageInfo;}
+    module.exports.pathToBlogFolder = (DEBUG ? "backend_mock" : "content" )+"/blog/";
 })();
 
 

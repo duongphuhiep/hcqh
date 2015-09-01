@@ -25,7 +25,7 @@ Responsive navigation bar
 				<li class={ active: pageName == 'home' }><a href="#" data-i18n="Home"></a></li>
 				<li class={ active: pageName == 'repertoire' }><a href="#repertoire" data-i18n="Repertoire"></a></li>
 				<li class={ active: pageName == 'member' }><a href="#member" data-i18n="Members"></a></li>
-				<li class={ active: pageName == 'blog' }><a href="#blog" data-i18n="Blog"></a></li>
+				<li class={ active: pageName == 'blog' || pageName == 'post' }><a href="#blog" data-i18n="Blog"></a></li>
 				<li class={ active: pageName == 'contact' }><a href="#contact" data-i18n="Contact"></a></li>
 			</ul>
 	
@@ -80,8 +80,8 @@ Responsive navigation bar
 			_this.update();
 		});
 
-		var route = require("../app/route");
-		_this.pageName = route.getCurrentPageInfo().pageName;
+		var Route = require("../app/route");
+		_this.pageName = Route.getCurrentPageInfo().pageName;
 
 		$(function () {
 		    /* hide nav bar when click outside*/

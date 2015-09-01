@@ -23,4 +23,4 @@ module.exports =
 	  "excerpt": "Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01 Bài viết 01"
 	}
   ]
-}
+};

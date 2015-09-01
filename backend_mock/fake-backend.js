@@ -1,3 +1,4 @@
+DEBUG = true; //other module use this global variable to detect if the DEBUG mode is on
 var sinon = require("sinon");
 var utils = require('../lib/utils');
 //var $ = require('jquery');
