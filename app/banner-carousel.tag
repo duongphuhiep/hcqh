@@ -127,8 +127,8 @@
                 <img src={ linkToImage(this.image) }>
                 <div if={ title || body || post } class="carousel-caption">
                     <h1 if={ title } class="transparent-background">{ title }</h1>
-                    <p if={ body } class="transparent-background">{ body }</p>
-                    <p if="{ post }"><a class="btn btn-lg btn-primary" href={ linkToPost(this.post) } role="button" data-i18n="Learn more"></a></p>
+                    <div if={ body } class="transparent-background">{ body }</div>
+                    <div if={ post } class="learnmore"><a class="btn btn-lg btn-primary" href={ linkToPost(this.post) } role="button" data-i18n="Learn more"></a></div>
                 </div>
             </div>
 
@@ -146,6 +146,13 @@
   <style scoped>
       .transparent-background {
           background-color: rgba(0,0,0,0.5);
+      }
+      .carousel-caption>h1 {
+          margin:0px;
+          padding-bottom: 20px;
+      }
+      .learnmore {
+          margin: 10px;
       }
   </style>
 
