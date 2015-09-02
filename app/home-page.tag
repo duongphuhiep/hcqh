@@ -10,7 +10,7 @@
 
 			<!-- 16:9 aspect ratio -->
 			<div class="embed-responsive embed-responsive-16by9 center-block">
-			  <!--<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>-->
+			  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>
 			</div>
 
 			<p class="btn center-block" data-toggle="collapse" data-target="#speechText">
@@ -24,9 +24,7 @@
 						<br>
 						Nhưng trên tất cả, Hợp ca chúng tôi là mái nhà chung, là nơi giao lưu, gặp gỡ, của những người con xa nhà, là nơi cho chúng tôi mượn lời ca tiếng hát để thể hiện tình yêu quê hương đất nước Việt nam. Rất nhiều bản hợp xướng bất hủ như « Tiếng hát biên thùy » của Tô Hải, Du kích Sông Thao » của Đỗ Nhuận, "Ca ngợi Tổ quốc" " Hồ Bắc đã được chúng tôi dựng lại thành công trên nhiều sân khấu lớn nhỏ. Có thể nói, con đường và hành trình mà chúng tôi đã và đang bền bỉ theo đuổi được kết tinh bằng tình yêu, lòng đam mê và nhiệt huyết cháy bỏng với âm nhạc dân tộc. Đó là tinh thần quý báu mà mỗi thành viên luôn giữ trong tim. 
 					</div>
-					<div class='col-md-3 text-center'>
-						
-					</div>
+					<div class='col-md-3 text-center'></div>
 				</div>
 			</div>
 
@@ -49,60 +47,26 @@
 		</section>
 			
 		<section>
-
 			<h1>On Facebook</h1>
-			<center>
-			<!-- <div id="fb-root"></div> -->
-			<div class="fb-page" 
-				data-href="https://www.facebook.com/hopcaquehuong?fref=ts" 
-				data-small-header="true" 
-				data-width="500"
-				data-adapt-container-width="true" 
-				data-hide-cover="false" 
-				data-show-facepile="true" 
-				data-show-posts="true"
-				>
-				<div class="fb-xfbml-parse-ignore">
-					<blockquote cite="https://www.facebook.com/hopcaquehuong?fref=ts">
-						<a href="https://www.facebook.com/hopcaquehuong?fref=ts">Hợp Ca Quê Hương</a>
-					</blockquote>
+			<div class="center-block" style="max-width:500px;">
+				<div class="fb-page"
+					data-href="https://www.facebook.com/hopcaquehuong?fref=ts"
+					data-small-header="true"
+					data-width="500"
+					data-adapt-container-width="true"
+					data-hide-cover="false"
+					data-show-facepile="true"
+					data-show-posts="true"
+					>
+					<div class="fb-xfbml-parse-ignore">
+						<blockquote cite="https://www.facebook.com/hopcaquehuong?fref=ts">
+							<a href="https://www.facebook.com/hopcaquehuong?fref=ts">Hợp Ca Quê Hương</a>
+						</blockquote>
+					</div>
 				</div>
 			</div>
-			</center>
 		</section>
-
-
-		<!-- <div class="row">
-			<div class="col-md-3">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-					dolore magna aliqua.</p>
-			</div>
-			<div class="col-md-3">
-				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat.</p>
-			</div>
-			<div class="col-md-3">
-				<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-					rem aperiam.</p>
-			</div>
-			<div class="col-md-3">
-				<ul class="nav nav-pills nav-stacked">
-					<li class="active"><a href="#">Home</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu 1 <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Submenu 1-1</a></li>
-							<li><a href="#">Submenu 1-2</a></li>
-							<li><a href="#">Submenu 1-3</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Menu 2</a></li>
-					<li><a href="#">Menu 3</a></li>
-				</ul>
-			</div>
-			<div class="clearfix visible-lg"></div>
-		</div> -->
-	</div> 
+	</div>
 
 	<style scoped>
 		/* make white text in the carousel more readable */
@@ -134,12 +98,17 @@
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
+		var facebook = require("../lib/facebook");
 
 		var $ = require("jquery");
 		var i18n = require("i18next");
 
 		_this.on('mount languageChange', function() {
 			$(function() { $(_this.root).i18n(); });
+		});
+
+		_this.on('mount', function(){
+			facebook.init();
 		});
 	</script>
 
