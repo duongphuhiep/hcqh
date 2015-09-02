@@ -44,6 +44,7 @@ component is calculated base on the language meta-data or by the markdown file.
 		var Route = require("../app/route");
 		var Lang = require("../app/lang");
 		var debounce = require("lodash.debounce");
+		var Utils = require("../lib/utils");
 
 		_this.reader = new commonmark.Parser();
 		_this.writer = new commonmark.HtmlRenderer();
@@ -128,23 +129,9 @@ component is calculated base on the language meta-data or by the markdown file.
 		_this.loadMarkDown = function(content) {
 			var parsed = _this.reader.parse(content);
 			var rawHead = parsed.firstChild.literal;
-			_this.head = parseHead(rawHead);
+			_this.head = Utils.parseConfig(rawHead);
 			_this.post_content.innerHTML = _this.writer.render(parsed);
 		};
-
-		function parseHead(rawHead) {
-			var head = {};
-			var items = rawHead.split("\n");
-			$.each(items, function( index, value ) {
-				var separatorPos = value.indexOf(":");
-				var k = value.substr(0, separatorPos).trim();
-				var v = value.substr(separatorPos+1).trim();
-				if (k) {
-					head[k] = v;
-				}
-			});
-			return head;
-		}
 
 		/**
 		 * return the publish date from the postId
