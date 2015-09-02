@@ -1,0 +1,26 @@
+image: piano-banner.jpg
+title: Mái nhà thứ hai
+body: Tình bạn xây dựng trên niềm đam mê Âm nhạc
+--
+image: 2014-spring-show.jpg
+title: 23 Janvier 2016 à Eglise La Madeleine
+body: Eglise La Madeleine, Rencontres internationales Chant choral de Paris, organisé par l’Association Music & Friends
+post: 2009-08-04 Bai viet 04
+--
+image: prochoir-1920x600.jpg
+title: 23/01/2016 nhà thờ Madeleine
+post: 2009-08-04 Bai viet 04
+--
+image: music.jpg
+body: Eglise La Madeleine, Rencontres internationales Chant choral de Paris, organisé par l’Association Music & Friends
+post: 2009-08-04 Bai viet 04
+--
+image: CCC-8991-1920x600.jpg
+body: Xem bài viết Tiếng Nhật
+post: 2009-08-03 Bai viet 03
+--
+image: web.jpg
+--
+image: about_in5.jpg
+--
+image: slide_1.png

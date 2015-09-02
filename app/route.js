@@ -55,9 +55,12 @@
         switchToPage(path)
     });
 
+    var RootContent = (DEBUG ? "backend_mock" : "content" )+"/";
+
     module.exports.getCurrentPageInfo = function() {return  currentPageInfo;};
     module.exports.switchToPage = switchToPage;
-    module.exports.pathToBlogFolder = (DEBUG ? "backend_mock" : "content" )+"/blog/";
+    module.exports.pathToBlogFolder = RootContent+"blog/";
+    module.exports.pathToBannerFolder = RootContent+"home/banner/";
 })();
 
 
