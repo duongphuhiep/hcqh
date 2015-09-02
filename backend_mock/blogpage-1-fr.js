@@ -16,10 +16,10 @@ module.exports =
     {
       "publish": "2009-08-04",
       "name": "Bai viet 04",
-      "title": "Histoire 04",
-      "author": "Tich Ky",
+      "title": "Rencontres internationales Chant choral de Paris",
+      "author": "Ngan Ha",
       "lang": "fr",
-      "excerpt": "Histoire 04 Histoire 04 Histoire 04 Histoire 04 Histoire 04 Histoire 04"
+      "excerpt": "Organisé par l’Association Music & Les amies Overture: 9:30 am – 7:00 pm L'église de la Madeleine"
     },
     {
       "publish": "2009-08-03",

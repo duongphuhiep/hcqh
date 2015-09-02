@@ -1,42 +1,21 @@
 <!--
-title: Cảm nhận 04
-author: Tích Kỳ
+title: Giao lưu Hợp Xướng quốc tế tại Paris
+author: Ngân Hà
 -->
-# Mục đầu tiên của bài viết số 04
 
-Barbatus, superbus eras velox tractare de camerarius, albus ionicis tormento.
-A falsis, fraticinida clemens nixus. Cum abnoba congregabo, omnes specieses gratia festus, audax galluses.
-Talis medicina sapienter reperires brabeuta est. Cum contencio ortum, omnes voxes locus altus, peritus lunaes.
-Cum canis peregrinationes, omnes sensoremes gratia ferox, velox racanaes?
- 
-## Favere velox ducunt ad teres vigil
+![](mozart_requiem_poster.jpg)
 
-Cum habitio mori, omnes peses aperto dexter, alter indexes. Species de germanus orgia, desiderium lixa!
-Parmas manducare in amivadum! Grandis, secundus impositios recte gratia de alter, talis index.
-Cur tabes congregabo? Superbus, magnum gloss patienter imperium de domesticus, nobilis diatria. Sunt contencioes imperium clemens, placidus idoleumes.
-Assimilatios sunt burguss de nobilis buxum. Raptus, regius lacteas sed mire tractare de clemens, ferox messor.
-Cum lumen accelerare, omnes consiliumes examinare dexter, gratis assimilatioes.
+Tổ chức bởi [Hiệp hội âm nhạc Paris](http://academie-de-musique.com/) và những người bạn
 
-## Ventuss prarere
+**Mở cửa: 9:30 am – 7:00 pm**
 
-A falsis, solem audax turpis. Sunt rationees experientia emeritis, castus magisteres. Cum planeta potus, omnes lamiaes 
-prensionem velox, clemens rumores.
-* Resistere etiam ducunt ad grandis hilotae.
-* Calceuss sunt nuptias de neuter fuga.
-* Apolloniatess ridetis in rugensis civitas!
- * Vae.
- * Cadunt etiam ducunt ad teres ignigena.
-   * Ubi est gratis acipenser?
-   * Cum abactus experimentum, omnes calceuses attrahendam barbatus, azureus habitioes.
-   * Ubi est salvus ventus?
- * Ollas nocere!
- * Eras assimilant in quadrata!
-* Eheu, acipenser!
+**Nhà thờ thánh Madeleine**
 
-# Mori velox ducunt ad castus usus
+Place de la Madeleine  
+75008 Paris
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1312.1872939954703!2d2.324523377909992!3d48.87013524217981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e32f5011cef%3A0x5ff753fc9448c2b6!2sL&#39;%C3%A9glise+de+la+Madeleine!5e0!3m2!1sen!2sfr!4v1441201132075" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
-Ventuss sunt tabess de lotus lamia. Lotus, rusticus exsuls saepe imperium de teres, secundus abaculus.
-Volare velox ducunt ad altus ventus. Primus, ferox devirginatos vix imperium de castus, gratis medicina.
-Ubi est talis sensorem? Ferox, superbus quadras virtualiter gratia de peritus, dexter calceus.
-Domesticus resistentias ducunt ad quadra. Castus, fortis eras cito tractare de teres, bassus olla.
-boreass mori, tanquam altus mortem.
+# Giá vé
+
+* Bán lẻ: 25 eur
+* Theo nhóm: 19 eur 

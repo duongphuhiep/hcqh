@@ -16,10 +16,10 @@ module.exports =
     {
       "publish": "2009-08-04",
       "name": "Bai viet 04",
-      "title": "History 04",
-      "author": "Tich Ky",
+      "title": "Internationales Chorals Meet up in Paris",
+      "author": "Ngan Ha",
       "lang": "en",
-      "excerpt": "Post 04 Post 04 Post 04 Post 04 Post 04 Post 04"
+      "excerpt": "Organized by the Music Association Music and Friends Open: 9:30 am – 7:00 pm Madeleine church"
     },
     {
       "publish": "2009-08-03",

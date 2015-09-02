@@ -1,42 +1,21 @@
 <!--
-title: History 04
-author: Tich Ky
+title: Internationales Chorals Meet up in Paris
+author: Ngan Ha
 -->
-# First title of the history n°04
 
-Cum cannabis trabem, omnes deuses pugna lotus, salvus assimilatioes.
-Cum gallus potus, omnes hilotaees visum clemens, alter finises. Observare recte ducunt ad secundus extum.
-Lunas cadunt in dexter alta muta! Cum uria tolerare, omnes adgiumes perdere clemens, castus musaes.
-Cum exemplar peregrinatione, omnes competitiones quaestio festus, germanus decores? 
+![](mozart_requiem_poster.jpg)
 
-## Orexis de bi-color ausus, imperium abaculus
+Organized by the [Paris Music Association](http://academie-de-musique.com/) and Friends
 
-Nuptias unda in rusticus sala! Talis, grandis brabeutas acceleratrix attrahendam de lotus, varius stella.
-Potus una ducunt ad altus hydra. Grandis, dexter byssuss nunquam consumere de rusticus, alter luna.
-Ubi est altus fiscina? Cliniass sunt paluss de velox scutum. Nobilis, alter byssuss mechanice desiderium de festus, barbatus vox.
-Detrius, aonides, et lura. A falsis, axona altus cacula. Animaliss sunt elevatuss de nobilis brodium.
-Cum lumen persuadere, omnes uriaes visum regius, mirabilis poetaes.
+**Open: 9:30 am – 7:00 pm**
 
-## Aususs nocere 
+**Madeleine church**
 
-Est talis bulla, cesaris. Victrixs unda in tubinga! Velox, secundus caesiums foris manifestum de brevis, fatalis detrius.
-est nobilis gemna, cesaris.
-* Armariums sunt ignigenas de castus caesium.
-* Manducare vix ducunt ad grandis demolitione.
-* Cadunt nunquam ducunt ad flavum hibrida.
- * Terrors assimilant!
- * Diatria de bi-color tata, tractare cannabis!
-   * Nixuss tolerare, tanquam regius terror.
-   * Bi-color, audax onuss sapienter demitto de dexter, noster magister.
-   * Bassus fraticinidas ducunt ad nomen.
- * Cur clabulare crescere?
- * Racana peregrinationess, tanquam raptus quadra.
-* Nunquam fallere animalis!
+Place de la Madeleine  
+75008 Paris
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1312.1872939954703!2d2.324523377909992!3d48.87013524217981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e32f5011cef%3A0x5ff753fc9448c2b6!2sL&#39;%C3%A9glise+de+la+Madeleine!5e0!3m2!1sen!2sfr!4v1441201132075" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
-# Idoleum de gratis contencio, dignus verpa
+# Ticket
 
-Salvus, raptus fidess sensim visum de alter, bassus index. Placidus, regius menss recte resuscitabo de rusticus, raptus vita.
-Superbus coordinatae sensim prensionems historia est. Raptus, castus apolloniatess virtualiter promissio de secundus, fortis species.
-Burguss messis! Nunquam examinare omnia. Cum medicina cantare, omnes galluses prensionem ferox, magnum zirbuses.
-Pess volare! Ecce. Est azureus sectam, cesaris. Cum eleates trabem, omnes brodiumes acquirere pius, salvus navises.
-bursas crescere, tanquam regius pars.
+* Individual price : 25 eur
+* Group price : 19 eur 

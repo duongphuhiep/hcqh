@@ -40,14 +40,11 @@ component is calculated base on the language meta-data or by the markdown file.
 
 		var i18n = require("i18next");
 		var $ = require("jquery");
-		var commonmark = require("commonmark");
 		var Route = require("../app/route");
 		var Lang = require("../app/lang");
 		var debounce = require("lodash.debounce");
 		var Utils = require("../lib/utils");
-
-		_this.reader = new commonmark.Parser();
-		_this.writer = new commonmark.HtmlRenderer();
+		var Markdown = require("../app/markdown");
 
 		_this.on("mount pageChange languageChange", function(type) {
 			var routeInfo = Route.getCurrentPageInfo();
@@ -77,6 +74,7 @@ component is calculated base on the language meta-data or by the markdown file.
 			_this.loading = true; _this.update();
 
 			var postFolderPath = Route.pathToBlogFolder + postId + "/";
+			_this.postFolderPath = postFolderPath;
 			_this.publish = getPublishDate(postId);
 			//console.log(postFolderPath);
 
@@ -107,7 +105,6 @@ component is calculated base on the language meta-data or by the markdown file.
 			_this.reloadTranslation();
 		}
 
-
 		_this.on('update', function() {
 			_this.reloadTranslation();
 		});
@@ -127,10 +124,14 @@ component is calculated base on the language meta-data or by the markdown file.
 		 * - convert the markdown to HTML in the div post_content
 		 */
 		_this.loadMarkDown = function(content) {
-			var parsed = _this.reader.parse(content);
-			var rawHead = parsed.firstChild.literal;
-			_this.head = Utils.parseConfig(rawHead);
-			_this.post_content.innerHTML = _this.writer.render(parsed);
+			var md = Markdown.process(content, _this.postFolderPath);
+			if (md.header) {
+				_this.head = Utils.parseConfig(md.header);
+			}
+			else {
+				console.warn("No header detected on ", Route.getCurrentPageInfo());
+			}
+			_this.post_content.innerHTML = md.html;
 		};
 
 		/**

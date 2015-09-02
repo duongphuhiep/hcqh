@@ -16,10 +16,10 @@ module.exports =
     {
       "publish": "2009-08-04",
       "name": "Bai viet 04",
-      "title": "Cảm nhận 04",
-      "author": "Tích Kỳ",
+      "title": "Giao lưu Hợp Xướng quốc tế tại Paris",
+      "author": "Ngân Hà",
       "lang": "vi",
-      "excerpt": "Bài viết 04 Bài viết 04 Bài viết 04 Bài viết 04 Bài viết 04 Bài viết 04"
+      "excerpt": "Tổ chức bởi Hiệp hội âm nhạc Paris và những người bạn Mở cửa: 9:30 am – 7:00 pm Nhà thờ thánh Madeleine"
     },
     {
       "publish": "2009-08-03",

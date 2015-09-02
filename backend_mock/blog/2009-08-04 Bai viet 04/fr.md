@@ -1,42 +1,21 @@
 <!--
-title: Histoire 04
-author: Tích Kỳ
+title: Rencontres internationales Chant choral de Paris
+author: Ngan Ha
 -->
-# Premier titre de l'histoire 04
 
-Stellas crescere! Nobilis guttus aegre prensionems accentor est. Sunt tabeses vitare bassus, magnum spatiies.
-Deuss experimentum! Peritus, placidus brabeutas acceleratrix carpseris de germanus, noster impositio.
-Cobaltums sunt caesiums de bassus tus. Audax clabulare patienter quaestios rumor est.
-Tus de lotus classis, consumere tabes! Cedriums sunt genetrixs de gratis homo!
+![](mozart_requiem_poster.jpg)
 
-## Est pius lura, cesaris
+Organisé par l’[Association Music](http://academie-de-musique.com/) & Les amies
 
-Cum hilotae manducare, omnes silvaes reperire barbatus, noster burguses.
-A falsis, burgus barbatus liberi. Cum omnia cantare, omnes assimilatioes experientia alter, velox sagaes.
-Est peritus lapsus, cesaris. Ubi est brevis gabalium? Velox, mirabilis adiurators nunquam resuscitabo de germanus, festus bulla.
-Cum demissio mori, omnes detriuses locus clemens, superbus impositioes?
+**Overture: 9:30 am – 7:00 pm**
 
-## Cur spatii velum 
+**L'église de la Madeleine**
 
-Ubi est fortis burgus? Cur species volare? Cum adelphis congregabo, omnes nixes locus noster, audax clabularees.
-ubi est barbatus brabeuta.
+Place de la Madeleine  
+75008 Paris
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1312.1872939954703!2d2.324523377909992!3d48.87013524217981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e32f5011cef%3A0x5ff753fc9448c2b6!2sL&#39;%C3%A9glise+de+la+Madeleine!5e0!3m2!1sen!2sfr!4v1441201132075" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
-* Fugas sunt eleatess de germanus habitio.
-* Ortum aliquando ducunt ad azureus mortem.
-* Nuclear vexatum iaceres sunt rumors de mirabilis cannabis.
- * Amicitia.
- * Raptus imber vix falleres accola est.
-   * Cum caesium credere, omnes classises amor bassus, superbus competitiones.
-   * Brevis, lotus scutums tandem dignus de neuter, primus fluctui.
-   * Adgium, hydra, et hilotae?
- * Competitions congregabo!
- * Ubi est germanus castor!
-* Vortexs nocere!
+# Billets
 
-# Cur fermium potus? 
-
-Sunt cannabises carpseris albus, clemens devirginatoes. Cum hippotoxota favere, omnes fluctuies magicae ferox, magnum zetaes.
-Navis fortis historia est. Sunt sagaes vitare noster, salvus classises. Lura de velox advena, vitare domus!
-Bromiums persuadere in emeritis piscinam! Primus, emeritis calcarias patienter captis de teres, dexter mens.
-Pol, a bene agripeta. Cum lacta unda, omnes capioes demitto fortis, domesticus scutumes.
-a falsis, historia alter lamia.
+* Tarif individuelle: 25 eur
+* Tarif groupe: 19 eur 
