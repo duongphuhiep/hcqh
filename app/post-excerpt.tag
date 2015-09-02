@@ -17,6 +17,7 @@
 		var _this = this;
 		var Lang = require('../app/lang');
 		var $ = require('jquery');
+		var i18n = require("i18next");
 
 		_this.reloadState = function() {
 			var postId = this.publish +' '+ this.name;
@@ -26,7 +27,7 @@
 
 		this.on("mount update", function() {
 			_this.reloadState();
-			$(this.root).i18n();
+			$(function() { $(_this.root).i18n(); });
 		});
 	</script>
 </post-excerpt>

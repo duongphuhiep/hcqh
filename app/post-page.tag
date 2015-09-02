@@ -66,9 +66,10 @@ component is calculated base on the language meta-data or by the markdown file.
 			//extract the postId from route
 			var postId;
 			var routeInfo = Route.getCurrentPageInfo();
-			postId =  routeInfo.params[0];
+			postId = routeInfo.params[0];
 			if (!postId) {
-				riot.route("404");
+				console.error("postId not found");
+				Route.switchToPage("404");
 				return;
 			}
 
@@ -98,7 +99,7 @@ component is calculated base on the language meta-data or by the markdown file.
 					_this.translationFound = (_this.head["language"] === Lang.getCurrentLanguage());
 					_this.loading = false; _this.update();
 				}).fail(function (error) {
-					riot.route("404");
+					Route.switchToPage("404");
 				});
 			});
 
@@ -116,7 +117,7 @@ component is calculated base on the language meta-data or by the markdown file.
 			_this.reloadTranslation = debounce(_reloadTranslation, 200);
 		}
 		function _reloadTranslation() {
-			$(_this.root).i18n();
+			$(function() { $(_this.root).i18n(); });
 		}
 
 		/**

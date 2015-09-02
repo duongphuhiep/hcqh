@@ -18,8 +18,8 @@
 			_this.update();
 		});
 
-		var route = require("../app/route");
-		_this.pageName = route.getCurrentPageInfo().pageName;
+		var Route = require("../app/route");
+		_this.pageName = Route.getCurrentPageInfo().pageName;
 		
 	</script>
 </content-route>

@@ -75,13 +75,21 @@ Responsive navigation bar
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
-		_this.on('pageChange', function(e) {
-			_this.pageName = e.pageName;
+		var Route = require("../app/route");
+		var $ = require("jquery");
+		var i18n = require("i18next");
+
+		_this.on('mount', function() {
+			_this.pageName = Route.getCurrentPageInfo().pageName;
+			$(function() { $(_this.root).i18n(); });
+		});
+		_this.on('pageChange', function() {
+			_this.pageName = Route.getCurrentPageInfo().pageName;
 			_this.update();
 		});
-
-		var Route = require("../app/route");
-		_this.pageName = Route.getCurrentPageInfo().pageName;
+		_this.on('languageChange', function() {
+			$(function() { $(_this.root).i18n(); });
+		});
 
 		$(function () {
 		    /* hide nav bar when click outside*/

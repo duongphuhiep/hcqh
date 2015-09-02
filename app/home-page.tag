@@ -131,8 +131,16 @@
 	</style>
 
 	<script>
+		var _this = this;
+		var RiotControl = require("RiotControl");
+		RiotControl.addStore(_this);
 
-	
+		var $ = require("jquery");
+		var i18n = require("i18next");
+
+		_this.on('mount languageChange', function() {
+			$(function() { $(_this.root).i18n(); });
+		});
 	</script>
 
 </home-page>

@@ -4,8 +4,8 @@
     var currentPageInfo = getCurrentPageInfoFromBrowser(); //use for caching
 
     /**
-    Disable the default riot route parser
-    */
+     * Disable the default riot route parser
+     */
     riot.route.parser(function(path) {
         return path;
     });
@@ -41,14 +41,22 @@
     }
 
     /**
-     notify navbar and content-route to change the view
+     *  notify navbar and content-route to change the view
      */
-    riot.route(function (path) {
+    function switchToPage(path) {
         currentPageInfo = parsePath(path);
         RiotControl.trigger('pageChange', currentPageInfo);
+    }
+
+    /**
+     * Handle route change event
+     */
+    riot.route(function (path) {
+        switchToPage(path)
     });
 
-    module.exports.getCurrentPageInfo = function() {return  currentPageInfo;}
+    module.exports.getCurrentPageInfo = function() {return  currentPageInfo;};
+    module.exports.switchToPage = switchToPage;
     module.exports.pathToBlogFolder = (DEBUG ? "backend_mock" : "content" )+"/blog/";
 })();
 

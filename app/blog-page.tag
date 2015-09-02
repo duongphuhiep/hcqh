@@ -87,10 +87,8 @@ possible route:
 			_this.reloadTranslation = debounce(_reloadTranslation, 200);
 		}
 		function _reloadTranslation() {
-			$(_this.root).i18n();
+			$(function() { $(_this.root).i18n(); });
 		}
-
-
 
 		function load(pageNumber, lang) {
 //			var src = 'backend/blog.php?page='+pageNumber+'&lang='+lang;
@@ -106,7 +104,7 @@ possible route:
 				_this.data = data;
 			}).fail(function (error) {
 				console.log(error);
-				riot.route("404");
+				Route.switchToPage("404");
 			}).always(function() {
 				_this.loading = false; _this.update();
 			});

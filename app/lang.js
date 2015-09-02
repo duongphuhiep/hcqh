@@ -21,7 +21,7 @@
 	 */
 	var option = { resGetPath: 'content/locales/__lng__-__ns__.json', detectLngQS: 'lang', cookieName: 'lang', fallbackLng: 'vi' };
 	i18n.init(option, function(err, t) {
-	    $(document).i18n();
+		$(function() { $(document).i18n(); });
 	});
 
 	function getQueryStringParams(sParam) {
