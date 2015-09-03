@@ -46,6 +46,9 @@ component is calculated base on the language meta-data or by the markdown file.
 		var Utils = require("../lib/utils");
 		var Markdown = require("../app/markdown");
 
+		Mixins = require('../app/mixins');
+		_this.mixin(Mixins.LoadingMixin);
+
 		_this.on("mount pageChange languageChange", function(type) {
 			var routeInfo = Route.getCurrentPageInfo();
 			if (routeInfo.pageName !== "post") {
@@ -71,7 +74,7 @@ component is calculated base on the language meta-data or by the markdown file.
 				return;
 			}
 
-			_this.loading = true; _this.update();
+			_this.showLoading();
 
 			var postFolderPath = Route.pathToBlogFolder + postId + "/";
 			_this.postFolderPath = postFolderPath;
@@ -85,18 +88,18 @@ component is calculated base on the language meta-data or by the markdown file.
 			}).done(function (data) {
 				_this.loadMarkDown(data);
 				_this.translationFound = _this.head["language"] ? _this.head["language"] === Lang.getCurrentLanguage() : true;
-				_this.loading = false; _this.update();
+				_this.hideLoading();
 			}).fail(function (error) {
 				console.log("fallback to vi", error);
 
-				_this.loading = true; _this.update();
+				_this.showLoading();
 				$.ajax({
 					url: postFolderPath + "vi.md",
 					dataType: 'text'
 				}).done(function (data) {
 					_this.loadMarkDown(data);
 					_this.translationFound = (_this.head["language"] === Lang.getCurrentLanguage());
-					_this.loading = false; _this.update();
+					_this.hideLoading();
 				}).fail(function (error) {
 					Route.switchToPage("404");
 				});

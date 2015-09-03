@@ -95,7 +95,7 @@ possible route:
 //			console.log('loading '+src);
 			//_this.waitMsg = src;
 
-			_this.loading = true; _this.update();
+			_this.showLoading();
 
 			$.ajax({
 				url: 'backend/blog.php?page='+pageNumber+'&lang='+lang,
@@ -106,11 +106,12 @@ possible route:
 				console.log(error);
 				Route.switchToPage("404");
 			}).always(function() {
-				_this.loading = false; _this.update();
+				_this.hideLoading();
 			});
-
 		}
 
+		Mixins = require('../app/mixins');
+		_this.mixin(Mixins.LoadingMixin);
 
 	</script>
 </blog-page>
