@@ -167,7 +167,7 @@
         var i18n = require("i18next");
 
         $.ajax({
-            url:Route.pathToBannerFolder+"text.txt",
+            url:Route.pathToBannerFolder+"config.txt",
             datatype:"text"
         }).success(function(data){
             var rawItems = data.split("--");
