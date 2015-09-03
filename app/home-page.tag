@@ -5,8 +5,7 @@
 	<div class="container">
 
 		<section>
-			<h1>A vietnamese vocal ensemble in France<br><small>2 minutes introduction...</small></h1>
-			
+			<h1><span data-i18n="A vietnamese vocal ensemble in France"></span><br><small data-i18n="2 minutes introduction..."></small></h1>
 
 			<!-- 16:9 aspect ratio -->
 			<div class="embed-responsive embed-responsive-16by9 center-block">
@@ -41,13 +40,13 @@
 				<div class='col-md-6 pad10' data-i18n="RecruitmentMessage">
 				</div>
 				<div class='col-md-3 text-center pad10'>
-					<a class="btn btn-primary btn-lg" href="#contact" role="button">Contact Us</a>
+					<a class="btn btn-primary btn-lg" href="#contact" role="button" data-i18n="Contact Us"></a>
 				</div>
 			</div>
 		</section>
 			
 		<section>
-			<h1>On Facebook</h1>
+			<h1 data-i18n="On Facebook"></h1>
 			<div class="center-block" style="max-width:500px;">
 				<div class="fb-page"
 					data-href="https://www.facebook.com/hopcaquehuong?fref=ts"
