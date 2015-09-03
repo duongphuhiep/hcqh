@@ -5,11 +5,21 @@
 	<div class="container">
 
 		<section>
-			<h1><span data-i18n="A vietnamese vocal ensemble in France"></span><br><small data-i18n="2 minutes introduction..."></small></h1>
+			<h1>
+				<span data-i18n="A vietnamese vocal ensemble in France"></span><br>
+				<small data-i18n="two minutes introduction"></small>
+			</h1>
 
-			<!-- 16:9 aspect ratio -->
-			<div class="embed-responsive embed-responsive-16by9 center-block">
-			  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>
+
+			<div class="row">
+				<div class='col-md-3 text-center'></div>
+				<div class='col-md-6'>
+					<!-- 16:9 aspect ratio -->
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiZSZE_TD-w?cc_load_policy=1&cc_lang_pref=en" allowfullscreen></iframe>
+					</div>
+				</div>
+				<div class='col-md-3 text-center'></div>
 			</div>
 
 			<p class="btn center-block" data-toggle="collapse" data-target="#speechText">
@@ -90,6 +100,10 @@
 		p {
 			padding-top: 20px;
 			padding-bottom: 20px;
+		}
+		.limitedSize {
+			max-width: 600px;
+			max-height: 400px;
 		}
 	</style>
 
