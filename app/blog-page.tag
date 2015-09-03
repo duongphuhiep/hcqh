@@ -44,7 +44,6 @@ possible route:
 		var $ = require("jquery");
 		var debounce = require("lodash.debounce");
 
-
 		_this.on("mount pageChange languageChange", function(type, e) {
 			var currentRouteInfo = Route.getCurrentPageInfo();
 			if (currentRouteInfo.pageName !== 'blog') {
@@ -74,7 +73,6 @@ possible route:
 			load(pageNumber, Lang.getCurrentLanguage());
 			_this.reloadTranslation();
 		}
-
 
 
 		_this.on('update', function() {
@@ -110,7 +108,7 @@ possible route:
 			});
 		}
 
-		Mixins = require('../app/mixins');
+		var Mixins = require('../app/mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 	</script>

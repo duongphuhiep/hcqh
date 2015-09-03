@@ -46,7 +46,7 @@ component is calculated base on the language meta-data or by the markdown file.
 		var Utils = require("../lib/utils");
 		var Markdown = require("../app/markdown");
 
-		Mixins = require('../app/mixins');
+		var Mixins = require('../app/mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 		_this.on("mount pageChange languageChange", function(type) {

@@ -101,10 +101,6 @@
 			padding-top: 20px;
 			padding-bottom: 20px;
 		}
-		.limitedSize {
-			max-width: 600px;
-			max-height: 400px;
-		}
 	</style>
 
 	<script>

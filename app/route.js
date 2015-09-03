@@ -61,6 +61,7 @@
     module.exports.switchToPage = switchToPage;
     module.exports.pathToBlogFolder = RootContent+"blog/";
     module.exports.pathToBannerFolder = RootContent+"home/banner/";
+    module.exports.pathToMemberFolder = RootContent+"members/";
 })();
 
 
