@@ -23,8 +23,6 @@ var LoadingMixin = {
             delay = 50;
         }
 
-        console.log("show rg-loading component");
-
         this._loading = true;
 
         var _this = this;
