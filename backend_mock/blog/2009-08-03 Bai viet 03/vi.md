@@ -1,7 +1,7 @@
 <!--
 title: はチュウォンが演じる名医手術
 author: Yongpal
-language: jp
+lang: jp
 -->
 # はチュウォンが演じる名医手術、の話です。そのため、お金
 

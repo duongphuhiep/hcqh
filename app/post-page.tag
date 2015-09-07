@@ -87,7 +87,7 @@ component is calculated base on the language meta-data or by the markdown file.
 				dataType: 'text'
 			}).done(function (data) {
 				_this.loadMarkDown(data);
-				_this.translationFound = _this.head["language"] ? _this.head["language"] === Lang.getCurrentLanguage() : true;
+				_this.translationFound = _this.head["lang"] ? _this.head["lang"] === Lang.getCurrentLanguage() : true;
 				_this.hideLoading();
 			}).fail(function (error) {
 				console.log("fallback to vi", error);
@@ -98,7 +98,7 @@ component is calculated base on the language meta-data or by the markdown file.
 					dataType: 'text'
 				}).done(function (data) {
 					_this.loadMarkDown(data);
-					_this.translationFound = (_this.head["language"] === Lang.getCurrentLanguage());
+					_this.translationFound = (_this.head["lang"] === Lang.getCurrentLanguage());
 					_this.hideLoading();
 				}).fail(function (error) {
 					Route.switchToPage("404");
