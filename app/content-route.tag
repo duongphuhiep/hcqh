@@ -1,7 +1,6 @@
 /* use router API to display the content */
 <content-route>
 	<home-page if={ pageName == 'home' }></home-page>
-	<repertoire-page if={ pageName == 'repertoire' }></repertoire-page>
 	<member-page if={ pageName == 'member' }></member-page>
 	<blog-page if={ pageName == 'blog' }></blog-page>
 	<post-page if={ pageName == 'post' }></post-page>
