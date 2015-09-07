@@ -19,7 +19,11 @@ function checkLogin($idtoken)
 
 $idtoken = $_POST["idtoken"];
 $data = checkLogin($idtoken);
-
-$googleUserId = $data["sub"];
-$email = $data["email"];
-echo ((string)$googleUserId) . " (". $email . ")";
+if ($data == null) {
+    header('HTTP/1.0 401 Unauthorized');
+}
+else {
+    $googleUserId = $data["sub"];
+    $email = $data["email"];
+    echo ((string)$googleUserId) . " (" . $email . ")";
+}
