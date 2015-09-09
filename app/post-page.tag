@@ -73,6 +73,13 @@ component is calculated base on the language meta-data or by the markdown file.
 				Route.switchToPage("404");
 				return;
 			}
+			load(postId, Lang.getCurrentLanguage())
+		}
+
+		function load(postId, lang) {
+			if (postId===_this.loadedPostId && lang===_this.loadedLang) {
+				return;
+			}
 
 			_this.showLoading();
 
@@ -83,24 +90,29 @@ component is calculated base on the language meta-data or by the markdown file.
 
 			//load the post in the current language
 			$.ajax({
-				url: postFolderPath + Lang.getCurrentLanguage() + ".md",
+				url: postFolderPath + lang + ".md",
 				dataType: 'text'
 			}).done(function (data) {
 				_this.loadMarkDown(data);
-				_this.translationFound = _this.head["lang"] ? _this.head["lang"] === Lang.getCurrentLanguage() : true;
+				_this.loadedPostId = postId;
+				_this.loadedLang = _this.head["lang"] ? _this.head["lang"] : lang;
+				_this.translationFound = _this.loadedLang===lang;
 				_this.hideLoading();
 			}).fail(function (error) {
-				console.log("fallback to vi", error);
-
+				//console.log("fallback to vi", error);
 				_this.showLoading();
 				$.ajax({
 					url: postFolderPath + "vi.md",
 					dataType: 'text'
 				}).done(function (data) {
 					_this.loadMarkDown(data);
-					_this.translationFound = (_this.head["lang"] === Lang.getCurrentLanguage());
+					_this.loadedPostId = postId;
+					_this.loadedLang = _this.head["lang"] ? _this.head["lang"] : 'vi';
+					_this.translationFound = _this.loadedLang===lang;
 					_this.hideLoading();
 				}).fail(function (error) {
+					_this.loadedPostId = null;
+					_this.loadedLang = null;
 					Route.switchToPage("404");
 				});
 			});

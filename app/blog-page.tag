@@ -89,10 +89,10 @@ possible route:
 		}
 
 		function load(pageNumber, lang) {
-//			var src = 'backend/blog.php?page='+pageNumber+'&lang='+lang;
-//			console.log('loading '+src);
-			//_this.waitMsg = src;
-
+			if (_this.loadedPageNumber===pageNumber && _this.loadedLang===lang) {
+				return;
+			}
+			
 			_this.showLoading();
 
 			$.ajax({
@@ -100,6 +100,8 @@ possible route:
 				dataType: 'json'
 			}).done(function (data) {
 				_this.data = data;
+				_this.loadedPageNumber = pageNumber;
+				_this.loadedLang = lang;
 			}).fail(function (error) {
 				console.log(error);
 				Route.switchToPage("404");
