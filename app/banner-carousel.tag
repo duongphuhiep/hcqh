@@ -126,9 +126,9 @@
             <div each={ bannerItems } class={ item : true, active : index==0 }>
                 <img src={ linkToImage(this.image) }>
                 <div if={ title || body || post } class="carousel-caption">
-                    <h1 if={ title } class="transparent-background">{ title }</h1>
+                    <h1 if={ title } class="transparent-background animated fadeInDownBig">{ title }</h1>
                     <div if={ body } class="transparent-background">{ body }</div>
-                    <div if={ post } class="learnmore"><a class="btn btn-lg btn-primary" href={ linkToPost(this.post) } role="button" data-i18n="Learn more"></a></div>
+                    <div if={ post } class="learnmore"><a class="btn btn-lg btn-primary animated fadeInUp" href={ linkToPost(this.post) } role="button" data-i18n="Learn more"></a></div>
                 </div>
             </div>
 
