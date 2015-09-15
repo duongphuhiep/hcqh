@@ -10,7 +10,9 @@
 		<div class="row">
 			<div each={ members }  class="col-lg-3 col-md-4 col-xs-6 thumb limitedSize">
 				<div class="thumbnail">
-					<img class="img-responsive limitedSize" src={ this.image }>
+					<!--<img class="img-responsive limitedSize animated bounceIn" src={ this.image }>-->
+					<!--<img class={img-responsive:true, limitedSize:true, animated:true, animation:true} src={ this.image }>-->
+					<img class={ this.cssClazz } src={ this.image }>
 				</div>
 			</div>
 		</div>
@@ -68,10 +70,26 @@
 				var imgConfig = Utils.parseConfig(item);
 				if (imgConfig.image) {
 					imgConfig.image = Route.pathToMemberFolder + imgConfig.image;
+					imgConfig.cssClazz = "img-responsive limitedSize animated "+randomAnimation();
 					data.push(imgConfig);
 				}
 			});
 			return data;
+		}
+
+		/**
+		 * return a random entrance animation of animaite.css
+		 * @returns {string}
+		 */
+		function randomAnimation() {
+			var entrancesAnimation = [
+				"bounceIn",
+				"bounceInDown",
+				"bounceInLeft",
+				"bounceInRight",
+				"bounceInUp"
+			];
+			return entrancesAnimation[Math.floor(Math.random()*entrancesAnimation.length)];
 		}
 
 		_this.on('mount languageChange', function() {
