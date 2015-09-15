@@ -41,7 +41,7 @@
 		if (!currentLang) {
 			currentLang = Cookies.get('lang');
 		}
-		if (!currentLang) {
+		if (!currentLang || $.inArray(currentLang,["fr","en","vi"])<0) {
 			return "vi";
 		}
 		return currentLang;
