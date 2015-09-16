@@ -7,9 +7,9 @@
 		<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ author }</em>
 	</p>
 
-	<p>{ excerpt } </p>
+	<p class="animated fadeInDown">{ excerpt } </p>
 	<p class="text-right">
-	<a class="btn btn-default" href="#{ postLink }">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
+	<a class="btn btn-default animated fadeInRight" href="#{ postLink }">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
 	</p>
 	<hr>
 
