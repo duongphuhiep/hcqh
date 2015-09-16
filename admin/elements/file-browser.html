@@ -1,0 +1,50 @@
+<!--
+Display a list of files given by API server
+-->
+<dom-module id="file-browser">
+	<template>
+		<paper-card heading="Upload">
+			<file-upload droppable="true" raised="true" multi="true">Choose File</file-upload>
+		</paper-card>
+		<template is="dom-repeat" items={{files}}>
+			<paper-card>
+				<div class="card-content">{{item}}</div>
+				<div class="card-actions">
+					<paper-icon-button icon="icons:clear" alt="Delete"></paper-icon-button>
+					<paper-icon-button icon="icons:text-format" alt="Rename"></paper-icon-button>
+				</div>
+			</paper-card>
+		</template>
+
+		<style is="custom-style">
+			paper-card {
+				max-width: 300px;
+				margin:5px;
+			}
+			.horizontal-section-container {
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
+				@apply(--layout-wrap);
+			}
+		</style>
+	</template>
+	<script>
+		Polymer({
+			is: 'file-browser',
+			ready: function () {
+				this.files = [
+					"Vae, primus axona.png",
+					"Racanas observare.png",
+					"Nunquam dignus era",
+					"Nunquam locus medicina",
+					"Nunquam gratia urbs",
+					"Nunquam demitto abnoba"
+				];
+			},
+			properties: {
+				url: String
+			}
+		});
+	</script>
+
+</dom-module>
