@@ -7,26 +7,22 @@ Display a list of files given by API server
 			<file-upload droppable="true" raised="true" multi="true">Choose File</file-upload>
 		</paper-card>
 		<template is="dom-repeat" items={{files}}>
-			<paper-card>
-				<div class="card-content">{{item}}</div>
-				<div class="card-actions">
-					<paper-icon-button icon="icons:clear" alt="Delete"></paper-icon-button>
-					<paper-icon-button icon="icons:text-format" alt="Rename"></paper-icon-button>
-				</div>
-			</paper-card>
+			<file-item file-name={{item}}></file-item>
 		</template>
 
+<!--
 		<style is="custom-style">
 			paper-card {
 				max-width: 300px;
 				margin:5px;
 			}
 			.horizontal-section-container {
-				@apply(--layout-horizontal);
-				@apply(--layout-center-justified);
-				@apply(--layout-wrap);
+				@apply(&#45;&#45;layout-horizontal);
+				@apply(&#45;&#45;layout-center-justified);
+				@apply(&#45;&#45;layout-wrap);
 			}
 		</style>
+-->
 	</template>
 	<script>
 		Polymer({

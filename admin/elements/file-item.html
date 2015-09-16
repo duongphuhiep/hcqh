@@ -1,0 +1,49 @@
+<!--
+Display a list of files given by API server
+-->
+<dom-module id="file-item">
+	<template>
+		<div class="unit">
+			<span>{{fileName}}</span>
+
+			<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
+			<paper-tooltip for="rename">Rename</paper-tooltip>
+
+			<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
+			<paper-tooltip for="delete">Delete</paper-tooltip>
+		</div>
+
+		<!--<paper-card>
+			<div class="card-content">{{fileName}}</div>
+			<div class="card-actions">
+				<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
+				<paper-tooltip for="delete">Delete</paper-tooltip>
+
+				<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
+				<paper-tooltip for="rename">Rename</paper-tooltip>
+			</div>
+		</paper-card>-->
+
+		<style is="custom-style">
+			.unit {
+				display: inline-block;
+				background: #fff;
+				max-width: 300px;
+				margin:5px;
+				@apply(--shadow-elevation-2dp);
+			}
+			/*paper-card {
+				max-width: 300px;
+				margin:5px;
+			}*/
+		</style>
+	</template>
+	<script>
+		Polymer({
+			is: 'file-item',
+			properties: {
+				fileName: String
+			}
+		});
+	</script>
+</dom-module>

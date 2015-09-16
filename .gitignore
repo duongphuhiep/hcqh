@@ -6,3 +6,4 @@ gen/
 dist/
 .draft
 npm-debug.*
+backend_mock/SinonTest.html

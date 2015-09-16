@@ -45,7 +45,7 @@ gulp.task('bundle', ['bundle:tag'], function() {
         }))
         .pipe(gp_browserify({
             detectGlobal:true,
-            debug : true
+            debug : false
         }))
         .pipe(gulp.dest('dist'))
 
