@@ -3,14 +3,6 @@ Display a list of files given by API server
 -->
 <dom-module id="file-item">
 	<template>
-		<!--<span class="file-name">{{fileName}}</span>
-
-		<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
-		<paper-tooltip for="rename">Rename</paper-tooltip>
-
-		<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
-		<paper-tooltip for="delete">Delete</paper-tooltip>-->
-
 		<paper-card>
 			<div class="card-content">{{fileName}}</div>
 			<div class="card-actions">
@@ -23,16 +15,6 @@ Display a list of files given by API server
 		</paper-card>
 
 		<style is="custom-style">
-			/*:host {
-				display: inline-block;
-				background: #fff;
-				max-width: 300px;
-				margin:5px;
-				@apply(--shadow-elevation-2dp);
-			}
-			.file-name {
-				margin: 5px;
-			}*/
 			paper-card {
 				max-width: 300px;
 				margin:5px;
