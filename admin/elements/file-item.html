@@ -4,7 +4,7 @@ Display a list of files given by API server
 <dom-module id="file-item">
 	<template>
 		<div class="unit">
-			<span>{{fileName}}</span>
+			<span class="file-name">{{fileName}}</span>
 
 			<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
 			<paper-tooltip for="rename">Rename</paper-tooltip>
@@ -31,6 +31,9 @@ Display a list of files given by API server
 				max-width: 300px;
 				margin:5px;
 				@apply(--shadow-elevation-2dp);
+			}
+			.file-name {
+				margin: 5px;
 			}
 			/*paper-card {
 				max-width: 300px;

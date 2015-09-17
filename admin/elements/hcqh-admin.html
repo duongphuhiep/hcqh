@@ -25,26 +25,36 @@
 				<!-- Main Content -->
 				<div class="content">
 					<file-browser></file-browser>
-
-
-
+					<div class="editor">
+						<commonmark-editor>
+# Bai viet so 1
+						</commonmark-editor>
+					</div>
 				</div>
 
 			</paper-header-panel>
 
 		</paper-drawer-panel>
 
-		<!--<style is="custom-style">
-			.horizontal-section-container {
-				@apply(&#45;&#45;layout-horizontal);
-				@apply(&#45;&#45;layout-center-justified);
-				@apply(&#45;&#45;layout-wrap);
+		<style is="custom-style">
+			.editor {
+				display: block;
+				background: #fff;
+				@apply(--shadow-elevation-2dp);
+				height: 400px;
+				margin: 10px;
+			}
+			/*.horizontal-section-container {
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
+				@apply(--layout-wrap);
 			}
 			.vertical-section-container {
-				@apply(&#45;&#45;layout-vertical);
-				@apply(&#45;&#45;center-justified);
-			}
-		</style>-->
+				@apply(--layout-vertical);
+				@apply(--center-justified);
+			}*/
+		</style>
+
 	</template>
 
 	<script>
