@@ -1,0 +1,26 @@
+<!--
+Display a list of files given by API server
+-->
+<dom-module id="post-collection">
+	<template>
+		<template is="dom-repeat" items={{postIds}}>
+			<file-item file-name={{item}}></file-item>
+		</template>
+	</template>
+	<script>
+		Polymer({
+			is: 'post-collection',
+			ready: function () {
+				this.postIds = [
+					"2015-05-18 aee, primus axona",
+					"2015-05-17 Racanas observare",
+					"2015-05-16 Nunquam dignus era",
+					"2015-05-15 Nunquam locus medicina",
+					"2015-05-14 Nunquam gratia urbs",
+					"2015-05-13 Nunquam demitto abnoba"
+				];
+			}
+		});
+	</script>
+
+</dom-module>
