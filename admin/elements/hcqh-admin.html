@@ -1,9 +1,5 @@
 <dom-module id="hcqh-admin">
-
-	<link rel="import" type="css" href="hcqh-admin.css">
-
 	<template>
-
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
 			<div class="nav" drawer>
@@ -50,15 +46,18 @@
 				height: 400px;
 				margin: 10px;
 			}
-			/*.horizontal-section-container {
-				@apply(--layout-horizontal);
-				@apply(--layout-center-justified);
-				@apply(--layout-wrap);
+
+			:host {
+			  display: block;
 			}
-			.vertical-section-container {
-				@apply(--layout-vertical);
-				@apply(--center-justified);
-			}*/
+
+			.nav {
+			  border-right: 1px solid #ccc;
+			}
+
+			.main {
+			  background-color: #eee;
+			}
 		</style>
 
 	</template>
