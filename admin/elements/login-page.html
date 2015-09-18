@@ -1,0 +1,82 @@
+<!--
+Display a list of files given by API server
+-->
+<dom-module id="login-page">
+	<template>
+		<!--Tutorial-->
+		<!--<google-signin id="gs" client-id="1054047045356-j8pgqgls9vdef3rl09hapoicumbte0bo.apps.googleusercontent.com" scopes="profile"></google-signin>-->
+
+		<google-signin id="gs" client-id="786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com" scopes="profile"></google-signin>
+		<!--<google-signin id="gs" client-id="786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com" scopes="https://www.googleapis.com/auth/drive"></google-signin>-->
+		<p><button on-click="userInfo">Log User Info</button></p>
+		<p><button on-click="disconnect">Disconnect</button></p>
+		<img src={{userImage}}>
+		<ul>
+			<li>{{userName}}</li>
+			<li>{{userEmail}}</li>
+			<li>{{userId}}</li>
+		</ul>
+	</template>
+	<script>
+		Polymer({
+			is: 'login-page',
+			listeners: {
+				"gs.google-signed-out": "_onLoginFailed",
+				"gs.google-signin-aware-signed-out": "_onLoginScopeFailed",
+				"gs.google-google-signin-aware-success": "_onLoginScopeOk",
+				"gs.google-signin-necessary": "_onLoginNecessary",
+				"gs.google-signin-success": "_onLoginOk",
+				"gs.signedIn-changed": "_signedInChanged"
+			},
+
+			ready: function() {
+				//this.$.gs.signOut();
+			},
+
+			_onLoginFailed: function(e) {
+				console.log("_onLoginFailed", e);
+			},
+			_onLoginScopeFailed: function(e) {
+				console.log("_onLoginScopeFailed", e);
+			},
+			_onLoginScopeOk: function(e) {
+				console.log("_onLoginScopeOk", e);
+			},
+			_onLoginNecessary: function(e) {
+				console.log("_onLoginNecessary", e);
+			},
+			_onLoginOk: function(e) {
+				console.log("_onLoginOk", e);
+			},
+			_signedInChanged: function(e) {
+				console.log("_signedInChanged", e);
+			},
+
+			userInfo:  function() {
+				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+				console.log("currentUser", currentUser);
+
+				var profile = currentUser.getBasicProfile();
+				console.log("User Profile", profile);
+				this.userName = profile.getName();
+				this.userId = profile.getId();
+				this.userImage = profile.getImageUrl();
+				this.userEmail = profile.getEmail();
+
+				var id_token = currentUser.getAuthResponse().id_token;
+				console.log("Token",id_token);
+			},
+
+			disconnect:  function() {
+				console.log("disconnect", currentUser);
+				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+				if (currentUser) {
+					currentUser.disconnect();
+					console.log("User disconnected")
+				}
+				gapi.auth2.getAuthInstance().signOut();
+				console.log("SignOut")
+			}
+		});
+	</script>
+</dom-module>
