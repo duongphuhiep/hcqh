@@ -1,56 +1,53 @@
 {
-	"name": "hcqh",
-	"version": "1.0.0",
-	"description": "Trang Web Hop ca",
-	"main": "index.html",
-	"author": "hiep",
-	"license": "MIT",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "live-server"
-	},
-	"browserify": {
-		"transform": [
-			[
-				"browserify-shim"
-			]
-		]
-	},
-	"browser": {
-		"RiotControl": "./lib/riotcontrol.js",
-		"jscookie": "./lib/js.cookie.js"
-	},
-	"browserify-shim": {
-		"jquery": "global:jQuery",
-		"riot": "global:riot",
-		"i18next": "global:i18n",
-		"commonmark": "global:commonmark"
-	},
-	"devDependencies": {
-		"browserify": "^11.0.1",
-		"browserify-shim": "^3.8.10",
-		"commonmark": "^0.22.0",
-		"gulp": "^3.9.0",
-		"gulp-browserify": "^0.5.1",
-		"gulp-concat": "^2.6.0",
-		"gulp-plumber": "^1.0.1",
-		"gulp-rename": "^1.2.2",
-		"gulp-riot": "^0.3.0",
-		"gulp-sourcemaps": "^1.5.2",
-		"gulp-uglify": "^1.2.0",
-		"live-server": "^0.7.1",
-		"node-jquery": "^0.1.0",
-		"riotify": "^0.1.2",
-		"sinon": "^1.16.1",
-		"steal-tools": "^0.10.7",
-		"uglify-js": "^2.4.24"
-	},
-	"dependencies": {
-		"i18next": "^1.10.4",
-		"jquery": "^2.1.4",
-		"lodash.debounce": "^3.1.1",
-		"riot": "^2.2.4",
-		"steal": "^0.10.5",
-		"strip-markdown": "^0.3.1"
-	}
+  "name": "hcqh",
+  "version": "1.0.0",
+  "description": "Trang Web Hop ca",
+  "main": "index.html",
+  "author": "hiep",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "browserify-shim"
+      ]
+    ]
+  },
+  "browser": {
+    "RiotControl": "./lib/riotcontrol.js",
+    "jscookie": "./lib/js.cookie.js"
+  },
+  "browserify-shim": {
+    "jquery": "global:jQuery",
+    "riot": "global:riot",
+    "i18next": "global:i18n",
+    "commonmark": "global:commonmark"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "browserify-shim": "^3.8.10",
+    "commonmark": "^0.22.0",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-riot": "^0.3.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "live-server": "^0.7.1",
+    "node-jquery": "^0.1.0",
+    "riotify": "^0.1.2",
+    "sinon": "^1.16.1",
+    "uglify-js": "^2.4.24"
+  },
+  "dependencies": {
+    "i18next": "^1.10.4",
+    "jquery": "^2.1.4",
+    "lodash.debounce": "^3.1.1",
+    "riot": "^2.2.4"
+  }
 }
