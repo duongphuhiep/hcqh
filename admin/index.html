@@ -21,10 +21,22 @@
 	<script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 	<link rel="import" href="./elements.html">
 </head>
-<body unresolved>
+<body unresolved class="fullbleed layout vertical">
+
+	<template is="dom-bind" id="app">
+		<iron-pages attr-for-selected="data-route" selected="login">
+			<section data-route="login">
+				<login-page></login-page>
+			</section>
+			<section data-route="main">
+				<hcqh-admin></hcqh-admin>
+			</section>
+		</iron-pages>
+	</template>
 
 
-	<hcqh-admin></hcqh-admin>
+
+	<!-- <hcqh-admin></hcqh-admin> -->
 
 	<!-- <login-page></login-page> -->
 

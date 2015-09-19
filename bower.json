@@ -1,53 +1,51 @@
 {
-	"name": "hcqh",
-	"version": "1.0.0",
-	"homepage": "https://github.com/duongphuhiep/hcqh",
-	"authors": [
-		"hiep <duongphuhiep@gmail.com>"
-	],
-	"description": "Website Que Huong chorale",
-	"main": "index.html",
-	"moduleType": [
-		"globals"
-	],
-	"keywords": [
-		"Chorale",
-		"chansons",
-		"song",
-		"vocale"
-	],
-	"license": "MIT",
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	],
-	"dependencies": {
-		"animate.css": "~3.4.0",
-		"commonmark": "~0.21.0",
-		"commonmark-editor": "~1.0.4",
-		"file-upload": "~1.5.3",
-		"fine-uploader": "~5.3.1",
-		"fu-area": "~1.1.1",
-		"i18next": "~1.10.2",
-		"iron-icons": "PolymerElements/iron-icons#~1.0.3",
-		"js-cookie": "~2.0.3",
-		"paper-card": "PolymerElements/paper-card#~1.0.4",
-		"paper-tooltip": "PolymerElements/paper-tooltip#~1.1.0",
-		"polymer": "Polymer/polymer#^1.0.0",
-
-		"google-signin": "GoogleWebComponents/google-signin#^1.0.0",
-		"iron-icons": "PolymerElements/iron-icons#^1.0.0",
-		"iron-iconset": "PolymerElements/iron-iconset#^1.0.0",
-		"paper-button": "PolymerElements/paper-button#^1.0.0",
-		"paper-card": "PolymerElements/paper-card#^1.0.0",
-		"paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.0",
-		"paper-header-panel": "PolymerElements/paper-header-panel#^1.0.0",
-		"paper-item": "PolymerElements/paper-item#^1.0.0",
-		"paper-progress": "PolymerElements/paper-progress#^1.0.0",
-		"paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
-		"paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0"
-	}
+  "name": "hcqh",
+  "version": "1.0.0",
+  "homepage": "https://github.com/duongphuhiep/hcqh",
+  "authors": [
+    "hiep <duongphuhiep@gmail.com>"
+  ],
+  "description": "Website Que Huong chorale",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Chorale",
+    "chansons",
+    "song",
+    "vocale"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "~3.4.0",
+    "commonmark": "~0.21.0",
+    "commonmark-editor": "~1.0.4",
+    "file-upload": "~1.5.3",
+    "fine-uploader": "~5.3.1",
+    "fu-area": "~1.1.1",
+    "google-signin": "GoogleWebComponents/google-signin#^1.0.0",
+    "i18next": "~1.10.2",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "iron-iconset": "PolymerElements/iron-iconset#^1.0.0",
+    "iron-pages": "PolymerElements/iron-pages#~1.0.3",
+    "js-cookie": "~2.0.3",
+    "page": "page.js#~1.6.3",
+    "paper-button": "PolymerElements/paper-button#^1.0.0",
+    "paper-card": "PolymerElements/paper-card#^1.0.0",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.0",
+    "paper-header-panel": "PolymerElements/paper-header-panel#^1.0.0",
+    "paper-item": "PolymerElements/paper-item#^1.0.0",
+    "paper-progress": "PolymerElements/paper-progress#^1.0.0",
+    "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
+    "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
 }
