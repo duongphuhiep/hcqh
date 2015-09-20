@@ -3,16 +3,13 @@ Display a list of files given by API server
 -->
 <dom-module id="file-browser">
 	<template>
-		<!--<div id="container" class="grid js-masonry" data-masonry-options='{ "itemSelector": ".grid-item" }'>-->
-		<div id="container" class="grid">
-			<paper-card class="grid-item" heading="Upload">
-				<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
-			</paper-card>
+		<paper-card class="grid-item" heading="Upload">
+			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
+		</paper-card>
 
-			<template is="dom-repeat" items={{files}}>
-				<file-item class="grid-item" file-name={{item}}></file-item>
-			</template>
-		</div>
+		<template is="dom-repeat" items={{files}}>
+			<file-item class="grid-item" file-name={{item}}></file-item>
+		</template>
 
 
 <!--
@@ -44,22 +41,12 @@ Display a list of files given by API server
 
 			},
 			listeners: {
-				"fileUpload.before-upload": "updateLayout",
-				"fileUpload.cancel-upload": "updateLayout"
-			},
-			attached: function () {
-				this.masonry = new Masonry(this.$.container, {"itemSelector": ".grid-item"});
-				this.masonry.layout();
+				/*"fileUpload.before-upload": "updateLayout",
+				"fileUpload.cancel-upload": "updateLayout"*/
 			},
 			properties: {
 				url: String
 			},
-			updateLayout: function() {
-				this.debounce("updateLayout",function() {
-					console.log(this.$.container.masonry);
-					this.masonry.layout();
-				} ,100);
-			}
 		});
 	</script>
 
