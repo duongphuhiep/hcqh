@@ -7,14 +7,11 @@
 			</div>
 
 			<paper-header-panel class="main" main mode="waterfall">
-
 				<!-- Main Toolbar -->
 				<paper-toolbar>
 					<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-					<div class="title">Hello, Hiep</div>
-					<paper-button>
-						<google-signin id="gs" client-id="786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com" scopes="profile"></google-signin>
-					</paper-button>
+					<div class="title">{{welcomeHeader}}</div>
+					<google-signin id="gs" client-id="786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com" scopes="profile"></google-signin>
 				</paper-toolbar>
 
 				<!-- Main Content -->
@@ -64,11 +61,36 @@
 	</template>
 
 	<script>
-
 		Polymer({
+			ready: function() {
+				this.listen(app, 'google-login', "_refreshLoginState");
+			},
 
-			is: 'hcqh-admin'
+			is: 'hcqh-admin',
+			listeners: {
+				"gs.google-signed-out": "_onSignOut", /*we can also capture the "app.google-signout" event*/
+				"google-login": "_refreshLoginState"
+			},
 
+			_refreshLoginState: function() {
+				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+				if (currentUser) {
+					var profile = currentUser.getBasicProfile();
+					if (profile) {
+						this.welcomeHeader = "Hi, " + profile.getName() + " (" + profile.getId() + ")";
+						//this.userAvatar = profile.getImageUrl();
+						//this.userEmail = profile.getEmail();
+						//var id_token = currentUser.getAuthResponse().id_token;
+						return;
+					}
+				}
+				console.error("User is logged in but cannot retreive user info");
+				page.redirect("/login");
+			},
+
+			_onSignOut: function() {
+				page.redirect("/login");
+			}
 		});
 
 	</script>

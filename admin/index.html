@@ -23,18 +23,18 @@
 </head>
 <body unresolved class="fullbleed layout vertical">
 
+	<span id="browser-sync-binding"></span>
+
 	<template is="dom-bind" id="app">
-		<iron-pages attr-for-selected="data-route" selected="login">
+		<iron-pages attr-for-selected="data-route" selected={{route}}>
 			<section data-route="login">
 				<login-page></login-page>
 			</section>
-			<section data-route="main">
+			<section data-route="home">
 				<hcqh-admin></hcqh-admin>
 			</section>
 		</iron-pages>
 	</template>
-
-
 
 	<!-- <hcqh-admin></hcqh-admin> -->
 

@@ -1,0 +1,48 @@
+<script src="../bower_components/page/page.js"></script>
+<script>
+	window.addEventListener('WebComponentsReady', function () {
+		var GoogleAuth = gapi.auth2.getAuthInstance();
+		page.base("/admin")
+		page('/', function () {
+			if (GoogleAuth.isSignedIn.get()) {
+				app.route = 'home';
+			}
+			else {
+				app.route = 'login';
+			}
+		});
+
+		page('/login', function () {
+			app.route = 'login';
+		});
+
+		page('/post/:postId', function (data) {
+			if (GoogleAuth.isSignedIn.get()) {
+				app.route = 'post';
+				app.params = data.params;
+			}
+			else {
+				app.route = 'login';
+			}
+			console.log(data);
+		});
+
+		// add #! before urls
+		page({
+			hashbang: true
+		});
+
+		/**
+		 * Fire event on user login, logout. In other children component, we can capture this event as following:
+		 * 	this.listen(app, 'google-login', "_refreshLoginState");
+		 */
+		GoogleAuth.isSignedIn.listen(function(logged) {
+			if (logged) {
+				app.fire("google-login");
+			}else {
+				app.fire("google-logout");
+			}
+		});
+
+	});
+</script>
