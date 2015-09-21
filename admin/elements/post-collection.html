@@ -4,7 +4,7 @@ Display a list of post
 <dom-module id="post-collection">
 	<template>
 		<template is="dom-repeat" items={{postIds}}>
-			<file-item class="hand" file-name={{item}}></file-item>
+			<file-item class="hand" content-type="post-folder" file-name={{item}}></file-item>
 		</template>
 	</template>
 	<style>

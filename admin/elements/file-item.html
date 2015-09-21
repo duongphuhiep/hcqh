@@ -1,31 +1,72 @@
 <!--
 Display a list of files given by API server
+TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 -->
 <dom-module id="file-item">
 	<template>
 		<paper-card>
 			<div class="card-content">{{fileName}}</div>
-			<div class="card-actions">
-				<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
-				<paper-tooltip for="delete">Delete</paper-tooltip>
-
-				<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
-				<paper-tooltip for="rename">Rename</paper-tooltip>
-			</div>
+			<template is="dom-if" if="{{hasAction(deletable, renamable)}}">
+				<div class="card-actions">
+					<template is="dom-if" if={{deletable}}>
+						<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
+						<paper-tooltip for="delete">Delete</paper-tooltip>
+					</template>
+					<template is="dom-if" if={{renamable}}>
+						<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
+						<paper-tooltip for="rename">Rename</paper-tooltip>
+					</template>
+				</div>
+			</template>
 		</paper-card>
 
 		<style is="custom-style">
 			paper-card {
 				max-width: 300px;
 				margin:5px;
+				vertical-align: top;
+			}
+			paper-icon-button {
+				color: var(--secondary-text-color);
+			}
+			paper-icon-button:hover {
+				color: var(--primary-text-color);
 			}
 		</style>
 	</template>
 	<script>
 		Polymer({
 			is: 'file-item',
+
+			ready: function() {
+				this.renamable = (["vi.md", "fr.md", "en.md"].indexOf(this.fileName) < 0);
+				this.deletable = "vi.md" !== this.fileName;
+
+				if (this._endsWith(this.fileName, ".md") && !this._startsWith(this.fileName, "_")) {
+					this.style["font-size"] = "20px";
+				}
+			},
+
 			properties: {
-				fileName: String
+				fileName: String,
+				deletable: Boolean,
+				renamable: Boolean,
+				/**
+				 * post-item or post-folder
+				 */
+				contentType: String
+			},
+			hasAction: function(deletable, renamable){
+				return deletable || renamable;
+				return true;
+			},
+
+			_endsWith: function(s, suffix) {
+				return s.indexOf(suffix, s.length - suffix.length) !== -1;
+			},
+
+			_startsWith: function(s, prefix) {
+				return s.indexOf(prefix) === 0;
 			}
 		});
 	</script>

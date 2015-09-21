@@ -7,10 +7,9 @@ Display content of a post folder
 			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
 		</paper-card>
 
-		<template is="dom-repeat" items={{files}}>
-			<file-item class="grid-item" file-name={{item}}></file-item>
+		<template is="dom-repeat" items={{files}} sort="_compare">
+			<file-item class="grid-item" content-type="post-item" file-name={{item}}></file-item>
 		</template>
-
 
 <!--
 		<style is="custom-style">
@@ -32,21 +31,58 @@ Display content of a post folder
 			ready: function () {
 				this.files = [
 					"Vae, primus axona.png",
+					"en.md",
 					"Racanas observare.png",
 					"Nunquam dignus era",
+					"fr.md",
 					"Nunquam locus medicina",
 					"Nunquam gratia urbs",
-					"Nunquam demitto abnoba"
+					"Nunquam demitto abnoba",
+					"vi.md",
+					"_vi.md"
 				];
-
-			},
-			listeners: {
-				/*"fileUpload.before-upload": "updateLayout",
-				"fileUpload.cancel-upload": "updateLayout"*/
 			},
 			properties: {
 				url: String
 			},
+
+			_isMd: function(s) {
+				return s.indexOf(".md", s.length - 3) !== -1 && !this._isBak(s);
+			},
+			_isBak: function(s) {
+				return s.indexOf("_") === 0;
+			},
+
+			_compare: function(a, b) {
+				var isMdA = this._isMd(a);
+				var isMdB = this._isMd(b);
+				var isBakA = this._isBak(a);
+				var isBakB = this._isBak(b);
+
+				if (isMdA && isMdB) {
+					return this._compareTwoMd(a, b);
+				}
+				else if (isMdA) {
+					return -1;
+				}
+				else if (isMdB) {
+					return 1;
+				}
+				else if (isBakA && isBakB) {
+					return a.localeCompare(b);
+				}
+				else if (isBakA) {
+					return 1;
+				}
+				else if (isBakB) {
+					return -1;
+				}
+				return a.localeCompare(b);
+			},
+
+			_compareTwoMd: function(a, b) {
+				return b.localeCompare(a);
+			}
 		});
 	</script>
 
