@@ -1,4 +1,5 @@
-<dom-module id="hcqh-admin">
+<!--Main app-->
+<dom-module id="home-page">
 	<template>
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
@@ -16,7 +17,7 @@
 
 				<!-- Main Content -->
 				<div class="content">
-					<file-browser></file-browser>
+					<post-folder></post-folder>
 					<div class="editor">
 						<commonmark-editor># Bai viet so 1</commonmark-editor>
 					</div>
@@ -66,7 +67,7 @@
 				this.listen(app, 'google-login', "_refreshLoginState");
 			},
 
-			is: 'hcqh-admin',
+			is: 'home-page',
 			listeners: {
 				"gs.google-signed-out": "_onSignOut", /*we can also capture the "app.google-signout" event*/
 				"google-login": "_refreshLoginState"
