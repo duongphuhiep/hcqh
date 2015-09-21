@@ -8,6 +8,9 @@ var gp_plumber = require('gulp-plumber');
 var gp_browserify = require('gulp-browserify');
 var liveServer = require("live-server");
 
+var browserSync = require('browser-sync');
+var historyApiFallback = require('connect-history-api-fallback');
+
 /**
 compile all riot tag to gen/**
 */
@@ -83,5 +86,37 @@ gulp.task('watch', ['bundle'], function(){
 gulp.task('default', ['bundle'], function(){
     liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen'});
 });
+
+
+// Watch files for changes & reload
+gulp.task('watch:admin', function () {
+	browserSync({
+		port: 8080,
+		notify: false,
+		logPrefix: 'HCQH',
+		snippetOptions: {
+			rule: {
+				match: '<span id="browser-sync-binding"></span>',
+				fn: function (snippet) {
+					return snippet;
+				}
+			}
+		},
+		// Run as an https by uncommenting 'https: true'
+		// Note: this uses an unsigned certificate which on first access
+		//       will present a certificate warning in the browser.
+		// https: true,
+		server: {
+			baseDir: ['admin'],
+			middleware: [ historyApiFallback() ],
+			routes: {
+				'/bower_components': 'bower_components'
+			}
+		}
+	});
+
+	gulp.watch(['admin/**/*'], browserSync.reload);
+});
+
 
 //gulp.task('default', ['bundle'], function(){});
