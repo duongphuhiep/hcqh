@@ -25,14 +25,17 @@
 			app.route = "404";
 		});
 
+		/**
+		 * Display the login page while not changing the actual route
+		 */
 		app.displayLoginPage = function() {
-			app.oldRoute = app.route;
+			app.lastRoute = app.route;
 			app.route = "login";
 		};
 
 		app.restorePageAfterLogin = function() {
-			if (app.oldRoute) {
-				app.route = app.oldRoute;
+			if (app.lastRoute) {
+				app.route = app.lastRoute;
 				return;
 			}
 			app.route = "home";
@@ -44,6 +47,9 @@
 		page({
 			hashbang: true // add #! before urls
 		});
+
+		//display the login page on sign out
+		app.$.gsa.addEventListener("google-signin-aware-signed-out", app.displayLoginPage);
 
 		/*app.handleSignIn = function() {
 			console.log("google-login");

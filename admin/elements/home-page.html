@@ -72,7 +72,7 @@
 			is: 'home-page',
 			listeners: {
 				/*Here we caputure event coming from the button gs inside this component*/
-				"gs.google-signin-aware-signed-out": "_onSignOut",
+				//"gs.google-signin-aware-signed-out": "_onSignOut",
 				'gs.google-signin-aware-success': "_onSignIn"
 
 				/*we can also capture the global events comming from app.gsa*/
@@ -80,6 +80,9 @@
 				'google-signin-aware-success': "_onSignIn"*/
 			},
 
+			/**
+			 * Change the welcome header on signed in
+			 */
 			_onSignIn: function(e) {
 				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
 				if (currentUser) {
@@ -96,9 +99,9 @@
 				app.displayLoginPage();
 			},
 
-			_onSignOut: function() {
+			/*_onSignOut: function() {
 				app.displayLoginPage();
-			}
+			}*/
 		});
 
 	</script>
