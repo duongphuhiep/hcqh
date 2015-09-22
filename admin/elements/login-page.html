@@ -32,7 +32,7 @@ Login page
 				"gs.google-signin-success": "_onLoginOk"
 			},
 			_onLoginOk: function() {
-				page.redirect("/");
+				app.restorePageAfterLogin();
 			}
 		});
 	</script>

@@ -93,11 +93,11 @@
 					}
 				}
 				console.error("Cannot retreive user info");
-				page.redirect("/login");
+				app.displayLoginPage();
 			},
 
 			_onSignOut: function() {
-				page.redirect("/login");
+				app.displayLoginPage();
 			}
 		});
 

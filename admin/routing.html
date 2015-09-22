@@ -1,38 +1,48 @@
 <script src="../bower_components/page/page.js"></script>
 <script>
-	page.base("/admin");
-	// add #! before urls
-	page({
-		hashbang: true
-	});
-
 	window.addEventListener('WebComponentsReady', function () {
 		page('/', function () {
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
 			else {
-				app.route = 'login';
-			}
-		});
-
-		page('/login', function () {
-			if (app.isAuthorized) {
-				app.route = 'home';
-			}
-			else {
-				app.route = 'login';
+				app.displayLoginPage();
 			}
 		});
 
 		page('/post/:postId', function (ctx) {
+			console.log("page post");
 			if (app.isAuthorized) {
 				app.route = 'home';
 				app.fire('routeChanged', ctx.params.postId);
 			}
 			else {
-				app.route = 'login';
+				app.displayLoginPage();
 			}
+		});
+
+		page('*', function (ctx) {
+			app.route = "404";
+		});
+
+		app.displayLoginPage = function() {
+			app.oldRoute = app.route;
+			app.route = "login";
+		};
+
+		app.restorePageAfterLogin = function() {
+			if (app.oldRoute) {
+				app.route = app.oldRoute;
+				return;
+			}
+			app.route = "home";
+		};
+
+		page.base("/admin");
+
+		//it will call page.start()
+		page({
+			hashbang: true // add #! before urls
 		});
 
 		/*app.handleSignIn = function() {
