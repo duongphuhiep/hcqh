@@ -13,17 +13,17 @@ Display a list of post
 			debounce-duration="200"></iron-ajax>
 
 		<template is="dom-repeat" items={{postsCollection}}>
-			<file-item class="hand" content-type="post-folder" file-name={{item}}></file-item>
+			<file-item content-type="post-folder" file-name={{item}} on-tap="_onClick"></file-item>
 		</template>
 	</template>
-	<style>
-		.hand {
-			cursor: pointer;
-		}
-	</style>
 	<script>
 		Polymer({
-			is: 'post-collection'
+			is: 'post-collection',
+
+			_onClick: function(e) {
+				//e.currentTarget refers to <file-item>, e.target refers to the div
+				page.redirect("/post/"+e.currentTarget.fileName);
+			}
 		});
 	</script>
 

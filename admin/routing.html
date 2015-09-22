@@ -25,15 +25,14 @@
 			}
 		});
 
-		page('/post/:postId', function (data) {
+		page('/post/:postId', function (ctx) {
 			if (app.isAuthorized) {
-				app.route = 'post';
-				app.params = data.params;
+				app.route = 'home';
+				app.fire('routeChanged', ctx.params.postId);
 			}
 			else {
 				app.route = 'login';
 			}
-			console.log(data);
 		});
 
 		/*app.handleSignIn = function() {

@@ -25,7 +25,13 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 				max-width: 300px;
 				margin:5px;
 				vertical-align: top;
+				cursor: pointer;
 			}
+
+			paper-card:hover {
+				@apply(--shadow-elevation-8dp);
+			}
+
 			paper-icon-button {
 				color: var(--secondary-text-color);
 			}
@@ -50,6 +56,10 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 
 			properties: {
 				fileName: String,
+				/*fileName: {
+					type: String,
+					reflectToAttribute: true
+				},*/
 				deletable: {
 					type: Boolean,
 					value: true
