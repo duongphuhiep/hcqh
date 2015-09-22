@@ -39,35 +39,36 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 			is: 'file-item',
 
 			ready: function() {
-				this.renamable = (["vi.md", "fr.md", "en.md"].indexOf(this.fileName) < 0);
-				this.deletable = "vi.md" !== this.fileName;
-
-				if (this._endsWith(this.fileName, ".md") && !this._startsWith(this.fileName, "_")) {
-					this.style["font-size"] = "20px";
+				if (this.contentType === "post-item") {
+					this.renamable = "vi.md" !== this.fileName;
+					this.deletable = "vi.md" !== this.fileName;
+					if (app.helper.isMarkdown(this.fileName)) {
+						this.style["font-size"] = "20px";
+					}
 				}
 			},
 
 			properties: {
 				fileName: String,
-				deletable: Boolean,
-				renamable: Boolean,
+				deletable: {
+					type: Boolean,
+					value: true
+				},
+				renamable: {
+					type: Boolean,
+					value: true
+				},
 				/**
-				 * post-item or post-folder
+				 * possible value "post-item" or "post-folder"
+				 * "post-item" is used in the detail view
+				 * "post-folder" is use in the drawer view
 				 */
 				contentType: String
 			},
 			hasAction: function(deletable, renamable){
 				return deletable || renamable;
 				return true;
-			},
-
-			_endsWith: function(s, suffix) {
-				return s.indexOf(suffix, s.length - suffix.length) !== -1;
-			},
-
-			_startsWith: function(s, prefix) {
-				return s.indexOf(prefix) === 0;
 			}
-		});
+	});
 	</script>
 </dom-module>

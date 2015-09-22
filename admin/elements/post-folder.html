@@ -11,19 +11,6 @@ Display content of a post folder
 			<file-item class="grid-item" content-type="post-item" file-name={{item}}></file-item>
 		</template>
 
-<!--
-		<style is="custom-style">
-			paper-card {
-				max-width: 300px;
-				margin:5px;
-			}
-			.horizontal-section-container {
-				@apply(&#45;&#45;layout-horizontal);
-				@apply(&#45;&#45;layout-center-justified);
-				@apply(&#45;&#45;layout-wrap);
-			}
-		</style>
--->
 	</template>
 	<script>
 		Polymer({
@@ -46,18 +33,11 @@ Display content of a post folder
 				url: String
 			},
 
-			_isMd: function(s) {
-				return s.indexOf(".md", s.length - 3) !== -1 && !this._isBak(s);
-			},
-			_isBak: function(s) {
-				return s.indexOf("_") === 0;
-			},
-
 			_compare: function(a, b) {
-				var isMdA = this._isMd(a);
-				var isMdB = this._isMd(b);
-				var isBakA = this._isBak(a);
-				var isBakB = this._isBak(b);
+				var isMdA = app.helper.isMarkdown(a);
+				var isMdB = app.helper.isMarkdown(b);
+				var isBakA = app.helper.isTemp(a);
+				var isBakB = app.helper.isTemp(b);
 
 				if (isMdA && isMdB) {
 					return this._compareTwoMd(a, b);
