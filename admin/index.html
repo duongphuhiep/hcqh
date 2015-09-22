@@ -22,9 +22,19 @@
 	<link rel="import" href="./elements.html">
 </head>
 <body unresolved class="fullbleed layout vertical">
-	<span id="browser-sync-binding"></span>
+	<!--<span id="browser-sync-binding"></span>-->
+
+	<!--<google-signin-aware
+    id = "gsa"
+    signed-in="{{signedIn}}"
+    is-authorized="{{isAuthorized}}"
+    on-google-signin-aware-success="handleSignIn"
+    on-google-signin-aware-signed-out="handleSignOut">-->
 
 	<template is="dom-bind" id="app">
+		<google-signin-aware id="gsa"
+			signed-in="{{signedIn}}"
+			is-authorized="{{isAuthorized}}"></google-signin-aware>
 		<iron-pages attr-for-selected="data-route" selected={{route}}>
 			<section data-route="login">
 				<login-page></login-page>
@@ -35,6 +45,6 @@
 		</iron-pages>
 	</template>
 
-	<script src="app.js"></script>
+	<script src="../dist/admin.js"></script>
 </body>
 </html>

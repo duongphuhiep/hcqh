@@ -8,9 +8,6 @@ var gp_plumber = require('gulp-plumber');
 var gp_browserify = require('gulp-browserify');
 var liveServer = require("live-server");
 
-var browserSync = require('browser-sync');
-var historyApiFallback = require('connect-history-api-fallback');
-
 /**
 compile all riot tag to gen/**
 */
@@ -59,27 +56,10 @@ gulp.task('bundle', ['bundle:tag'], function() {
         .pipe(gp_uglify())
         .pipe(gp_sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
-
-    // generate dist/fake-backend.js
-    //gulp.src('backend_mock/fake-backend.js')
-    //    .pipe(gp_plumber({
-    //        handleError: function (err) {
-    //            console.log(err);
-    //            this.emit('end');
-    //        }
-    //    }))
-    //    .pipe(gp_browserify({
-    //        detectGlobal:true,
-    //        debug : true
-    //    }))
-    //    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', ['bundle'], function(){
-    gulp.watch('app/**/*', ['bundle']);
-    gulp.watch('lib/**/*', ['bundle']);
-    gulp.watch('backend_mock/**/*', ['bundle']);
-
+    gulp.watch(['app/**/*', 'lib/**/*', 'backend_mock/**/*'], ['bundle']);
     liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen', open:false});
 });
 
@@ -87,9 +67,14 @@ gulp.task('default', ['bundle'], function(){
     liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen'});
 });
 
+var browserSync = require('browser-sync');
+var historyApiFallback = require('connect-history-api-fallback');
+gulp.task('reload:admin', function () {
+	browserSync.reload();
+});
 
 // Watch files for changes & reload
-gulp.task('watch:admin', function () {
+gulp.task('watch:admin', ['bundle:admin'], function () {
 	browserSync({
 		port: 8080,
 		notify: false,
@@ -110,13 +95,40 @@ gulp.task('watch:admin', function () {
 			baseDir: ['admin'],
 			middleware: [ historyApiFallback() ],
 			routes: {
-				'/bower_components': 'bower_components'
+				'/bower_components': 'bower_components',
+				'/dist': 'dist'
 			}
 		}
 	});
 
-	gulp.watch(['admin/**/*'], browserSync.reload);
-});
+	gulp.watch(['admin/**/*', 'backend_mock/**/*', 'lib/**/*'], ['bundle:admin']);
+	gulp.watch(['dist/admin*'], ['reload:admin']);
 
+	//liveServer.start({ignore:'app,admin,lib,backend_mock,tests,reports,gen', open:'/admin'});
+});
+// generate dist/*.js with browserify
+gulp.task('bundle:admin', function() {
+	// generate dist/main.*.js
+	gulp.src('admin/admin.js')
+		.pipe(gp_plumber({
+			handleError: function (err) {
+				console.log(err);
+				this.emit('end');
+			}
+		}))
+		.pipe(gp_browserify({
+			detectGlobal:true,
+			debug : false
+		}))
+		.pipe(gulp.dest('dist'))
+
+		//minify dist/main.js to dist/main.min.js
+
+		.pipe(gp_sourcemaps.init())
+		.pipe(gp_rename('admin.min.js'))
+		.pipe(gp_uglify())
+		.pipe(gp_sourcemaps.write('./'))
+		.pipe(gulp.dest('dist'));
+});
 
 //gulp.task('default', ['bundle'], function(){});

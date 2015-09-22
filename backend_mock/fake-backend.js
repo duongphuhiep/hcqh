@@ -52,71 +52,21 @@ server.respondWith(function(request){
 		var lang = parsedUrl.queryKey.lang || 'vi';
 
 		var fakeData = blogpageFakeData['blogpage-'+page+'-'+lang];
-
-		//var oReq = new sinon.xhr.XMLHttpRequest();
-		//oReq.open('get', fileToLoad);
-		//oReq.onreadystatechange = function (e) {
-		//	//console.log(oReq.method);
-		//	if (oReq.readyState === 4) {
-		//		if (oReq.status === 200) {
-		//			request.respond(200, {"Content-Type": "application/json"}, oReq.responseText);
-		//		} else {
-		//			request.respond(404, {"Content-Type": "text/plain"}, "Not found");
-		//		}
-		//		server.respond();
-		//	}
-		//};
-		//oReq.send();
-
 		request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakeData));
-		//request.respond(404, {"Content-Type": "text/plain"}, "Not found");
+	}
+	else if (parsedUrl.file === 'admin.php') {
+		var fakePostIds = [
+			"2015-05-18 aee, primus axona",
+			"2015-05-17 Racanas observare",
+			"2015-05-16 Nunquam dignus era",
+			"2015-05-15 Nunquam locus medicina",
+			"2015-05-14 Nunquam gratia urbs",
+			"2015-05-13 Nunquam demitto abnoba"
+		];
+		console.log("Post request body", request.requestBody);
+		request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostIds));
 	}
 });
 
 
 
-//function getData(fileToLoad){
-//	// 1) create the jQuery Deferred object that will be used
-//	var deferred = $.Deferred();
-//
-//	// ---- AJAX Call ---- //
-//	var oReq = new sinon.oReq.XMLHttpRequest();
-//	oReq.open('get', fileToLoad);
-//
-//	// register the event handler
-//	oReq.onreadystatechange = function (e) {
-//		//console.log(oReq.method);
-//		if (oReq.readyState === 4) {
-//			if (oReq.status === 200) {
-//				deferred.resolve(oReq.responseText);
-//			} else {
-//				deferred.reject("HTTP error: " + oReq.status);
-//			}
-//		}
-//	};
-//
-//	// perform the work
-//	oReq.send();
-//	// Note: could and should have used jQuery.ajax.
-//	// Note: jQuery.ajax return Promise, but it is always a good idea to wrap it
-//	//       with application semantic in another Deferred/Promise
-//	// ---- /AJAX Call ---- //
-//
-//	// 2) return the promise of this deferred
-//	return deferred.promise();
-//}
-
-
-
-
-//xhr.onCreate = function (request) {
-//	var parsedUrl= utils.parseUri(request.url);
-//	var responseContent = {
-//		"directory": parsedUrl.directory,
-//		"file": parsedUrl.file,
-//		"page": parsedUrl.queryKey.page,
-//		"lang": parsedUrl.queryKey.lang
-//	};
-//};
-
-//console.log("handle:", xhr.autoRespond);

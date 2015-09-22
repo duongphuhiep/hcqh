@@ -3,7 +3,16 @@ Display a list of post
 -->
 <dom-module id="post-collection">
 	<template>
-		<template is="dom-repeat" items={{postIds}}>
+		<iron-ajax
+			auto
+			method="POST",
+			url="/backend/admin.php"
+			body='{"ignoreTemp":"true"}'
+			handle-as="json"
+			last-response="{{postsCollection}}"
+			debounce-duration="200"></iron-ajax>
+
+		<template is="dom-repeat" items={{postsCollection}}>
 			<file-item class="hand" content-type="post-folder" file-name={{item}}></file-item>
 		</template>
 	</template>
@@ -14,17 +23,7 @@ Display a list of post
 	</style>
 	<script>
 		Polymer({
-			is: 'post-collection',
-			ready: function () {
-				this.postIds = [
-					"2015-05-18 aee, primus axona",
-					"2015-05-17 Racanas observare",
-					"2015-05-16 Nunquam dignus era",
-					"2015-05-15 Nunquam locus medicina",
-					"2015-05-14 Nunquam gratia urbs",
-					"2015-05-13 Nunquam demitto abnoba"
-				];
-			}
+			is: 'post-collection'
 		});
 	</script>
 

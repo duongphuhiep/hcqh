@@ -64,16 +64,23 @@
 	<script>
 		Polymer({
 			ready: function() {
-				this.listen(app, 'google-login', "_refreshLoginState");
+				//app.$.gsa.addEventListener('app.gsa.google-signin-aware-success', this._onSignIn);
+
+				//this.listen('app.gsa.google-signin-aware-success', "_onSignIn");
 			},
 
 			is: 'home-page',
 			listeners: {
-				"gs.google-signed-out": "_onSignOut", /*we can also capture the "app.google-signout" event*/
-				"google-login": "_refreshLoginState"
+				/*Here we caputure event coming from the button gs inside this component*/
+				"gs.google-signin-aware-signed-out": "_onSignOut",
+				'gs.google-signin-aware-success': "_onSignIn"
+
+				/*we can also capture the global events comming from app.gsa*/
+				/*"google-signin-aware-signed-out": "_onSignOut",
+				'google-signin-aware-success': "_onSignIn"*/
 			},
 
-			_refreshLoginState: function() {
+			_onSignIn: function(e) {
 				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
 				if (currentUser) {
 					var profile = currentUser.getBasicProfile();
@@ -85,7 +92,7 @@
 						return;
 					}
 				}
-				console.error("User is logged in but cannot retreive user info");
+				console.error("Cannot retreive user info");
 				page.redirect("/login");
 			},
 
