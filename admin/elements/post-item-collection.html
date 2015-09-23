@@ -10,52 +10,44 @@ Display items in a post folder
 			body=[[ajaxBody]]
 			handle-as="json"
 			last-response="{{itemCollection}}"
-			debounce-duration="200"></iron-ajax>
+			debounce-duration="100"></iron-ajax>
 
 		<paper-card class="grid-item" heading="Upload">
 			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
 		</paper-card>
 
 		<template is="dom-repeat" items={{itemCollection}} sort="_compare">
-			<file-item class="grid-item" content-type="post-item" file-name={{item}}></file-item>
+			<file-item class="grid-item" content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 		</template>
 
 	</template>
 	<script>
 		Polymer({
 			is: 'post-item-collection',
-			/*ready: function () {
-				this.files = [
-					"Vae, primus axona.png",
-					"en.md",
-					"Racanas observare.png",
-					"Nunquam dignus era",
-					"fr.md",
-					"Nunquam locus medicina",
-					"Nunquam gratia urbs",
-					"Nunquam demitto abnoba",
-					"vi.md",
-					"_vi.md"
-				];
-			},*/
 			properties: {
 				postId: String,
 				ajaxBody: {
 					type: String,
-					computed: "_computeAjaxBody(postId)"
+					computed: "_computeAjaxBody(postFolderPath)"
+				},
+				postFolderPath: {
+					type: String,
+					computed: "_computePostFolderPath(postId)"
+				},
+				itemCollection: Array
+			},
+
+			_computeAjaxBody: function(postFolderPath) {
+				if (postFolderPath) {
+					return {action: "ls", path: postFolderPath};
 				}
 			},
 
-		/*	_ajaxBodyChanged: function(e) {
-				console.log(e);
-			},
-*/
-			_computeAjaxBody: function(postId) {
+			_computePostFolderPath: function(postId) {
 				if (postId) {
-					return {action: "ls", folder: "content/blog/" + this.postId};
+					return "content/blog/" + postId;
 				}
 			},
-
 
 			_compare: function(a, b) {
 				var isMdA = app.helper.isMarkdown(a);
