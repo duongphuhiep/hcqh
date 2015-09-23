@@ -13,8 +13,9 @@ Display items in a post folder
 			body=[[ajaxBody]]
 			handle-as="json"
 			last-response="{{itemCollection}}"
-			loading="{{loading}}"
-			debounce-duration="100"></iron-ajax>
+			debounce-duration="100"
+			on-request = "_onRequest"
+			on-response = "_onResponse"></iron-ajax>
 
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress id="progressBar" indeterminate></paper-progress>
@@ -46,15 +47,20 @@ Display items in a post folder
 					type: String,
 					computed: "_computePostFolderPath(postId)"
 				},
-				itemCollection: Array
+				itemCollection: Array,
+				loading: {
+					type: Boolean,
+					readOnly: true,
+					value: false
+				}
 			},
 
-			/*_onRequest: function() {
-				this.loading=true;
+			_onRequest: function() {
+				this._setLoading(true);
 			},
 			_onResponse: function() {
-				this.loading=false;
-			},*/
+				this._setLoading(false);
+			},
 
 			_computeAjaxBody: function(postFolderPath) {
 				if (postFolderPath) {
