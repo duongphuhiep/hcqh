@@ -14,7 +14,7 @@ Display a list of post
 
 		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost">
 			<template is="dom-repeat" items={{postsCollection}}>
-				<file-item content-type="post-folder" file-name={{item}} parentPath="/content/blog"></file-item>
+				<file-item content-type="post-folder" file-name={{item}} parent-path="/content/blog"></file-item>
 			</template>
 		</iron-selector>
 		<style>
