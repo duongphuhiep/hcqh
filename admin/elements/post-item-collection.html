@@ -3,15 +3,22 @@ Display items in a post folder
 -->
 <dom-module id="post-item-collection">
 	<template>
+		<!--on-request = "_onRequest"
+			on-response = "_onResponse"-->
 		<iron-ajax
+			id="loader"
 			auto
 			method="POST",
 			url="/backend/admin.php"
 			body=[[ajaxBody]]
 			handle-as="json"
 			last-response="{{itemCollection}}"
+			loading="{{loading}}"
 			debounce-duration="100"></iron-ajax>
 
+		<template is="dom-if" if="{{loading}}">
+			<paper-progress id="progressBar" indeterminate></paper-progress>
+		</template>
 		<paper-card class="grid-item" heading="Upload">
 			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
 		</paper-card>
@@ -20,6 +27,11 @@ Display items in a post folder
 			<file-item class="grid-item" content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 		</template>
 
+		<style>
+			paper-progress {
+				width: 100%;
+			}
+		</style>
 	</template>
 	<script>
 		Polymer({
@@ -36,6 +48,13 @@ Display items in a post folder
 				},
 				itemCollection: Array
 			},
+
+			/*_onRequest: function() {
+				this.loading=true;
+			},
+			_onResponse: function() {
+				this.loading=false;
+			},*/
 
 			_computeAjaxBody: function(postFolderPath) {
 				if (postFolderPath) {
