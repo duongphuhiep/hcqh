@@ -47,6 +47,8 @@ var server = sinon.fakeServer.create({autoRespond : true, autoRespondAfter : 100
 server.respondWith(function(request){
 	var parsedUrl= utils.parseUri(request.url);
 
+	console.log("[Fake Request]", request.method, request.url, request.requestBody);
+
 	if (parsedUrl.file === 'blog.php') {
 		var page  = parsedUrl.queryKey.page || 1;
 		var lang = parsedUrl.queryKey.lang || 'vi';
@@ -59,8 +61,8 @@ server.respondWith(function(request){
 		var action = request.requestBody["action"];
 
 		if (action === "ls") {
-			var folder = request.requestBody["folder"];
-			if (folder === "content/blog") {
+			var path = request.requestBody["path"];
+			if (path === "content/blog") {
 				var fakePostIds = [
 					"2015-05-19 Bai viet 04",
 					"2015-05-18 Aee primus axona",
@@ -76,7 +78,7 @@ server.respondWith(function(request){
 			else {
 				var fakePostItems = [];
 
-				if (folder === "content/blog/2015-05-19 Bai viet 04") {
+				if (path === "content/blog/2015-05-19 Bai viet 04") {
 					fakePostItems = [
 						"en.md", "fr.md", "mozart_requiem_poster.jpg", "vi.md"
 					];
@@ -92,7 +94,7 @@ server.respondWith(function(request){
 						"Ubi est azureus terror.bmp",
 						"vi.md",
 						"_vi.md",
-						"_" + folder + ".jpeg" //to recognize the folder
+						"_" + path + ".jpeg" //to recognize the folder
 					];
 				}
 				request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostItems));
