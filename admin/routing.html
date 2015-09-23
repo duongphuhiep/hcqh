@@ -13,7 +13,7 @@
 		page('/post/:postId', function (ctx) {
 			if (app.isAuthorized) {
 				app.route = 'home';
-				app.fire('routeChanged', ctx.params.postId);
+				app.postId = ctx.params.postId;
 			}
 			else {
 				app.displayLoginPage();

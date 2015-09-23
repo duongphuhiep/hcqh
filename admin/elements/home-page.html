@@ -17,7 +17,7 @@
 
 				<!-- Main Content -->
 				<div class="content">
-					<post-folder></post-folder>
+					<post-folder post-id="[[postId]]"></post-folder>
 				</div>
 
 			</paper-header-panel>
@@ -53,6 +53,11 @@
 			},*/
 
 			is: 'home-page',
+
+			properties: {
+				postId: String
+			},
+
 			listeners: {
 				/*Here we caputure event coming from the button gs inside this component*/
 				//"gs.google-signin-aware-signed-out": "_onSignOut",

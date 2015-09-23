@@ -3,7 +3,7 @@ Display content of a post folder
 -->
 <dom-module id="post-folder">
 	<template>
-		<post-item-collection></post-item-collection>
+		<post-item-collection post-id="[[postId]]"></post-item-collection>
 		<div class="editor">
 			<commonmark-editor># Bai viet so 1</commonmark-editor>
 		</div>
@@ -19,7 +19,10 @@ Display content of a post folder
 	</template>
 	<script>
 		Polymer({
-			is: 'post-folder'
+			is: 'post-folder',
+			properties: {
+				postId: String
+			}
 		});
 	</script>
 

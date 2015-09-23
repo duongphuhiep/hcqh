@@ -53,18 +53,55 @@ server.respondWith(function(request){
 
 		var fakeData = blogpageFakeData['blogpage-'+page+'-'+lang];
 		request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakeData));
+		return;
 	}
 	else if (parsedUrl.file === 'admin.php') {
-		var fakePostIds = [
-			"2015-05-18 aee, primus axona",
-			"2015-05-17 Racanas observare",
-			"2015-05-16 Nunquam dignus era",
-			"2015-05-15 Nunquam locus medicina",
-			"2015-05-14 Nunquam gratia urbs",
-			"2015-05-13 Nunquam demitto abnoba"
-		];
-		console.log("Post request body", request.requestBody);
-		request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostIds));
+		var action = request.requestBody["action"];
+
+		if (action === "ls") {
+			var folder = request.requestBody["folder"];
+			if (folder === "content/blog") {
+				var fakePostIds = [
+					"2015-05-19 Bai viet 04",
+					"2015-05-18 Aee primus axona",
+					"2015-05-17 Racanas observare",
+					"2015-05-16 Cur cobaltum mori",
+					"2015-05-15 Nunquam manifestum planeta",
+					"2015-05-14 Omnes ususes amor alter, altus urbses.",
+					"2015-05-13 Pius gemna sensim carpseriss visus est."
+				];
+				request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostIds));
+				return;
+			}
+			else {
+				var fakePostItems = [];
+
+				if (folder === "content/blog/2015-05-19 Bai viet 04") {
+					fakePostItems = [
+						"en.md", "fr.md", "mozart_requiem_poster.jpg", "vi.md"
+					];
+				}
+				else {
+					fakePostItems = [
+						"Vae, primus axona.png",
+						"en.md",
+						"Racanas observare.png",
+						"Nunquam dignus era.jpg",
+						"fr.md",
+						"Nunquam locus medicina.gif",
+						"Ubi est azureus terror.bmp",
+						"vi.md",
+						"_vi.md",
+						"_" + folder + ".jpeg" //to recognize the folder
+					];
+				}
+				request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostItems));
+				return;
+			}
+		}
+
+		console.error("Cannot simulate reponse for", request);
+
 	}
 });
 
