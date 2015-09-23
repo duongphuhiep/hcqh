@@ -92,7 +92,7 @@ gulp.task('watch:admin', ['bundle:admin'], function () {
 		//       will present a certificate warning in the browser.
 		// https: true,
 		server: {
-			baseDir: ['admin'],
+			//baseDir: ['admin'],
 			middleware: [ historyApiFallback() ],
 			routes: {
 				'/bower_components': 'bower_components',
