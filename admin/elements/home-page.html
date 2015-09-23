@@ -63,11 +63,11 @@
 
 	<script>
 		Polymer({
-			ready: function() {
+			/*ready: function() {
 				//app.$.gsa.addEventListener('app.gsa.google-signin-aware-success', this._onSignIn);
 
 				//this.listen('app.gsa.google-signin-aware-success', "_onSignIn");
-			},
+			},*/
 
 			is: 'home-page',
 			listeners: {
@@ -83,7 +83,7 @@
 			/**
 			 * Change the welcome header on signed in
 			 */
-			_onSignIn: function(e) {
+			_onSignIn: function() {
 				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
 				if (currentUser) {
 					var profile = currentUser.getBasicProfile();
@@ -97,7 +97,7 @@
 				}
 				console.error("Cannot retreive user info");
 				app.displayLoginPage();
-			},
+			}
 
 			/*_onSignOut: function() {
 				app.displayLoginPage();

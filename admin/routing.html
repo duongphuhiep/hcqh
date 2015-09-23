@@ -11,7 +11,6 @@
 		});
 
 		page('/post/:postId', function (ctx) {
-			console.log("page post");
 			if (app.isAuthorized) {
 				app.route = 'home';
 				app.fire('routeChanged', ctx.params.postId);

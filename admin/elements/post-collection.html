@@ -12,17 +12,30 @@ Display a list of post
 			last-response="{{postsCollection}}"
 			debounce-duration="200"></iron-ajax>
 
-		<template is="dom-repeat" items={{postsCollection}}>
-			<file-item content-type="post-folder" file-name={{item}} on-tap="_onClick"></file-item>
-		</template>
+		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost">
+			<template is="dom-repeat" items={{postsCollection}}>
+				<file-item content-type="post-folder" file-name={{item}} parentPath="/content/blog"></file-item>
+			</template>
+		</iron-selector>
+		<style>
+			file-item {
+				display: block;
+			}
+			.iron-selected {
+				background: var(--default-primary-color);
+			}
+		</style>
 	</template>
 	<script>
 		Polymer({
 			is: 'post-collection',
 
-			_onClick: function(e) {
+			/*_onClick: function(e) {
 				//e.currentTarget refers to <file-item>, e.target refers to the div
-				page.redirect("/post/"+e.currentTarget.fileName);
+			},*/
+
+			_selectPost: function(e) {
+				page.redirect("/post/"+e.detail.value);
 			}
 		});
 	</script>
