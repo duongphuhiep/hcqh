@@ -42,6 +42,7 @@
     "paper-card": "PolymerElements/paper-card#^1.0.0",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#^1.0.0",
     "paper-header-panel": "PolymerElements/paper-header-panel#^1.0.0",
+    "paper-input": "PolymerElements/paper-input#~1.0.14",
     "paper-item": "PolymerElements/paper-item#^1.0.0",
     "paper-progress": "PolymerElements/paper-progress#~1.0.5",
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",

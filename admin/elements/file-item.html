@@ -1,24 +1,39 @@
 <!--
 Display a list of files given by API server
-TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 -->
 <dom-module id="file-item">
 	<template>
-		<paper-card>
-			<div class="card-content">{{fileName}}</div>
-			<template is="dom-if" if="{{hasAction(deletable, renamable)}}">
-				<div class="card-actions">
-					<template is="dom-if" if={{deletable}}>
-						<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
-						<paper-tooltip for="delete">Delete</paper-tooltip>
-					</template>
-					<template is="dom-if" if={{renamable}}>
-						<paper-icon-button id="rename" icon="icons:text-format" alt="Rename"></paper-icon-button>
-						<paper-tooltip for="rename">Rename</paper-tooltip>
-					</template>
+		<template is="dom-if" if={{renaming}}>
+			<paper-card>
+				<div class="card-content">
+					<paper-input label="New name" type="text" value={{fileName}}></paper-input>
 				</div>
-			</template>
-		</paper-card>
+				<div class="card-actions">
+					<paper-icon-button id="cancel" icon="icons:undo" alt="Cancel" on-tap="cancelRename"></paper-icon-button>
+					<paper-tooltip for="cancel">Cancel</paper-tooltip>
+					<paper-icon-button id="submitNewName" icon="icons:check" alt="Submit new name" on-tap="submitNewName"></paper-icon-button>
+					<paper-tooltip for="submitNewName">OK</paper-tooltip>
+				</div>
+			</paper-card>
+		</template>
+
+		<template is="dom-if" if={{!renaming}}>
+			<paper-card>
+				<div class="card-content">{{fileName}}</div>
+				<template is="dom-if" if="{{hasAction(deletable, renamable)}}">
+					<div class="card-actions">
+						<template is="dom-if" if={{deletable}}>
+							<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
+							<paper-tooltip for="delete">Delete</paper-tooltip>
+						</template>
+						<template is="dom-if" if={{renamable}}>
+							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="enterRenameMode"></paper-icon-button>
+							<paper-tooltip for="rename">Rename</paper-tooltip>
+						</template>
+					</div>
+				</template>
+			</paper-card>
+		</template>
 
 		<style is="custom-style">
 			paper-card {
@@ -26,6 +41,10 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 				margin:5px;
 				vertical-align: top;
 				cursor: pointer;
+			}
+
+			paper-input {
+				width: 200px;
 			}
 
 			paper-card:hover {
@@ -52,15 +71,12 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 						this.style["font-size"] = "20px";
 					}
 				}
+				this.renaming = false;
 			},
 
 			properties: {
 				fileName: String,
 				parentPath: String,
-				/*fileName: {
-					type: String,
-					reflectToAttribute: true
-				},*/
 				deletable: {
 					type: Boolean,
 					value: true
@@ -79,6 +95,18 @@ TODO: DRY, remove startsWith, endsWith, use the function in the post folder
 			hasAction: function(deletable, renamable){
 				return deletable || renamable;
 				return true;
+			},
+			enterRenameMode: function() {
+				this.oldFileName = this.fileName;
+				this.renaming = true;
+			},
+			cancelRename: function() {
+				this.fileName = this.oldFileName;
+				this.renaming = false;
+			},
+			submitNewName: function() {
+				console.log("Send rename", this.parentPath, this.oldFileName, this.fileName);
+				this.renaming = false;
 			}
 	});
 	</script>
