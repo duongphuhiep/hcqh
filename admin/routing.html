@@ -1,7 +1,7 @@
 <script src="../bower_components/page/page.js"></script>
 <script>
 	window.addEventListener('WebComponentsReady', function () {
-		page('/', function () {
+		page('/', function (ctx) {
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
@@ -28,7 +28,10 @@
 		 * Display the login page while not changing the actual route
 		 */
 		app.displayLoginPage = function() {
-			app.lastRoute = app.route;
+			console.log("display login page");
+			if (app.route !== "login") {
+				app.lastRoute = app.route;
+			}
 			app.route = "login";
 		};
 
