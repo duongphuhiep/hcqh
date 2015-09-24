@@ -1,0 +1,83 @@
+<!--
+Display alert
+-->
+<dom-module id="alert-corner">
+
+    <template>
+        <div id="dialog">
+			<div class="msg">[[message]]</div>
+			<paper-icon-button icon="icons:clear" alt="dismiss" on-tap="hide"></paper-icon-button>
+		</div>
+		<style>
+			:host {
+				display: none;
+			}
+			#dialog {
+				display: block;
+				@apply(--shadow-elevation-8dp);
+				background: rgba(0,0,0,0.7);
+				color: white;
+
+				position: fixed;
+				bottom: 50px;
+
+				/*center horizontal*/
+				left: 50%;
+				margin-left:-25%;
+				width: 50%;
+			}
+			.msg {
+				display: inline-block;
+				padding: 10px;
+			}
+
+			paper-icon-button {
+				display: inline-block;
+				float: right;
+			}
+		</style>
+    </template>
+
+    <script>
+        Polymer({
+            is: "alert-corner",
+
+			properties: {
+				/**
+				 * auto close in milisecond
+				 */
+				autoClose: {
+					type: Number,
+					value: -1
+				}
+			},
+
+			showInfo: function(message) {
+				this._show(message, "rgba(0,0,0,0.7)");
+			},
+			showWarning: function(message) {
+				this._show(message, "rgba(100,100,0,0.7)");
+			},
+			showError: function(message) {
+				this._show(message, "rgba(255,0,0,0.7)");
+			},
+			_show: function(message, color) {
+				this.message = message;
+
+				this.$.dialog.style["background"] = color;
+				this.style["display"] = "block";
+
+				if (this.autoClose>0) {
+					this.debounce("hide", function () {
+						this.hide();
+					}, this.autoClose);
+				}
+			},
+
+			hide: function() {
+				this.style["display"] = "none";
+			}
+        });
+    </script>
+
+</dom-module>

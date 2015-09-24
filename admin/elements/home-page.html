@@ -1,4 +1,10 @@
-<!--Main app-->
+<!--
+Main app
+
+# Alert:
+Any children elements can alert something in the alert-corner by sending raise-alert-* events
+	this.fire("raise-alert-error", "Not supported operation");
+-->
 <dom-module id="home-page">
 	<template>
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
@@ -21,8 +27,9 @@
 				</div>
 
 			</paper-header-panel>
-
 		</paper-drawer-panel>
+
+		<alert-corner id="alertCorner"></alert-corner>
 
 		<style is="custom-style">
 			paper-drawer-panel {
@@ -61,11 +68,15 @@
 			listeners: {
 				/*Here we caputure event coming from the button gs inside this component*/
 				//"gs.google-signin-aware-signed-out": "_onSignOut",
-				'gs.google-signin-aware-success': "_onSignIn"
+				'gs.google-signin-aware-success': "_onSignIn",
 
 				/*we can also capture the global events comming from app.gsa*/
 				/*"google-signin-aware-signed-out": "_onSignOut",
 				'google-signin-aware-success': "_onSignIn"*/
+
+				'raise-alert-info': "_raiseAlertInfo",
+				'raise-alert-warning': "_raiseAlertWarning",
+				'raise-alert-error': "_raiseAlertError"
 			},
 
 			/**
@@ -85,11 +96,21 @@
 				}
 				console.error("Cannot retreive user info");
 				app.displayLoginPage();
+			},
+
+			/**
+			 * display raise-alert event in the alert-corner
+			 */
+			_raiseAlertInfo: function(e) {
+				this.$.alertCorner.showInfo(e.detail);
+			},
+			_raiseAlertWarning: function(e) {
+				this.$.alertCorner.showWarning(e.detail);
+			},
+			_raiseAlertError: function(e) {
+				this.$.alertCorner.showError(e.detail);
 			}
 
-			/*_onSignOut: function() {
-				app.displayLoginPage();
-			}*/
 		});
 
 	</script>
