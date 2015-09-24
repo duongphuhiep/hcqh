@@ -12,7 +12,7 @@ Display a list of post
 			last-response="{{postsCollection}}"
 			debounce-duration="100"></iron-ajax>
 
-		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost">
+		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected=[[postId]]>
 			<template is="dom-repeat" items={{postsCollection}}>
 				<file-item content-type="post-folder" file-name={{item}} parent-path="content/blog"></file-item>
 			</template>
@@ -30,12 +30,16 @@ Display a list of post
 		Polymer({
 			is: 'post-collection',
 
+			properties: {
+				postId: String
+			},
+
 			/*_onClick: function(e) {
 				//e.currentTarget refers to <file-item>, e.target refers to the div
 			},*/
 
 			_selectPost: function(e) {
-				page.redirect("/post/"+e.detail.value);
+				page("/post/"+e.detail.value);
 			}
 		});
 	</script>
