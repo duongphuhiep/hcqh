@@ -6,18 +6,27 @@ Display a list of post
 		<iron-ajax
 			auto
 			method="POST",
-			url="/backend/admin.php"
-			body='{"action":"ls", "path":"content/blog"}'
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			body='{"action":"ls","path":"content/blog"}'
 			handle-as="json"
 			last-response="{{postsCollection}}"
+			on-error = "_onError"
+			loading={{loading}}
 			debounce-duration="100"></iron-ajax>
 
+		<template is="dom-if" if="{{loading}}">
+			<paper-progress indeterminate></paper-progress>
+		</template>
 		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected=[[postId]]>
 			<template is="dom-repeat" items={{postsCollection}}>
 				<file-item content-type="post-folder" file-name={{item}} parent-path="content/blog"></file-item>
 			</template>
 		</iron-selector>
 		<style>
+			paper-progress {
+				width: 100%;
+			}
 			file-item {
 				display: block;
 			}
@@ -30,8 +39,16 @@ Display a list of post
 		Polymer({
 			is: 'post-collection',
 
+			ready: function() {
+				this.urlToAdminPhp = page.urlToAdminPhp;
+			},
+
 			properties: {
 				postId: String
+			},
+
+			_onError: function(e) {
+				this.fire("raise-alert-error", e.detail.error);
 			},
 
 			/*_onClick: function(e) {

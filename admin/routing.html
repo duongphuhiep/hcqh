@@ -1,5 +1,9 @@
 <script src="../bower_components/page/page.js"></script>
 <script>
+	/* TODO change in production */
+	page.base("/hcqh/admin");
+	page.urlToAdminPhp = "/hcqh/backend/admin.php";
+
 	window.addEventListener('WebComponentsReady', function () {
 		page('/', function (ctx) {
 			if (app.isAuthorized) {
@@ -28,7 +32,6 @@
 		 * Display the login page while not changing the actual route
 		 */
 		app.displayLoginPage = function() {
-			console.log("display login page");
 			if (app.route !== "login") {
 				app.lastRoute = app.route;
 			}
@@ -42,8 +45,6 @@
 			}
 			app.route = "home";
 		};
-
-		page.base("/admin");
 
 		//it will call page.start()
 		page({

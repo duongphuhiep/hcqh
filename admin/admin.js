@@ -1,5 +1,5 @@
 /*DEBUG only: remove this line on production*/
-require("../backend_mock/fake-backend");
+//require("../backend_mock/fake-backend");
 
 /**
  * Common Helper, Business Log used by other elements
@@ -30,6 +30,19 @@ require("../backend_mock/fake-backend");
 			return fileName.indexOf("_") === 0;
 		},
 
+		/**
+		 * Send this token along with "write nature" request (remove, rename..).
+		 * So that server can check user privilege.
+		 * @returns admin token
+		 */
+		adminToken: function() {
+			var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+			if (currentUser) {
+				return currentUser.getAuthResponse().id_token
+			}
+			return null;
+		},
+
 		/*string utils*/
 
 		endsWith: function(s, suffix) {
@@ -38,6 +51,16 @@ require("../backend_mock/fake-backend");
 
 		startsWith: function(s, prefix) {
 			return s.indexOf(prefix) === 0;
+		},
+
+		/**
+		 * ("foo/", "bar") return "foo/bar"
+		 * ("foo", "bar") return "foo/bar"
+		 * @param p1: String
+		 * @param p2: String
+		 */
+		joinPath: function(p1, p2) {
+			return this.endsWith(p1, "/") ? p1 + p2 : p1 + "/" + p2;
 		}
 	}
 })(document);
