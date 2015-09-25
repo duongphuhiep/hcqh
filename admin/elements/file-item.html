@@ -3,37 +3,48 @@ Display a list of files given by API server
 -->
 <dom-module id="file-item">
 	<template>
-		<template is="dom-if" if={{renaming}}>
-			<paper-card>
+		<iron-ajax
+			id="sender"
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			body=[[ajaxBody]]
+			handle-as="json"
+			last-response="{{itemCollection}}"
+			debounce-duration="100"
+			on-error = "_onError"></iron-ajax>
+
+		<paper-card>
+			<template is="dom-if" if="{{loading}}">
+				<paper-progress indeterminate></paper-progress>
+			</template>
+			<template is="dom-if" if={{renaming}}>
 				<div class="card-content">
 					<paper-input label="New name" type="text" value={{fileName}}></paper-input>
 				</div>
 				<div class="card-actions">
-					<paper-icon-button id="cancel" icon="icons:undo" alt="Cancel" on-tap="cancelRename"></paper-icon-button>
+					<paper-icon-button id="cancel" icon="icons:undo" alt="Cancel" on-tap="_cancelRename"></paper-icon-button>
 					<paper-tooltip for="cancel">Cancel</paper-tooltip>
-					<paper-icon-button id="submitNewName" icon="icons:check" alt="Submit new name" on-tap="submitNewName"></paper-icon-button>
-					<paper-tooltip for="submitNewName">OK</paper-tooltip>
+					<paper-icon-button id="_submitNewName" icon="icons:check" alt="Submit new name" on-tap="_submitNewName"></paper-icon-button>
+					<paper-tooltip for="_submitNewName">OK</paper-tooltip>
 				</div>
-			</paper-card>
-		</template>
-
-		<template is="dom-if" if={{!renaming}}>
-			<paper-card>
+			</template>
+			<template is="dom-if" if={{!renaming}}>
 				<div class="card-content">{{fileName}}</div>
-				<template is="dom-if" if="{{hasAction(deletable, renamable)}}">
+				<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
 					<div class="card-actions">
 						<template is="dom-if" if={{deletable}}>
-							<paper-icon-button id="delete" icon="icons:clear" alt="Delete"></paper-icon-button>
+							<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
 							<paper-tooltip for="delete">Delete</paper-tooltip>
 						</template>
 						<template is="dom-if" if={{renamable}}>
-							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="enterRenameMode"></paper-icon-button>
+							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
 							<paper-tooltip for="rename">Rename</paper-tooltip>
 						</template>
 					</div>
 				</template>
-			</paper-card>
-		</template>
+			</template>
+		</paper-card>
 
 		<style is="custom-style">
 			paper-card {
@@ -57,6 +68,10 @@ Display a list of files given by API server
 			paper-icon-button:hover {
 				color: var(--primary-text-color);
 			}
+
+			paper-progress {
+				width: 100%;
+			}
 		</style>
 	</template>
 	<script>
@@ -72,6 +87,7 @@ Display a list of files given by API server
 					}
 				}
 				this.renaming = false;
+				this.urlToAdminPhp = page.urlToAdminPhp;
 			},
 
 			properties: {
@@ -92,21 +108,34 @@ Display a list of files given by API server
 				 */
 				contentType: String
 			},
-			hasAction: function(deletable, renamable){
+			_hasAction: function(deletable, renamable){
 				return deletable || renamable;
 				return true;
 			},
-			enterRenameMode: function() {
+			_enterRenameMode: function() {
 				this.oldFileName = this.fileName;
 				this.renaming = true;
 			},
-			cancelRename: function() {
+			_cancelRename: function() {
 				this.fileName = this.oldFileName;
 				this.renaming = false;
 			},
-			submitNewName: function() {
-				console.log("Send rename", this.parentPath, this.oldFileName, this.fileName);
+			_submitNewName: function() {
+				this.ajaxBody = {action: "ren",
+						parentPath: this.parentPath,
+						currentName: this.oldFileName,
+						newName: this.fileName,
+						adminToken: app.helper.adminToken()
+					};
+				this.$.sender.generateRequest();
 				this.renaming = false;
+			},
+			_onError: function(e) {
+				this.fileName = this.oldFileName;
+				this.fire("raise-alert-error", e.detail.error);
+			},
+			_deleteItem: function() {
+				this.fire("raise-alert-error", "Not supported operation");
 			}
 	});
 	</script>
