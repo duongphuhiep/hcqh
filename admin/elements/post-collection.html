@@ -18,9 +18,9 @@ Display a list of post
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
-		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected=[[postId]]>
+		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected={{postId}}>
 			<template is="dom-repeat" items={{postsCollection}}>
-				<file-item content-type="post-folder" file-name={{item}} parent-path="content/blog"></file-item>
+				<file-item content-type="post-folder" file-name={{item}} fileName-changed="_rename" parent-path="content/blog"></file-item>
 			</template>
 		</iron-selector>
 		<style>
@@ -47,8 +47,26 @@ Display a list of post
 				postId: String
 			},
 
+			listeners: {
+				"refresh-collection": "_reload"
+			},
+
+			_reload: function(e) {
+				this.postsCollection = e.detail.newCollection; //reload the collection
+				if (e.detail.because === "ren") { //reload because of rename
+					this.postId = e.detail.changedItem;
+				}
+				else if (e.detail.because === "rm") {  //reload because of remove
+					//TODO set selection to something else
+				}
+			},
+
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
+			},
+
+			_rename: function(e) {
+				console.log("rename ", e);
 			},
 
 			/*_onClick: function(e) {

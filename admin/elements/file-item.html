@@ -1,5 +1,6 @@
 <!--
-Display a list of files given by API server
+Represent a file or folder on the server. Provide Rename and Remove operation, by invoking the corresponding backend admin API
+After a success Renaming or Removing, fire the `refresh-collection` event to order the container refresh the item list
 -->
 <dom-module id="file-item">
 	<template>
@@ -12,7 +13,9 @@ Display a list of files given by API server
 			handle-as="json"
 			last-response="{{itemCollection}}"
 			debounce-duration="100"
-			on-error = "_onError"></iron-ajax>
+			loading = {{loading}}
+			on-error="_onError"
+			on-response="_notifyChangeToContainer"></iron-ajax>
 
 		<paper-card>
 			<template is="dom-if" if="{{loading}}">
@@ -20,7 +23,7 @@ Display a list of files given by API server
 			</template>
 			<template is="dom-if" if={{renaming}}>
 				<div class="card-content">
-					<paper-input label="New name" type="text" value={{fileName}}></paper-input>
+					<paper-input label="New name" type="text" value={{newFileName}}></paper-input>
 				</div>
 				<div class="card-actions">
 					<paper-icon-button id="cancel" icon="icons:undo" alt="Cancel" on-tap="_cancelRename"></paper-icon-button>
@@ -91,7 +94,9 @@ Display a list of files given by API server
 			},
 
 			properties: {
-				fileName: String,
+				fileName: {
+					type: String
+				},
 				parentPath: String,
 				deletable: {
 					type: Boolean,
@@ -113,29 +118,40 @@ Display a list of files given by API server
 				return true;
 			},
 			_enterRenameMode: function() {
-				this.oldFileName = this.fileName;
+				this.newFileName = this.fileName;
 				this.renaming = true;
 			},
 			_cancelRename: function() {
-				this.fileName = this.oldFileName;
 				this.renaming = false;
 			},
 			_submitNewName: function() {
 				this.ajaxBody = {action: "ren",
 						parentPath: this.parentPath,
-						currentName: this.oldFileName,
-						newName: this.fileName,
+						currentName: this.fileName,
+						newName: this.newFileName,
 						adminToken: app.helper.adminToken()
 					};
 				this.$.sender.generateRequest();
 				this.renaming = false;
 			},
 			_onError: function(e) {
-				this.fileName = this.oldFileName;
 				this.fire("raise-alert-error", e.detail.error);
 			},
 			_deleteItem: function() {
 				this.fire("raise-alert-error", "Not supported operation");
+			},
+
+			_notifyChangeToContainer: function(e) {
+				var currentAction = this.ajaxBody.action;
+
+				if (currentAction === "ren") {
+					//this.fileItem = this.newFileItem;
+					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:this.newFileName});
+				}
+				else  if (currentAction === "rm") {
+					//TODO
+					//this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:this.deletedItem});
+				}
 			}
 	});
 	</script>

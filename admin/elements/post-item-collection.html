@@ -23,13 +23,21 @@ Display items in a post folder
 			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
 		</paper-card>
 
-		<template is="dom-repeat" items={{itemCollection}} sort="_compare">
-			<file-item class="grid-item" content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
-		</template>
+		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected={{itemName}}>
+			<template is="dom-repeat" items={{itemCollection}} sort="_compare">
+				<file-item class="grid-item" content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
+			</template>
+		</iron-selector>
 
 		<style>
 			paper-progress {
 				width: 100%;
+			}
+			file-item {
+				display: inline-block;
+			}
+			.iron-selected {
+				background: var(--default-primary-color);
 			}
 		</style>
 	</template>
@@ -52,6 +60,20 @@ Display items in a post folder
 					computed: "_computePostFolderPath(postId)"
 				},
 				itemCollection: Array
+			},
+
+			listeners: {
+				"refresh-collection": "_reload"
+			},
+
+			_reload: function(e) {
+				this.itemCollection = e.detail.newCollection; //reload the collection
+				if (e.detail.because === "ren") { //reload because of rename
+					this.itemName = e.detail.changedItem;
+				}
+				else if (e.detail.because === "rm") {  //reload because of remove
+					//TODO set selection to something else
+				}
 			},
 
 			_onError: function(e) {
