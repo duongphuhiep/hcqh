@@ -137,8 +137,16 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
 			},
-			_deleteItem: function() {
-				this.fire("raise-alert-error", "Not supported operation");
+			_deleteItem: function(e) {
+				var r = window.confirm("Are you sure to delete "+this.fileName+" ?");
+				if (r===true) {
+					this.ajaxBody = {action: "rm",
+							parentPath: this.parentPath,
+							currentName: this.fileName,
+							adminToken: app.helper.adminToken()
+						};
+					this.$.sender.generateRequest();
+				}
 			},
 
 			_notifyChangeToContainer: function(e) {
@@ -149,8 +157,7 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:this.newFileName});
 				}
 				else  if (currentAction === "rm") {
-					//TODO
-					//this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:this.deletedItem});
+					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:null});
 				}
 			}
 	});

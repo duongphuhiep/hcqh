@@ -52,13 +52,16 @@ Display a list of post
 			},
 
 			_reload: function(e) {
+				console.info("reload ", e.detail);
 				this.postsCollection = e.detail.newCollection; //reload the collection
-				if (e.detail.because === "ren") { //reload because of rename
+				this.postId = e.detail.changedItem;
+				/*if (e.detail.changedItem) {
 					this.postId = e.detail.changedItem;
 				}
-				else if (e.detail.because === "rm") {  //reload because of remove
-					//TODO set selection to something else
-				}
+				else {
+					//return to homepage
+					page("/");
+				}*/
 			},
 
 			_onError: function(e) {

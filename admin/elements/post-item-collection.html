@@ -68,11 +68,8 @@ Display items in a post folder
 
 			_reload: function(e) {
 				this.itemCollection = e.detail.newCollection; //reload the collection
-				if (e.detail.because === "ren") { //reload because of rename
+				if (e.detail.changedItem) {
 					this.itemName = e.detail.changedItem;
-				}
-				else if (e.detail.because === "rm") {  //reload because of remove
-					//TODO set selection to something else
 				}
 			},
 
@@ -84,6 +81,10 @@ Display items in a post folder
 				if (postFolderPath) {
 					return {action: "ls", path: postFolderPath};
 				}
+			},
+			_selectPost: function(e) {
+				//TODO
+				console.log("View "+e.detail.value);
 			},
 
 			_computePostFolderPath: function(postId) {

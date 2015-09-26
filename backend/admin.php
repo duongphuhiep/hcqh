@@ -4,11 +4,18 @@
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
+// true on Windows
+define("WIN_OS", startsWith(strtolower(PHP_OS), "win"));
+
 require_once("lib/ChromePhp.php");
 
 /* join paths without double slashes */
 function joinPaths($p1, $p2) {
 	return join(DIRECTORY_SEPARATOR, array(trim($p1, DIRECTORY_SEPARATOR), trim($p2, DIRECTORY_SEPARATOR)));
+}
+function startsWith($haystack, $needle) {
+	// search backwards starting from haystack length characters from the end
+	return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
 }
 
 /**
@@ -56,8 +63,45 @@ function ls($path) {
  */
 function ren($parentPath, $currentName, $newName) {
 	rename(joinPaths($parentPath, $currentName), joinPaths($parentPath, $newName));
-	$all = scandir($parentPath);
-	return array_slice($all, 2); //remove the "." and ".." folder
+	return ls($parentPath);
+}
+
+/**
+ * delete a file/folder
+ * @param $parentPath: string parent folder
+ * @param $itemName: string file name
+ * @return array: ls file/folder in the parentPath after deleting
+ */
+function rm($parentPath, $itemName) {
+	$path = joinPaths($parentPath, $itemName);
+	if (is_dir($path)) {
+		$it = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
+		$files = new RecursiveIteratorIterator($it,
+			RecursiveIteratorIterator::CHILD_FIRST);
+		foreach ($files as $file) {
+			if ($file->isDir()) {
+				rmdir($file->getRealPath());
+			} else {
+				unlink($file->getRealPath());
+			}
+		}
+		rmdir($path);
+	}
+	else {
+		unlink($path);
+	}
+
+	$resu = ls($parentPath);
+
+	//work-around for Windows: the deleted folder is still in the result list, we must to delete it in the list before return the result
+	if (WIN_OS) {
+		if (($key = array_search($itemName, $resu)) !== false) {
+			unset($resu[$key]);
+		}
+		$resu = array_values($resu);
+	}
+
+	return $resu;
 }
 
 /* read request */
@@ -79,6 +123,12 @@ else if ($action=="ren") {
 	if (isAdmin($requestBody->adminToken)) {
 		$parentPath = BASE_DIR . $requestBody->parentPath;
 		$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
+	}
+}
+else if ($action=="rm") {
+	if (isAdmin($requestBody->adminToken)) {
+		$parentPath = BASE_DIR . $requestBody->parentPath;
+		$objResult = rm($parentPath, $requestBody->currentName);
 	}
 }
 else {

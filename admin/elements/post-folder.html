@@ -3,10 +3,12 @@ Display content of a post folder
 -->
 <dom-module id="post-folder">
 	<template>
-		<post-item-collection post-id="[[postId]]"></post-item-collection>
-		<div class="editor">
-			<commonmark-editor># Bai viet so 1</commonmark-editor>
-		</div>
+		<template is="dom-if" if=[[isdNotNull(postId)]]>
+			<post-item-collection post-id="[[postId]]"></post-item-collection>
+			<div class="editor">
+				<commonmark-editor># Bai viet so 1</commonmark-editor>
+			</div>
+		</template>
 		<style is="custom-style">
 			.editor {
 				display: block;
@@ -22,6 +24,12 @@ Display content of a post folder
 			is: 'post-folder',
 			properties: {
 				postId: String
+			},
+			isdNotNull: function(postId) {
+				if (postId  && postId!=="null") {
+					return true;
+				}
+				return false;
 			}
 		});
 	</script>
