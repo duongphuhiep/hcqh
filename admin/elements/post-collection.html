@@ -5,7 +5,7 @@ Display a list of post
 	<template>
 		<iron-ajax
 			auto
-			method="POST",
+			method="POST"
 			url=[[urlToAdminPhp]]
 			content-type="application/json"
 			body='{"action":"ls","path":"content/blog"}'
