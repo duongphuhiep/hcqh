@@ -3,7 +3,7 @@
 		<iron-ajax
 			id="loader"
 			method="GET",
-			url=[[url]]
+			url=[[itemPath]]
 			handle-as="text"
 			last-response="{{content}}"
 			debounce-duration="100"
@@ -13,18 +13,22 @@
 			<paper-progress indeterminate></paper-progress>
 		</template>
 		<template is="dom-if" if="[[_isMarkdown(itemName)]]">
-			<commonmark-editor value={{content}}></commonmark-editor>
+			<commonmark-editor value={{content}} height="700px"></commonmark-editor>
 		</template>
 		<template is="dom-if" if="[[_isImage(itemName)]]">
-			<iron-image src="[[itemPath]]"></iron-image>
+			<img src="[[itemPath]]">
+			<!--<iron-image src="[[itemPath]]"></iron-image>-->
 		</template>
 
 		<style>
 			:host {
 				display: block;
+			}
+			commonmark-editor {
+				display: block;
 				background: #fff;
 				@apply(--shadow-elevation-2dp);
-				height: 400px;
+				height: 700px;
 				margin: 10px;
 			}
 			paper-progress {
@@ -49,7 +53,6 @@
 
 			markdownHandle: function(e) {
 				if (this._isMarkdown(this.itemName)) {
-					this.url = app.helper.joinPath(page.rootFolder, this.itemPath);
 					this.$.loader.generateRequest();
 				}
 			},
@@ -62,7 +65,7 @@
 			},
 
 			getItemPath: function(itemName, parentPath) {
-				return app.helper.joinPath(parentPath, itemName);
+				return app.helper.joinPath(page.rootFolder, app.helper.joinPath(parentPath, itemName));
 			},
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
