@@ -33,7 +33,12 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 				</div>
 			</template>
 			<template is="dom-if" if={{!renaming}}>
-				<div class="card-content">{{fileName}}</div>
+				<div class="card-content">
+					<template is="dom-if" if={{isImage}}>
+
+					</template>
+					<div>{{fileName}}</div>
+				</div>
 				<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
 					<div class="card-actions">
 						<template is="dom-if" if={{deletable}}>
@@ -95,7 +100,8 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 
 			properties: {
 				fileName: {
-					type: String
+					type: String,
+					notify: true
 				},
 				parentPath: String,
 				deletable: {
@@ -111,7 +117,28 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 				 * "post-item" is used in the detail view
 				 * "post-folder" is use in the drawer view
 				 */
-				contentType: String
+				contentType: String,
+
+				isImage: {
+					type: Boolean,
+					computed: '_isImage(contentType, fileName)',
+					notify: true
+				},
+				isMarkdown: {
+					type: Boolean,
+					computed: '_isMarkdown(contentType, fileName)',
+					notify: true
+				},
+				filePath: {
+					type: String,
+					computed: "getFilePath(fileName, parentPath)",
+					notify: true
+				},
+				model: {
+					type: String,
+					computed: "getModel(parentPath, fileName, filePath, isImage, isMarkdown)",
+					notify: true
+				}
 			},
 			_hasAction: function(deletable, renamable){
 				return deletable || renamable;
@@ -148,7 +175,18 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 					this.$.sender.generateRequest();
 				}
 			},
-
+			_isImage: function(contentType, fileName) {
+				return this.contenType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+			},
+			_isImage: function(contentType, fileName) {
+				return this.contenType !== 'post-folder' && fileName.match(/\.md$/i);
+			},
+			getFilePath: function(fileName, parentPath) {
+				return app.helper.joinPath(page.rootFolder, app.helper.joinPath(parentPath, fileName));
+			},
+			getModel: function(parentPath, fileName, filePath, isImage, isMarkdown) {
+				return {parentPath: parentPath, fileName: fileName, filePath: filePath, isImage: isImage, isMarkdown: isMarkdown}
+			},
 			_notifyChangeToContainer: function(e) {
 				var currentAction = this.ajaxBody.action;
 
