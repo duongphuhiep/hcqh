@@ -4,26 +4,22 @@ Display content of a post folder
 <dom-module id="post-folder">
 	<template>
 		<template is="dom-if" if=[[isdNotNull(postId)]]>
-			<post-item-collection post-id="[[postId]]"></post-item-collection>
-			<div class="editor">
-				<commonmark-editor># Bai viet so 1</commonmark-editor>
-			</div>
+			<post-item-collection post-folder-path=[[postFolderPath]] selected-item={{selectedItem}}></post-item-collection>
+			<post-item-viewer parent-path=[[postFolderPath]] item-name=[[selectedItem]]></post-item-viewer>
 		</template>
-		<style is="custom-style">
-			.editor {
-				display: block;
-				background: #fff;
-				@apply(--shadow-elevation-2dp);
-				height: 400px;
-				margin: 10px;
-			}
-		</style>
 	</template>
 	<script>
 		Polymer({
 			is: 'post-folder',
 			properties: {
-				postId: String
+				postId: String,
+				postFolderPath: {
+					type: String,
+					computed: "_computePostFolderPath(postId)"
+				}
+			},
+			_computePostFolderPath: function(postId) {
+				return "content/blog/" + postId;
 			},
 			isdNotNull: function(postId) {
 				if (postId  && postId!=="null") {

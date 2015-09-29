@@ -20,7 +20,7 @@ Display a list of post
 		</template>
 		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected={{postId}}>
 			<template is="dom-repeat" items={{postsCollection}}>
-				<file-item content-type="post-folder" file-name={{item}} fileName-changed="_rename" parent-path="content/blog"></file-item>
+				<file-item content-type="post-folder" file-name={{item}} parent-path="content/blog"></file-item>
 			</template>
 		</iron-selector>
 		<style>
@@ -55,26 +55,11 @@ Display a list of post
 				console.info("reload ", e.detail);
 				this.postsCollection = e.detail.newCollection; //reload the collection
 				this.postId = e.detail.changedItem;
-				/*if (e.detail.changedItem) {
-					this.postId = e.detail.changedItem;
-				}
-				else {
-					//return to homepage
-					page("/");
-				}*/
 			},
 
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
 			},
-
-			_rename: function(e) {
-				console.log("rename ", e);
-			},
-
-			/*_onClick: function(e) {
-				//e.currentTarget refers to <file-item>, e.target refers to the div
-			},*/
 
 			_selectPost: function(e) {
 				page("/post/"+e.detail.value);

@@ -1,0 +1,73 @@
+<dom-module id="post-item-viewer">
+    <template>
+		<iron-ajax
+			id="loader"
+			method="GET",
+			url=[[url]]
+			handle-as="text"
+			last-response="{{content}}"
+			debounce-duration="100"
+			loading={{loading}}
+			on-error = "_onError"></iron-ajax>
+		<template is="dom-if" if="{{loading}}">
+			<paper-progress indeterminate></paper-progress>
+		</template>
+		<template is="dom-if" if="[[_isMarkdown(itemName)]]">
+			<commonmark-editor value={{content}}></commonmark-editor>
+		</template>
+		<template is="dom-if" if="[[_isImage(itemName)]]">
+			<iron-image src="[[itemPath]]"></iron-image>
+		</template>
+
+		<style>
+			:host {
+				display: block;
+				background: #fff;
+				@apply(--shadow-elevation-2dp);
+				height: 400px;
+				margin: 10px;
+			}
+			paper-progress {
+				width: 100%;
+			}
+		</style>
+    </template>
+
+    <script>
+        Polymer({
+            is: "post-item-viewer",
+
+			properties: {
+				parentPath: String,
+				itemName: String,
+				itemPath: {
+					type: String,
+					computed: "getItemPath(itemName, parentPath)",
+					observer: "markdownHandle"
+				}
+			},
+
+			markdownHandle: function(e) {
+				if (this._isMarkdown(this.itemName)) {
+					this.url = app.helper.joinPath(page.rootFolder, this.itemPath);
+					this.$.loader.generateRequest();
+				}
+			},
+
+			_isImage: function(itemName) {
+				return itemName.match(/\.(jpg|png|bmp|gif)$/i);
+			},
+			_isMarkdown: function(itemName) {
+				return itemName.match(/\.md$/i);
+			},
+
+			getItemPath: function(itemName, parentPath) {
+				return app.helper.joinPath(parentPath, itemName);
+			},
+			_onError: function(e) {
+				this.fire("raise-alert-error", e.detail.error);
+			}
+        });
+    </script>
+
+</dom-module>

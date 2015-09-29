@@ -1,8 +1,10 @@
 <script src="../bower_components/page/page.js"></script>
 <script>
 	/* TODO change in production */
-	page.base("/hcqh/admin");
-	page.urlToAdminPhp = "/hcqh/backend/admin.php";
+	page.rootFolder = "/hcqh/";
+
+	page.urlToAdminPhp = page.rootFolder + "backend/admin.php";
+	page.base(page.rootFolder+"admin");
 
 	window.addEventListener('WebComponentsReady', function () {
 		page('/', function (ctx) {

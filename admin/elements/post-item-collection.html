@@ -4,7 +4,6 @@ Display items in a post folder
 <dom-module id="post-item-collection">
 	<template>
 		<iron-ajax
-			id="loader"
 			auto
 			method="POST",
 			url=[[urlToAdminPhp]]
@@ -19,10 +18,9 @@ Display items in a post folder
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
-		<!--<file-upload id="fileUpload" droppable="true" raised="true" multi="true" target=[[urlToAdminPhp]]>Choose File</file-upload>-->
 		<file-upload url=[[urlToAdminPhp]] target-server-folder=[[postFolderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 
-		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected={{itemName}}>
+		<iron-selector attr-for-selected="fileName" selected={{selectedItem}}>
 			<template is="dom-repeat" items={{itemCollection}} sort="_compare">
 				<file-item content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 			</template>
@@ -54,16 +52,16 @@ Display items in a post folder
 			},
 
 			properties: {
-				postId: String,
+				postFolderPath: String,
 				ajaxBody: {
 					type: String,
 					computed: "_computeAjaxBody(postFolderPath)"
 				},
-				postFolderPath: {
+				itemCollection: Array,
+				selectedItem: {
 					type: String,
-					computed: "_computePostFolderPath(postId)"
-				},
-				itemCollection: Array
+					notify: true
+				}
 			},
 
 			listeners: {
@@ -73,7 +71,7 @@ Display items in a post folder
 			_reload: function(e) {
 				this.itemCollection = e.detail.newCollection; //reload the collection
 				if (e.detail.changedItem) {
-					this.itemName = e.detail.changedItem;
+					this.selectedItem = e.detail.changedItem;
 				}
 			},
 
@@ -95,15 +93,6 @@ Display items in a post folder
 					return {action: "ls", path: postFolderPath};
 				}
 			},
-			_selectPost: function(e) {
-				//TODO
-				console.log("View "+e.detail.value);
-			},
-
-			_computePostFolderPath: function(postId) {
-				return "content/blog/" + postId;
-			},
-
 			_compare: function(a, b) {
 				var isMdA = app.helper.isMarkdown(a);
 				var isMdB = app.helper.isMarkdown(b);
