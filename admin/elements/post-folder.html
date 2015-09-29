@@ -19,7 +19,7 @@ Display content of a post folder
 				}
 			},
 			_computePostFolderPath: function(postId) {
-				return "content/blog/" + postId;
+				return page.rootFolder + "content/blog/" + postId;
 			},
 			isdNotNull: function(postId) {
 				if (postId  && postId!=="null") {

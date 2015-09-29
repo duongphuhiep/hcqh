@@ -43,8 +43,7 @@ Properties:
 			<template is="dom-if" if={{!renaming}}>
 				<div class="card-content">
 					<template is="dom-if" if={{isImage}}>
-						<iron-image src=[[filePath]] style="width:200px; height:200px;" sizing="contain"></iron-image>
-						<div>[[filePath]]</div>
+						<img class='thumb' src="[[filePath]]" sizing="contain">
 					</template>
 					<div>{{fileName}}</div>
 				</div>
@@ -64,6 +63,10 @@ Properties:
 		</paper-card>
 
 		<style is="custom-style">
+			.thumb {
+				width: 200px;
+				height: 100px;
+			}
 			paper-card {
 				max-width: 300px;
 				margin:5px;
@@ -188,10 +191,10 @@ Properties:
 				return contentType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
 			_isMarkdown: function(contentType, fileName) {
-				return contentType !== 'post-folder' && fileName.match(/\.md$/i);
+				return contentType !== 'post-folder' && page.helper.isMarkdown(fileName);
 			},
 			getFilePath: function(fileName, parentPath) {
-				return page.helper.joinPath(page.rootFolder, page.helper.joinPath(parentPath, fileName));
+				return page.helper.joinPath(parentPath, fileName);
 			},
 			getModel: function(parentPath, fileName, filePath, isImage, isMarkdown) {
 				return {parentPath: parentPath, fileName: fileName, filePath: filePath, isImage: isImage, isMarkdown: isMarkdown}
@@ -207,6 +210,6 @@ Properties:
 					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:null});
 				}
 			}
-	});
+		});
 	</script>
 </dom-module>

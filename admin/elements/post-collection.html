@@ -8,7 +8,7 @@ Display a list of post
 			method="POST"
 			url=[[urlToAdminPhp]]
 			content-type="application/json"
-			body='{"action":"ls","path":"content/blog"}'
+			body=[[requestBody]]
 			handle-as="json"
 			last-response="{{postsCollection}}"
 			on-error = "_onError"
@@ -41,6 +41,7 @@ Display a list of post
 
 			ready: function() {
 				this.urlToAdminPhp = page.urlToAdminPhp;
+				this.requestBody = {action:"ls", "path":page.rootFolder+"content/blog"};
 			},
 
 			properties: {

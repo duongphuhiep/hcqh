@@ -96,7 +96,7 @@
 		adminToken: function() {
 			var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
 			if (currentUser) {
-				return currentUser.getAuthResponse().id_token
+				return currentUser.getAuthResponse().id_token;
 			}
 			return null;
 		},

@@ -13,11 +13,11 @@
 			<paper-progress indeterminate></paper-progress>
 		</template>
 		<template is="dom-if" if="[[itemModel.isMarkdown]]">
-			<commonmark-editor value={{content}} height="700px"></commonmark-editor>
+			<commonmark-editor working-dir=[[itemModel.parentPath]] value={{content}} height="700px"></commonmark-editor>
 		</template>
 		<template is="dom-if" if="[[itemModel.isImage]]">
-			<img src="[[itemModel.filePath]]">
-			<!--<iron-image src="[[itemPath]]"></iron-image>-->
+			<!-- <img src="[[itemModel.filePath]]"> -->
+			<iron-image src="[[itemModel.filePath]]"></iron-image>
 		</template>
 
 		<style>
