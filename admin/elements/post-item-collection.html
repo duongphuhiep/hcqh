@@ -97,10 +97,10 @@ Display items in a post folder
 				}
 			},
 			_compare: function(a, b) {
-				var isMdA = app.helper.isMarkdown(a);
-				var isMdB = app.helper.isMarkdown(b);
-				var isBakA = app.helper.isTemp(a);
-				var isBakB = app.helper.isTemp(b);
+				var isMdA = page.helper.isMarkdown(a);
+				var isMdB = page.helper.isMarkdown(b);
+				var isBakA = page.helper.isTemp(a);
+				var isBakB = page.helper.isTemp(b);
 
 				if (isMdA && isMdB) {
 					return this._compareTwoMd(a, b);

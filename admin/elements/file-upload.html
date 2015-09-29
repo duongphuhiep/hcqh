@@ -34,7 +34,7 @@ file upload with a progress bar
 
 			var formData = new FormData();
 
-			formData.append("adminToken", app.helper.adminToken());
+			formData.append("adminToken", page.helper.adminToken());
 			formData.append("targetServerFolder", this.targetServerFolder);
 			for (var i = 0, file; file = files[i]; ++i) {
 				formData.append(file.name, file);

@@ -35,7 +35,8 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 			<template is="dom-if" if={{!renaming}}>
 				<div class="card-content">
 					<template is="dom-if" if={{isImage}}>
-
+						<h1>{{parentPath}}</h1>
+						images
 					</template>
 					<div>{{fileName}}</div>
 				</div>
@@ -90,7 +91,7 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 				if (this.contentType === "post-item") {
 					this.renamable = "vi.md" !== this.fileName;
 					this.deletable = "vi.md" !== this.fileName;
-					if (app.helper.isMarkdown(this.fileName)) {
+					if (page.helper.isMarkdown(this.fileName)) {
 						this.style["font-size"] = "20px";
 					}
 				}
@@ -156,7 +157,7 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 						parentPath: this.parentPath,
 						currentName: this.fileName,
 						newName: this.newFileName,
-						adminToken: app.helper.adminToken()
+						adminToken: page.helper.adminToken()
 					};
 				this.$.sender.generateRequest();
 				this.renaming = false;
@@ -170,7 +171,7 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 					this.ajaxBody = {action: "rm",
 							parentPath: this.parentPath,
 							currentName: this.fileName,
-							adminToken: app.helper.adminToken()
+							adminToken: page.helper.adminToken()
 						};
 					this.$.sender.generateRequest();
 				}
@@ -178,11 +179,11 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 			_isImage: function(contentType, fileName) {
 				return this.contenType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
-			_isImage: function(contentType, fileName) {
+			_isMarkdown: function(contentType, fileName) {
 				return this.contenType !== 'post-folder' && fileName.match(/\.md$/i);
 			},
 			getFilePath: function(fileName, parentPath) {
-				return app.helper.joinPath(page.rootFolder, app.helper.joinPath(parentPath, fileName));
+				return page.helper.joinPath(page.rootFolder, page.helper.joinPath(parentPath, fileName));
 			},
 			getModel: function(parentPath, fileName, filePath, isImage, isMarkdown) {
 				return {parentPath: parentPath, fileName: fileName, filePath: filePath, isImage: isImage, isMarkdown: isMarkdown}

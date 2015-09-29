@@ -65,7 +65,7 @@
 			},
 
 			getItemPath: function(itemName, parentPath) {
-				return app.helper.joinPath(page.rootFolder, app.helper.joinPath(parentPath, itemName));
+				return page.helper.joinPath(page.rootFolder, page.helper.joinPath(parentPath, itemName));
 			},
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
