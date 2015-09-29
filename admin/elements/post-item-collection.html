@@ -20,7 +20,7 @@ Display items in a post folder
 		</template>
 		<file-upload url=[[urlToAdminPhp]] target-server-folder=[[postFolderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 
-		<iron-selector attr-for-selected="model" selected={{selectedObject}}>
+		<iron-selector attr-for-selected="model" selected={{selectedItemModel}}>
 			<template is="dom-repeat" items={{itemCollection}} sort="_compare">
 				<file-item content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 			</template>
@@ -58,7 +58,7 @@ Display items in a post folder
 					computed: "_computeAjaxBody(postFolderPath)"
 				},
 				itemCollection: Array,
-				selectedObject: {
+				selectedItemModel: {
 					type: Object,
 					notify: true
 				}

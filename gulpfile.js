@@ -67,15 +67,15 @@ gulp.task('default', ['bundle'], function(){
     liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen'});
 });
 
-var browserSync = require('browser-sync');
+/*var browserSync = require('browser-sync');
 var historyApiFallback = require('connect-history-api-fallback');
 gulp.task('reload:admin', function () {
 	browserSync.reload();
 });
-
+*/
 // Watch files for changes & reload
 gulp.task('watch:admin', ['bundle:admin'], function () {
-	browserSync({
+	/*browserSync({
 		port: 8080,
 		notify: false,
 		logPrefix: 'HCQH',
@@ -99,10 +99,10 @@ gulp.task('watch:admin', ['bundle:admin'], function () {
 				'/dist': 'dist'
 			}
 		}
-	});
+	});*/
 
 	gulp.watch(['admin/**/*', 'backend_mock/**/*', 'lib/**/*'], ['bundle:admin']);
-	gulp.watch(['dist/admin*'], ['reload:admin']);
+	/*gulp.watch(['dist/admin*'], ['reload:admin']);*/
 
 	//liveServer.start({ignore:'app,admin,lib,backend_mock,tests,reports,gen', open:'/admin'});
 });

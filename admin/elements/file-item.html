@@ -1,6 +1,14 @@
 <!--
 Represent a file or folder on the server. Provide Rename and Remove operation, by invoking the corresponding backend admin API
 After a success Renaming or Removing, fire the `refresh-collection` event to order the container refresh the item list
+
+Properties:
+* parentPath
+* fileName
+* filePath
+* isImage
+* isMarkdown
+* model: objectWrapper of all other properties
 -->
 <dom-module id="file-item">
 	<template>
@@ -35,8 +43,8 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 			<template is="dom-if" if={{!renaming}}>
 				<div class="card-content">
 					<template is="dom-if" if={{isImage}}>
-						<h1>{{parentPath}}</h1>
-						images
+						<iron-image src=[[filePath]] style="width:200px; height:200px;" sizing="contain"></iron-image>
+						<div>[[filePath]]</div>
 					</template>
 					<div>{{fileName}}</div>
 				</div>
@@ -91,7 +99,7 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 				if (this.contentType === "post-item") {
 					this.renamable = "vi.md" !== this.fileName;
 					this.deletable = "vi.md" !== this.fileName;
-					if (page.helper.isMarkdown(this.fileName)) {
+					if (this.isMarkdown) {
 						this.style["font-size"] = "20px";
 					}
 				}
@@ -177,10 +185,10 @@ After a success Renaming or Removing, fire the `refresh-collection` event to ord
 				}
 			},
 			_isImage: function(contentType, fileName) {
-				return this.contenType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+				return contentType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
 			_isMarkdown: function(contentType, fileName) {
-				return this.contenType !== 'post-folder' && fileName.match(/\.md$/i);
+				return contentType !== 'post-folder' && fileName.match(/\.md$/i);
 			},
 			getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(page.rootFolder, page.helper.joinPath(parentPath, fileName));

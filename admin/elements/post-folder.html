@@ -4,8 +4,8 @@ Display content of a post folder
 <dom-module id="post-folder">
 	<template>
 		<template is="dom-if" if=[[isdNotNull(postId)]]>
-			<post-item-collection post-folder-path=[[postFolderPath]] selected-object={{selectedObject}}></post-item-collection>
-			<post-item-viewer post-object=[[selectedObject]]></post-item-viewer>
+			<post-item-collection post-folder-path=[[postFolderPath]] selected-item-model={{selectedItemModel}}></post-item-collection>
+			<post-item-viewer item-model=[[selectedItemModel]]></post-item-viewer>
 		</template>
 	</template>
 	<script>

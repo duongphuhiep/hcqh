@@ -3,7 +3,7 @@
 		<iron-ajax
 			id="loader"
 			method="GET"
-			url=[[itemPath]]
+			url=[[itemModel.filePath]]
 			handle-as="text"
 			last-response="{{content}}"
 			debounce-duration="100"
@@ -12,11 +12,11 @@
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
-		<template is="dom-if" if="[[_isMarkdown(itemName)]]">
+		<template is="dom-if" if="[[itemModel.isMarkdown]]">
 			<commonmark-editor value={{content}} height="700px"></commonmark-editor>
 		</template>
-		<template is="dom-if" if="[[_isImage(itemName)]]">
-			<img src="[[itemPath]]">
+		<template is="dom-if" if="[[itemModel.isImage]]">
+			<img src="[[itemModel.filePath]]">
 			<!--<iron-image src="[[itemPath]]"></iron-image>-->
 		</template>
 
@@ -42,30 +42,16 @@
             is: "post-item-viewer",
 
 			properties: {
-				parentPath: String,
-				itemName: String,
-				itemPath: {
-					type: String,
-					computed: "getItemPath(itemName, parentPath)",
-					observer: "markdownHandle"
+				itemModel: {
+					value: Object,
+					observer: "itemChanged"
 				}
 			},
 
-			markdownHandle: function(e) {
-				if (this._isMarkdown(this.itemName)) {
+			itemChanged: function(e) {
+				if (e.isMarkdown) {
 					this.$.loader.generateRequest();
 				}
-			},
-
-			_isImage: function(itemName) {
-				return itemName.match(/\.(jpg|png|bmp|gif)$/i);
-			},
-			_isMarkdown: function(itemName) {
-				return itemName.match(/\.md$/i);
-			},
-
-			getItemPath: function(itemName, parentPath) {
-				return page.helper.joinPath(page.rootFolder, page.helper.joinPath(parentPath, itemName));
 			},
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
