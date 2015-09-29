@@ -1,6 +1,6 @@
 <?php
 
-//sleep(1);
+sleep(1);
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -104,42 +104,85 @@ function rm($parentPath, $itemName) {
 	return $resu;
 }
 
-/* read request */
-$requestBodyStr = file_get_contents('php://input');
-$requestBody = json_decode($requestBodyStr);
-if (is_null($requestBody)) {
+function badRequest($message) {
 	header('HTTP/1.1 400 Bad Request');
-	return;
+	if (isset($message)) {
+		header('Content-Type: text/plain');
+		echo $message;
+	}
+	exit;
 }
-
-/* handle request */
-
-$objResult = null;
-$action = $requestBody->action;
-if ($action=="ls") {
-	$objResult = ls(BASE_DIR.$requestBody->path);
-}
-else if ($action=="ren") {
-	if (isAdmin($requestBody->adminToken)) {
-		$parentPath = BASE_DIR . $requestBody->parentPath;
-		$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
+function reponseJson($obj) {
+	if (isset($obj)) {
+		header('Content-Type: application/json');
+		echo(json_encode($obj));
+		exit;
 	}
 }
-else if ($action=="rm") {
-	if (isAdmin($requestBody->adminToken)) {
-		$parentPath = BASE_DIR . $requestBody->parentPath;
-		$objResult = rm($parentPath, $requestBody->currentName);
+
+
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+if ($requestMethod == 'POST') {
+
+	/* Check if the request is coming from FormData */
+	if (isset($_POST['adminToken'])) {
+		//Yes the request is coming from a Form
+
+		//so client is uploading files
+		if (isAdmin($_POST['adminToken'])) {
+			$targetFolder = BASE_DIR . $_POST['targetServerFolder'];
+			//ChromePhp::info("upload to handle", $_POST['targetServerFolder'], $_FILES);
+
+			foreach($_FILES as $key => $file) {
+				$target_file = joinPaths($targetFolder, $file["name"]);
+
+				if (file_exists($target_file)) {
+					badRequest("File has already exists on server ".$target_file); return;
+				}
+				else {
+					move_uploaded_file($file["tmp_name"], $target_file);
+				}
+			}
+
+			$objResult = ls($targetFolder);
+			reponseJson($objResult);
+		}
+	}
+	else {
+		//No, the request is coming from a XMLHttpRequest (iron-ajax)
+
+		/* read request body */
+		$requestBodyStr = file_get_contents('php://input');
+
+		if (!empty($requestBodyStr)) {
+			$requestBody = json_decode($requestBodyStr);
+			if (!isset($requestBody)) {
+				badRequest("Invalid request body ".$requestBodyStr);
+			}
+			/* handle request */
+			$action = $requestBody->action;
+			if ($action == "ls") {
+				$objResult = ls(BASE_DIR . $requestBody->path);
+				reponseJson($objResult);
+			} else if ($action == "ren") {
+				if (isAdmin($requestBody->adminToken)) {
+					$parentPath = BASE_DIR . $requestBody->parentPath;
+					$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
+					reponseJson($objResult);
+				}
+			} else if ($action == "rm") {
+				if (isAdmin($requestBody->adminToken)) {
+					$parentPath = BASE_DIR . $requestBody->parentPath;
+					$objResult = rm($parentPath, $requestBody->currentName);
+					reponseJson($objResult);
+				}
+			}
+			else {
+				badRequest("Invalid action ".$action);
+			}
+		}
 	}
 }
 else {
-	header('HTTP/1.1 400 Bad Request');
-	header('Content-Type: text/plain');
-	echo "Unknow action ".$action;
-}
-
-// return result
-
-if ($objResult != null) {
-	header('Content-Type: application/json');
-	echo(json_encode($objResult));
+	badRequest("Invalid request method ".$requestMethod);
 }

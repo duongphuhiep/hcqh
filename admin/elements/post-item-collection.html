@@ -19,13 +19,12 @@ Display items in a post folder
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
-		<paper-card class="grid-item" heading="Upload">
-			<file-upload id="fileUpload" droppable="true" raised="true" multi="true">Choose File</file-upload>
-		</paper-card>
+		<!--<file-upload id="fileUpload" droppable="true" raised="true" multi="true" target=[[urlToAdminPhp]]>Choose File</file-upload>-->
+		<file-upload url=[[urlToAdminPhp]] target-server-folder=[[postFolderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 
 		<iron-selector attr-for-selected="fileName" on-selected-changed="_selectPost" selected={{itemName}}>
 			<template is="dom-repeat" items={{itemCollection}} sort="_compare">
-				<file-item class="grid-item" content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
+				<file-item content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 			</template>
 		</iron-selector>
 
@@ -38,6 +37,11 @@ Display items in a post folder
 			}
 			.iron-selected {
 				background: var(--default-primary-color);
+			}
+			file-upload {
+				display: block;
+				width: 100%;
+				background: white;
 			}
 		</style>
 	</template>
@@ -75,6 +79,15 @@ Display items in a post folder
 
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
+			},
+
+			_uploadError: function(e) {
+				this.fire("raise-alert-error", "Upload failed "+ e.detail.responseText);
+			},
+			_uploadSuccess: function(e) {
+				console.log(e);
+				var newCollection = JSON.parse(e.detail.response);
+				this.itemCollection = newCollection; //reload the collection
 			},
 
 			_computeAjaxBody: function(postFolderPath) {
