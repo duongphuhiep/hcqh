@@ -27,7 +27,7 @@
   "dependencies": {
     "animate.css": "~3.4.0",
     "commonmark": "~0.21.0",
-    "commonmark-editor": "~1.0.4",
+    "commonmark-editor": "~1.0.5",
     "file-upload": "~1.5.3",
     "fine-uploader": "~5.3.1",
     "fu-area": "~1.1.1",
