@@ -55,9 +55,9 @@ file upload with a progress bar
 				}
 				else {
 					_this.fire("upload-error", xhr);
-					inputFile.value = ''; //reset value allowing user to retry to upload the same file
 				}
 				_this.showProgressBar = false;
+				inputFile.value = ''; //reset value allowing user to retry to upload the same file
 			};
 			xhr.upload.onprogress = function(e) {
 				if (e.lengthComputable) {
