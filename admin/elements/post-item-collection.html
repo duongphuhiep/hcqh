@@ -83,7 +83,6 @@ Display items in a post folder
 				this.fire("raise-alert-error", "Upload failed "+ e.detail.responseText);
 			},
 			_uploadSuccess: function(e) {
-				console.log(e);
 				var newCollection = JSON.parse(e.detail.response);
 				this.itemCollection = newCollection; //reload the collection
 			},
