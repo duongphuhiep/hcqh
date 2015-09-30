@@ -62,7 +62,16 @@ function ls($path) {
  * @return array
  */
 function ren($parentPath, $currentName, $newName) {
-	rename(joinPaths($parentPath, $currentName), joinPaths($parentPath, $newName));
+	$newFile = joinPaths($parentPath, $newName);
+	if (!file_exists($newFile)) {
+		$currentFile = joinPaths($parentPath, $currentName);
+		if (!rename($currentFile, $newFile)) {
+			internalError('Failed to rename from "'.$currentFile.'" to "'.$newFile.'"');
+		}
+	}
+	else {
+		exitWithError('HTTP/1.1 409 Conflict', 'Failed to rename "'.$currentName.'", the new name "'.$newName.'" is already used');
+	}
 	return ls($parentPath);
 }
 
@@ -80,15 +89,23 @@ function rm($parentPath, $itemName) {
 			RecursiveIteratorIterator::CHILD_FIRST);
 		foreach ($files as $file) {
 			if ($file->isDir()) {
-				rmdir($file->getRealPath());
+				if (!rmdir($file->getRealPath())) {
+					internalError('Failed to remove the directory "'.$file->getRealPath().'"');
+				}
 			} else {
-				unlink($file->getRealPath());
+				if (!unlink($file->getRealPath())) {
+					internalError('Failed to remove the file "'.$file->getRealPath().'"');
+				}
 			}
 		}
-		rmdir($path);
+		if (!rmdir($path)) {
+			internalError('Failed to remove the directory "'.$path.'"');
+		}
 	}
 	else {
-		unlink($path);
+		if (!unlink($path)) {
+			internalError('Failed to remove the file "'.$path.'"');
+		}
 	}
 
 	$resu = ls($parentPath);
@@ -104,8 +121,14 @@ function rm($parentPath, $itemName) {
 	return $resu;
 }
 
+function internalError($message) {
+	exitWithError('HTTP/1.1 500 Internal Server Error', $message);
+}
 function badRequest($message) {
-	header('HTTP/1.1 400 Bad Request');
+	exitWithError('HTTP/1.1 400 Bad Request', $message);
+}
+function exitWithError($header, $message) {
+	header($header);
 	if (isset($message)) {
 		header('Content-Type: text/plain');
 		echo $message;
@@ -140,7 +163,9 @@ if ($requestMethod == 'POST') {
 					badRequest("File has already exists on server ".$target_file); return;
 				}
 				else {
-					move_uploaded_file($file["tmp_name"], $target_file);
+					if(!move_uploaded_file($file["tmp_name"], $target_file)) {
+						internalError('Failed to upload "'.$file["name"].'"');
+					}
 				}
 			}
 
