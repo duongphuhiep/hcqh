@@ -9,8 +9,40 @@ Properties:
 * isImage
 * isMarkdown
 -->
-<dom-module id="file-item">
+<dom-module id="item-title">
 	<template>
+		<style is="custom-style">
+			.thumb {
+				width: 200px;
+				height: 100px;
+			}
+			paper-card {
+				max-width: 300px;
+				margin:5px;
+				vertical-align: top;
+				cursor: pointer;
+			}
+
+			paper-input {
+				width: 200px;
+			}
+
+			paper-card:hover {
+			@apply(--shadow-elevation-8dp);
+			}
+
+			paper-icon-button {
+				color: var(--secondary-text-color);
+			}
+			paper-icon-button:hover {
+				color: var(--primary-text-color);
+			}
+
+			paper-progress {
+				width: 100%;
+			}
+		</style>
+
 		<iron-ajax
 			id="sender"
 			method="POST"
@@ -18,7 +50,7 @@ Properties:
 			content-type="application/json"
 			body=[[ajaxBody]]
 			handle-as="json"
-			last-response="{{itemCollection}}"
+			last-response="{{items}}"
 			debounce-duration="100"
 			loading = {{loading}}
 			on-error="_onError"
@@ -42,7 +74,7 @@ Properties:
 			<template is="dom-if" if={{!renaming}}>
 				<div class="card-content">
 					<template is="dom-if" if={{isImage}}>
-						<img class='thumb' src="[[filePath]]" sizing="contain">
+						<img class='thumb' src="[[filePath]]">
 					</template>
 					<div>{{fileName}}</div>
 				</div>
@@ -60,61 +92,37 @@ Properties:
 				</template>
 			</template>
 		</paper-card>
-
-		<style is="custom-style">
-			.thumb {
-				width: 200px;
-				height: 100px;
-			}
-			paper-card {
-				max-width: 300px;
-				margin:5px;
-				vertical-align: top;
-				cursor: pointer;
-			}
-
-			paper-input {
-				width: 200px;
-			}
-
-			paper-card:hover {
-				@apply(--shadow-elevation-8dp);
-			}
-
-			paper-icon-button {
-				color: var(--secondary-text-color);
-			}
-			paper-icon-button:hover {
-				color: var(--primary-text-color);
-			}
-
-			paper-progress {
-				width: 100%;
-			}
-		</style>
 	</template>
 	<script>
 		Polymer({
-			is: 'file-item',
+			is: 'item-title',
 
 			ready: function() {
-				if (this.contentType === "file") {
+				if (this.treatAs === "file") {
 					this.renamable = "vi.md" !== this.fileName;
 					this.deletable = "vi.md" !== this.fileName;
-					if (this.isMarkdown) {
-						this.style["font-size"] = "20px";
-					}
 				}
+				this._updateStyles();
 				this.renaming = false;
-				this.urlToAdminPhp = page.urlToAdminPhp;
+			},
+
+			_updateStyles: function() {
+				if (this.treatAs === "file" && this.isMarkdown) {
+					this.style["font-size"] = "20px";
+				}
+				else {
+					this.style["font-size"] = null;
+				}
 			},
 
 			properties: {
 				fileName: {
 					type: String,
-					notify: true
+					notify: true,
+					observer: "_updateStyles"
 				},
 				parentPath: String,
+				urlToAdminPhp: String,
 				deletable: {
 					type: Boolean,
 					value: true
@@ -126,16 +134,20 @@ Properties:
 				/**
 				 * possible value "file" or "folder"
 				 */
-				contentType: String,
+				treatAs: {
+					type: Boolean,
+					value: 'file',
+					observer: "_updateStyles"
+				},
 
 				isImage: {
 					type: Boolean,
-					computed: '_isImage(contentType, fileName)',
+					computed: '_isImage(treatAs, fileName)',
 					notify: true
 				},
 				isMarkdown: {
 					type: Boolean,
-					computed: '_isMarkdown(contentType, fileName)',
+					computed: '_isMarkdown(treatAs, fileName)',
 					notify: true
 				},
 				filePath: {
@@ -179,11 +191,11 @@ Properties:
 					this.$.sender.generateRequest();
 				}
 			},
-			_isImage: function(contentType, fileName) {
-				return contentType !== 'folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+			_isImage: function(treatAs, fileName) {
+				return treatAs !== 'folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
-			_isMarkdown: function(contentType, fileName) {
-				return contentType !== 'folder' && page.helper.isMarkdown(fileName);
+			_isMarkdown: function(treatAs, fileName) {
+				return treatAs !== 'folder' && page.helper.isMarkdown(fileName);
 			},
 			_getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(parentPath, fileName);
@@ -192,11 +204,11 @@ Properties:
 				var currentAction = this.ajaxBody.action;
 
 				if (currentAction === "ren") {
-					//this.fileItem = this.newFileItem;
-					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:this.newFileName});
+					//this.fileName = this.newFileName;
+					this.fire("refresh-collection", {because: currentAction, newCollection: this.items, changedItem:page.helper.joinPath(this.parentPath, this.newFileName)});
 				}
 				else  if (currentAction === "rm") {
-					this.fire("refresh-collection", {because: currentAction, newCollection: this.itemCollection, changedItem:null});
+					this.fire("refresh-collection", {because: currentAction, newCollection: this.items, changedItem:null});
 				}
 			}
 		});

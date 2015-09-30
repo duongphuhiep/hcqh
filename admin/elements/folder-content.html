@@ -1,0 +1,22 @@
+<!--
+Display content of a post folder
+-->
+<dom-module id="folder-content">
+	<template>
+		<item-list folder-path=[[folderPath]] selected-items={{selectedItems}} allow-upload="true" treat-items-as="file" url-to-admin-php=[[urlToAdminPhp]]></item-list>
+		<item-content item-title=[[selectedItems.0]]></item-content>
+	</template>
+	<script>
+		Polymer({
+			is: 'folder-content',
+			properties: {
+				folderPath: {
+					type: String,
+					readonly: true
+				},
+				urlToAdminPhp: String
+			}
+		});
+	</script>
+
+</dom-module>

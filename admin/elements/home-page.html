@@ -10,7 +10,9 @@ Any children elements can alert something in the alert-corner by sending raise-a
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
 			<div class="nav" drawer>
-				<post-collection post-id="[[postId]]"></post-collection>
+				<item-title parent-path="[[bannerFolder]]" file-name="Banner" treat-as="folder" deletable=false renamable=false></item-title>
+				<item-title parent-path="[[memberFolder]]" file-name="Members" treat-as="folder"  deletable="false" renamable="false"></item-title>
+				<item-list folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item=[[folderPath]]></item-list>
 			</div>
 
 			<paper-header-panel class="main" main mode="waterfall">
@@ -23,7 +25,7 @@ Any children elements can alert something in the alert-corner by sending raise-a
 
 				<!-- Main Content -->
 				<div class="content">
-					<post-folder post-id="[[postId]]"></post-folder>
+					<folder-content folder-path=[[folderPath]] url-to-admin-php=[[urlToAdminPhp]]></folder-content>
 				</div>
 
 			</paper-header-panel>
@@ -62,7 +64,9 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			is: 'home-page',
 
 			properties: {
-				postId: String
+				blogFolder: String,
+				folderPath: String,
+				urlToAdminPhp: String,
 			},
 
 			listeners: {

@@ -2,11 +2,12 @@
 <script>
 	/* TODO change in production */
 	page.rootFolder = "/hcqh/";
-
-	page.urlToAdminPhp = page.rootFolder + "backend/admin.php";
-	page.base(page.rootFolder+"admin");
+	page.base(page.rootFolder+"admin/");
 
 	window.addEventListener('WebComponentsReady', function () {
+		app.urlToAdminPhp = page.rootFolder + "backend/admin.php";
+		app.blogFolder = page.rootFolder + "content/blog";
+
 		page('/', function (ctx) {
 			if (app.isAuthorized) {
 				app.route = 'home';
@@ -16,20 +17,21 @@
 			}
 		});
 
-		page('/post/:postId', function (ctx) {
+		page('/folder/:folder(.*)', function (ctx) {
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
 			else {
 				app.displayLoginPage();
 			}
-			app.postId = ctx.params.postId;
+			app.folderPath = ctx.params.folder;
 		});
 
-		page('*', function (ctx) {
+		/*page('*', function (ctx) {
+			console.info('404', ctx.path);
 			app.route = "404";
 		});
-
+*/
 		/**
 		 * Display the login page while not changing the actual route
 		 */
@@ -118,7 +120,19 @@
 		 * @param p2: String
 		 */
 		joinPath: function(p1, p2) {
-			return this.endsWith(p1, "/") ? p1 + p2 : p1 + "/" + p2;
+			if (!p1) {
+				return p2;
+			}
+			if (!p2) {
+				return p1;
+			}
+			if (p1.charAt(p1.length-1)==='/') {
+				p1=p1.substring(0, p1.length-1);
+			}
+			if (p2.charAt(0)==='/') {
+				p2=p2.substring(1);
+			}
+			return p1 + '/' + p2;
 		}
 	}
 </script>

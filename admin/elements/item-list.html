@@ -1,0 +1,154 @@
+<!--
+Display items in a post folder
+-->
+<dom-module id="item-list">
+	<template>
+		<style>
+			paper-progress {
+				width: 100%;
+			}
+			item-title {
+				display: inline-block;
+			}
+			.iron-selected {
+				background: var(--default-primary-color);
+			}
+			file-upload {
+				display: block;
+				width: 100%;
+				background: white;
+			}
+		</style>
+
+		<iron-ajax
+			auto
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			body=[[ajaxBody]]
+			handle-as="json"
+			last-response="{{list}}"
+			debounce-duration="100"
+			loading={{loading}}
+			on-error = "_onError"></iron-ajax>
+
+		<template is="dom-if" if="{{loading}}">
+			<paper-progress indeterminate></paper-progress>
+		</template>
+
+		<template is="dom-if" if="{{allowUpload}}">
+			<file-upload url=[[urlToAdminPhp]] target-server-folder=[[folderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
+		</template>
+
+		<iron-selector selected-items={{selectedItems}} on-selected-changed="_onSelectItem" attr-for-selected="filePath" selected={{selectedItem}}>
+			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
+				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]]></item-title>
+			</template>
+		</iron-selector>
+	</template>
+	<script>
+		Polymer({
+			is: 'item-list',
+
+			properties: {
+				folderPath: String,
+				urlToAdminPhp: String,
+				allowUpload: Boolean,
+				ajaxBody: {
+					type: String,
+					computed: "_computeAjaxBody(folderPath)",
+					readonly: true
+				},
+				/*file or folder*/
+				treatItemsAs: String,
+				list: Array,
+				selectedItems: {
+					type: Array,
+					notify: true
+				},
+				selectedItem: {
+					type: String,
+					notify: true
+				}
+			},
+
+			listeners: {
+				"refresh-collection": "_reload"
+			},
+
+			_reload: function(e) {
+				this.list = e.detail.newCollection; //reload the collection
+				if (e.detail.changedItem) {
+					//force render & wait until it finish, before changing the selection,
+					// otherwise no item will be selected
+					this.$.repeater.render();
+					//change the selection
+					this.selectedItem = e.detail.changedItem;
+				}
+			},
+
+			_onError: function(e) {
+				this.fire("raise-alert-error", e.detail.error);
+			},
+
+			_uploadError: function(e) {
+				this.fire("raise-alert-error", "Upload failed "+ e.detail.responseText);
+			},
+			_uploadSuccess: function(e) {
+				var newCollection = JSON.parse(e.detail.response);
+				this.list = newCollection; //reload the collection
+			},
+
+			_computeAjaxBody: function(folderPath) {
+				return {action: "ls", path: folderPath};
+			},
+
+			/**
+			 * display markdown file first then image files after.
+			 * 'vi.md' is always the first item in the list
+			 */
+			_compare: function(a, b) {
+				if (this.treatItemsAs==='folder') {
+					return b.localeCompare(a);
+				}
+
+				var isMdA = page.helper.isMarkdown(a);
+				var isMdB = page.helper.isMarkdown(b);
+				var isBakA = page.helper.isTemp(a);
+				var isBakB = page.helper.isTemp(b);
+
+				if (isMdA && isMdB) {
+					return this._compareTwoMd(a, b);
+				}
+				else if (isMdA) {
+					return -1;
+				}
+				else if (isMdB) {
+					return 1;
+				}
+				else if (isBakA && isBakB) {
+					return a.localeCompare(b);
+				}
+				else if (isBakA) {
+					return 1;
+				}
+				else if (isBakB) {
+					return -1;
+				}
+				return a.localeCompare(b);
+			},
+
+			_compareTwoMd: function(a, b) {
+				return b.localeCompare(a);
+			},
+
+			_onSelectItem: function(e) {
+				if (this.treatItemsAs === 'folder') {
+					var pageToGo = "/folder/"+e.detail.value;
+					page(pageToGo);
+				}
+			}
+		});
+	</script>
+
+</dom-module>
