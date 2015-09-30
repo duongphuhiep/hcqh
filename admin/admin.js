@@ -4,7 +4,9 @@
 /**
  * Common Helper, Business Log used by other elements
  */
+/*
 (function(document) {
 	'use strict';
 	var app = document.querySelector('#app');
 })(document);
+*/
