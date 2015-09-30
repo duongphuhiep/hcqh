@@ -1,6 +1,6 @@
 <dom-module id="item-content">
     <template>
-		<style>
+		<style is="custom-style">
 			:host {
 				display: block;
 			}
@@ -13,6 +13,14 @@
 			}
 			paper-progress {
 				width: 100%;
+			}
+			paper-button {
+				display: block;
+				background: var(--default-primary-color);
+				color: var(--text-primary-color);
+				width: 100px;
+				margin-left: auto;
+				margin-right: auto;
 			}
 		</style>
 
@@ -30,6 +38,7 @@
 		</template>
 		<template is="dom-if" if="[[itemTitle.isMarkdown]]">
 			<commonmark-editor working-dir=[[itemTitle.parentPath]] value={{content}} height="700px"></commonmark-editor>
+			<paper-button tabindex="0" raised class="colorful custom"><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isImage]]">
 			<!-- <img src="[[itemTitle.filePath]]"> -->
