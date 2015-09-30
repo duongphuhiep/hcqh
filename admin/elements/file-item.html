@@ -8,7 +8,6 @@ Properties:
 * filePath
 * isImage
 * isMarkdown
-* model: objectWrapper of all other properties
 -->
 <dom-module id="file-item">
 	<template>
@@ -99,7 +98,7 @@ Properties:
 			is: 'file-item',
 
 			ready: function() {
-				if (this.contentType === "post-item") {
+				if (this.contentType === "file") {
 					this.renamable = "vi.md" !== this.fileName;
 					this.deletable = "vi.md" !== this.fileName;
 					if (this.isMarkdown) {
@@ -125,9 +124,7 @@ Properties:
 					value: true
 				},
 				/**
-				 * possible value "post-item" or "post-item-collection"
-				 * "post-item" is used in the detail view
-				 * "post-folder" is use in the drawer view
+				 * possible value "file" or "folder"
 				 */
 				contentType: String,
 
@@ -143,12 +140,7 @@ Properties:
 				},
 				filePath: {
 					type: String,
-					computed: "getFilePath(fileName, parentPath)",
-					notify: true
-				},
-				model: {
-					type: String,
-					computed: "getModel(parentPath, fileName, filePath, isImage, isMarkdown)",
+					computed: "_getFilePath(fileName, parentPath)",
 					notify: true
 				}
 			},
@@ -188,16 +180,13 @@ Properties:
 				}
 			},
 			_isImage: function(contentType, fileName) {
-				return contentType !== 'post-folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+				return contentType !== 'folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
 			_isMarkdown: function(contentType, fileName) {
-				return contentType !== 'post-folder' && page.helper.isMarkdown(fileName);
+				return contentType !== 'folder' && page.helper.isMarkdown(fileName);
 			},
-			getFilePath: function(fileName, parentPath) {
+			_getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(parentPath, fileName);
-			},
-			getModel: function(parentPath, fileName, filePath, isImage, isMarkdown) {
-				return {parentPath: parentPath, fileName: fileName, filePath: filePath, isImage: isImage, isMarkdown: isMarkdown}
 			},
 			_notifyChangeToContainer: function(e) {
 				var currentAction = this.ajaxBody.action;

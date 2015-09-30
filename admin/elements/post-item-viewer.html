@@ -49,7 +49,7 @@
 			},
 
 			itemChanged: function(e) {
-				if (e.isMarkdown) {
+				if (e && e.isMarkdown) {
 					this.$.loader.generateRequest();
 				}
 			},

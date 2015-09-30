@@ -20,9 +20,9 @@ Display items in a post folder
 		</template>
 		<file-upload url=[[urlToAdminPhp]] target-server-folder=[[postFolderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 
-		<iron-selector attr-for-selected="model" selected={{selectedItemModel}}>
+		<iron-selector selected-items={{selectedItems}}>  <!--on-selected-changed="_onSelectChanged"-->
 			<template is="dom-repeat" items={{itemCollection}} sort="_compare">
-				<file-item content-type="post-item" file-name={{item}} parent-path={{postFolderPath}}></file-item>
+				<file-item content-type="file" file-name={{item}} parent-path={{postFolderPath}}></file-item>
 			</template>
 		</iron-selector>
 
@@ -58,8 +58,8 @@ Display items in a post folder
 					computed: "_computeAjaxBody(postFolderPath)"
 				},
 				itemCollection: Array,
-				selectedItemModel: {
-					type: Object,
+				selectedItems: {
+					type: Array,
 					notify: true
 				}
 			},
@@ -67,11 +67,11 @@ Display items in a post folder
 			listeners: {
 				"refresh-collection": "_reload"
 			},
-/*
-			_onSelectChanged: function(e) {
-				console.log("currentTarget = ", e.detail);
-			},*/
 
+			/*_onSelectChanged: function(e) {
+				console.log(e);
+			},
+*/
 			_reload: function(e) {
 				this.itemCollection = e.detail.newCollection; //reload the collection
 				if (e.detail.changedItem) {
