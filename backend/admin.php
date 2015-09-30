@@ -11,7 +11,8 @@ require_once("lib/ChromePhp.php");
 
 /* join paths without double slashes */
 function joinPaths($p1, $p2) {
-	return join(DIRECTORY_SEPARATOR, array(trim($p1, DIRECTORY_SEPARATOR), trim($p2, DIRECTORY_SEPARATOR)));
+	//might use DIRECTORY_SEPARATOR instead of '/'
+	return join('/', array(trim($p1, '/'), trim($p2, '/')));
 }
 function startsWith($haystack, $needle) {
 	// search backwards starting from haystack length characters from the end
