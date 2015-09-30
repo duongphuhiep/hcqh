@@ -101,9 +101,25 @@ server.respondWith(function(request){
 				return;
 			}
 		}
+		else if (action === "ren") {
+			var path = request.requestBody["path"];
+			var newName = request.requestBody["newName"];
+			if (newName ==="_fr.md") {
+				var fakePostItems = [
+					"en.md", "_fr.md", "mozart_requiem_poster.jpg", "vi.md"
+				];
+				request.respond(200, {"Content-Type": "application/json"}, JSON.stringify(fakePostItems));
+			}
+			else if (newName === "foo") {
+				var errorMessage = {error: "Unauthorized"}
+				request.respond(401, {"Content-Type": "application/json"}, JSON.stringify(errorMessage));
+			}
+		}
 
 		console.error("Cannot simulate reponse for", request);
 
+		var errorMessage = {error: "Not support"}
+		request.respond(404, {"Content-Type": "application/json"}, JSON.stringify(errorMessage));
 	}
 });
 
