@@ -42,7 +42,7 @@ function isAdmin($idtoken) {
 			return true;
 		}
 	}
-	header('HTTP/1.0 401 Unauthorized');
+	unauthorize('User '.$googleUserId.' ('.$data['email'].') is not administartor');
 	return false;
 }
 
@@ -62,6 +62,9 @@ function ls($path) {
  * @return array
  */
 function ren($parentPath, $currentName, $newName) {
+	if (!strpos($parentPath, 'content')) {
+		unauthorize($parentPath.' is out of the "content" folder');
+	}
 	$newFile = joinPaths($parentPath, $newName);
 	if (!file_exists($newFile)) {
 		$currentFile = joinPaths($parentPath, $currentName);
@@ -82,6 +85,9 @@ function ren($parentPath, $currentName, $newName) {
  * @return array: ls file/folder in the parentPath after deleting
  */
 function rm($parentPath, $itemName) {
+	if (!strpos($parentPath, 'content')) {
+		unauthorize($parentPath.' is out of the "content" folder');
+	}
 	$path = joinPaths($parentPath, $itemName);
 	if (is_dir($path)) {
 		$it = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
@@ -127,6 +133,9 @@ function internalError($message) {
 function badRequest($message) {
 	exitWithError('HTTP/1.1 400 Bad Request', $message);
 }
+function unauthorize($message) {
+	exitWithError('HTTP/1.0 401 Unauthorized', $message);
+}
 function exitWithError($header, $message) {
 	header($header);
 	if (isset($message)) {
@@ -153,7 +162,7 @@ if ($requestMethod == 'POST') {
 
 		//so client is uploading files
 		if (isAdmin($_POST['adminToken'])) {
-			$targetFolder = BASE_DIR . $_POST['targetServerFolder'];
+			$targetFolder = joinPaths(BASE_DIR, $_POST['targetServerFolder']);
 			//ChromePhp::info("upload to handle", $_POST['targetServerFolder'], $_FILES);
 
 			foreach($_FILES as $key => $file) {
@@ -187,17 +196,17 @@ if ($requestMethod == 'POST') {
 			/* handle request */
 			$action = $requestBody->action;
 			if ($action == "ls") {
-				$objResult = ls(BASE_DIR . $requestBody->path);
+				$objResult = ls(joinPaths(BASE_DIR, $requestBody->path));
 				reponseJson($objResult);
 			} else if ($action == "ren") {
 				if (isAdmin($requestBody->adminToken)) {
-					$parentPath = BASE_DIR . $requestBody->parentPath;
+					$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
 					$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
 					reponseJson($objResult);
 				}
 			} else if ($action == "rm") {
 				if (isAdmin($requestBody->adminToken)) {
-					$parentPath = BASE_DIR . $requestBody->parentPath;
+					$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
 					$objResult = rm($parentPath, $requestBody->currentName);
 					reponseJson($objResult);
 				}
