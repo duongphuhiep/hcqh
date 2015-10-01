@@ -158,14 +158,8 @@ Properties:
 			},
 
 			_onTap: function() {
-				if (this.treatAs === 'folder') {
-					var pageToGo = "/folder/" + this.filePath;
-					page(pageToGo);
-				}
-				else if (this.treatAs === 'file') {
-					var pageToGo = "/file/" + this.filePath;
-					page.redirect(pageToGo);
-				}
+				var pageToGo = '/'+this.treatAs+'/' + this.filePath;
+				page(pageToGo);
 			},
 
 			_hasAction: function(deletable, renamable){
