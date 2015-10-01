@@ -32,12 +32,13 @@
 			last-response="{{content}}"
 			debounce-duration="100"
 			loading={{loading}}
+			on-response="_onResponse"
 			on-error = "_onError"></iron-ajax>
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isMarkdown]]">
-			<commonmark-editor working-dir=[[itemTitle.parentPath]] value={{content}} height="700px"></commonmark-editor>
+			<commonmark-editor id="edit" working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
 			<paper-button tabindex="0" raised class="colorful custom"><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isImage]]">
@@ -54,6 +55,11 @@
 				itemTitle: {
 					value: Object,
 					observer: "itemChanged"
+				},
+				dirty: {
+					type: Boolean,
+					notify: true,
+					value: false
 				}
 			},
 
@@ -61,9 +67,17 @@
 				if (e && e.isMarkdown) {
 					this.$.loader.generateRequest();
 				}
+				else {
+					this.dirty = false; //reset the dirty state
+				}
+			},
+			_onResponse: function(e) {
+				if (this.itemTitle.isMarkdown) {
+					this.dirtyContent = this.content; //reset the dirty content
+				}
 			},
 			_onError: function(e) {
-				this.fire("raise-alert-error", e.detail.error);
+				this.fire("raise-alert-error", content);
 			}
         });
     </script>

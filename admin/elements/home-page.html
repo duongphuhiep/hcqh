@@ -43,7 +43,11 @@ Any children elements can alert something in the alert-corner by sending raise-a
 
 				<!-- Main Content -->
 				<div class="content">
-					<folder-content folder-path=[[folderPath]] url-to-admin-php=[[urlToAdminPhp]] file-name=[[fileName]]></folder-content>
+					<folder-content folder-path=[[folderPath]]
+									url-to-admin-php=[[urlToAdminPhp]]
+									file-name=[[fileName]]
+									dirty={{dirty}}>
+					</folder-content>
 				</div>
 
 			</paper-header-panel>
@@ -67,7 +71,12 @@ Any children elements can alert something in the alert-corner by sending raise-a
 				blogFolder: String,
 				folderPath: String,
 				fileName: String,
-				urlToAdminPhp: String
+				urlToAdminPhp: String,
+				dirty: {
+					type: Boolean,
+					notify: true,
+					value: false
+				}
 			},
 
 			listeners: {

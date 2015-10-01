@@ -8,7 +8,9 @@
 		app.urlToAdminPhp = page.rootFolder + "backend/admin.php";
 		app.blogFolder = page.rootFolder + "content/blog";
 
-		page('/', function (ctx) {
+		page('/', function (ctx, next) {
+			document.title = '/';
+			//console.info('Enter home',ctx);
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
@@ -18,6 +20,8 @@
 		});
 
 		page('/folder/:folder(.*)', function (ctx) {
+			document.title = 'folder/'+ctx.params.folder;
+			//console.info('Enter folder',ctx.path);
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
@@ -29,6 +33,8 @@
 		});
 
 		page('/file/:folder(.*)/:file', function (ctx) {
+			//console.info('Enter file',ctx.path);
+			document.title = 'file/'+ctx.params.folder+'/'+ctx.params.file;
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
@@ -39,11 +45,27 @@
 			app.fileName = ctx.params.file;
 		});
 
-		/*page('*', function (ctx) {
+		page('*', function (ctx) {
+			document.title='404';
 			console.info('404', ctx.path);
 			app.route = "404";
 		});
-*/
+
+		page.exit('*', function (ctx, next) {
+			if (app.dirty) {
+				//console.info('Exit file', ctx);
+				//confirm leaving
+				//var message = "Are you sure you want to leave this page?\nYour change will be lost:\n" + ctx.params.folder + '/' + ctx.params.file;
+				var message = "Are you sure you want to leave this page?\nYour change will be lost on click OK";
+				if (confirm(message)) {
+					next(); //leave
+				}
+			}
+			else {
+				next(); //leave
+			}
+		});
+
 		/**
 		 * Display the login page while not changing the actual route
 		 */
@@ -71,12 +93,12 @@
 		app.$.gsa.addEventListener("google-signin-aware-signed-out", app.displayLoginPage);
 
 		/*app.handleSignIn = function() {
-			console.log("google-login");
+			console.info("google-login");
 			//app.fire("google-login");
 		};
 
 		app.handleSignOut = function() {
-			console.log("google-logout");
+			console.info("google-logout");
 			//app.fire("google-logout");
 		}*/
 	});

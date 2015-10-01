@@ -10,7 +10,9 @@ Display content of a post folder
 				   treat-items-as="file"
 				   url-to-admin-php=[[urlToAdminPhp]]>
 		</item-list>
-		<item-content item-title=[[selectedItems.0]]></item-content>
+		<item-content item-title=[[selectedItems.0]]
+					  dirty={{dirty}}>
+		</item-content>
 	</template>
 	<script>
 		Polymer({
@@ -25,7 +27,12 @@ Display content of a post folder
 					type: String,
 					computed: "_getSelectedItemPath(folderPath, fileName)"
 				},
-				urlToAdminPhp: String
+				urlToAdminPhp: String,
+				dirty: {
+					type: Boolean,
+					notify: true,
+					value: false
+				}
 			},
 
 			_getSelectedItemPath: function(folderPath, fileName) {
