@@ -56,7 +56,7 @@ Properties:
 			on-error="_onError"
 			on-response="_notifyChangeToContainer"></iron-ajax>
 
-		<paper-card>
+		<paper-card on-tap="_onTap">
 			<template is="dom-if" if="{{loading}}">
 				<paper-progress indeterminate></paper-progress>
 			</template>
@@ -156,6 +156,18 @@ Properties:
 					notify: true
 				}
 			},
+
+			_onTap: function() {
+				if (this.treatAs === 'folder') {
+					var pageToGo = "/folder/" + this.filePath;
+					page(pageToGo);
+				}
+				else if (this.treatAs === 'file') {
+					var pageToGo = "/file/" + this.filePath;
+					page.redirect(pageToGo);
+				}
+			},
+
 			_hasAction: function(deletable, renamable){
 				return deletable || renamable;
 				return true;

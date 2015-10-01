@@ -69,9 +69,9 @@ Display items in a post folder
 				selectedItemPath: String
 			},
 
-			observers: [
+			/*observers: [
 				"_onSelectItem(selectedItems.0)"
-			],
+			],*/
 			listeners: {
 				"refresh-collection": "_reload"
 			},
@@ -143,18 +143,20 @@ Display items in a post folder
 
 			_compareTwoMd: function(a, b) {
 				return b.localeCompare(a);
-			},
-
-			_onSelectItem: function(e) {
-				if (this.treatItemsAs === 'folder') {
-					var pageToGo = "/folder/"+e.filePath;
-					page(pageToGo);
-				}
-				else if (this.treatItemsAs === 'file') {
-					var pageToGo = "/file/"+e.filePath;
-					page.redirect(pageToGo);
-				}
 			}
+
+			/*_onSelectItem: function(e) {
+				if (e && e.filePath) {
+					if (this.treatItemsAs === 'folder') {
+						//var pageToGo = "/folder/" + e.filePath;
+						page(pageToGo);
+					}
+					else if (this.treatItemsAs === 'file') {
+						var pageToGo = "/file/" + e.filePath;
+						page.redirect(pageToGo);
+					}
+				}
+			}*/
 		});
 	</script>
 
