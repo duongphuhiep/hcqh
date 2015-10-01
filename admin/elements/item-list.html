@@ -40,7 +40,7 @@ Display items in a post folder
 			<file-upload url=[[urlToAdminPhp]] target-server-folder=[[folderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 		</template>
 
-		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}}>
+		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}} activate-event="">
 			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
 				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]]></item-title>
 			</template>
