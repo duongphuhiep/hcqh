@@ -27,7 +27,7 @@ Display items in a post folder
 			content-type="application/json"
 			body=[[ajaxBody]]
 			handle-as="json"
-			last-response="{{list}}"
+			last-response={{list}}
 			debounce-duration="100"
 			loading={{loading}}
 			on-error = "_onError"></iron-ajax>
@@ -40,7 +40,7 @@ Display items in a post folder
 			<file-upload url=[[urlToAdminPhp]] target-server-folder=[[folderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
 		</template>
 
-		<iron-selector selected-items={{selectedItems}} on-selected-changed="_onSelectItem" attr-for-selected="filePath" selected={{selectedItem}}>
+		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}}>
 			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
 				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]]></item-title>
 			</template>
@@ -66,14 +66,18 @@ Display items in a post folder
 					type: Array,
 					notify: true
 				},
-				selectedItem: {
-					type: String,
-					notify: true
-				}
+				selectedItemPath: String
 			},
 
+			observers: [
+				"_onSelectItem(selectedItems.0)"
+			],
 			listeners: {
 				"refresh-collection": "_reload"
+			},
+
+			selectedItemPathChanged: function(e) {
+				console.info("selectedItemPathChanged", e);
 			},
 
 			_reload: function(e) {
@@ -83,14 +87,13 @@ Display items in a post folder
 					// otherwise no item will be selected
 					this.$.repeater.render();
 					//change the selection
-					this.selectedItem = e.detail.changedItem;
+					this.selectedItemPath = e.detail.changedItem;
 				}
 			},
 
 			_onError: function(e) {
 				this.fire("raise-alert-error", e.detail.error);
 			},
-
 			_uploadError: function(e) {
 				this.fire("raise-alert-error", "Upload failed "+ e.detail.responseText);
 			},
@@ -144,8 +147,12 @@ Display items in a post folder
 
 			_onSelectItem: function(e) {
 				if (this.treatItemsAs === 'folder') {
-					var pageToGo = "/folder/"+e.detail.value;
+					var pageToGo = "/folder/"+e.filePath;
 					page(pageToGo);
+				}
+				else if (this.treatItemsAs === 'file') {
+					var pageToGo = "/file/"+e.filePath;
+					page.redirect(pageToGo);
 				}
 			}
 		});

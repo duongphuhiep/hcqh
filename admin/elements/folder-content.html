@@ -3,7 +3,13 @@ Display content of a post folder
 -->
 <dom-module id="folder-content">
 	<template>
-		<item-list folder-path=[[folderPath]] selected-items={{selectedItems}} allow-upload="true" treat-items-as="file" url-to-admin-php=[[urlToAdminPhp]]></item-list>
+		<item-list folder-path=[[folderPath]]
+				   selected-item-path="{{selectedItemPath}}"
+				   selected-items={{selectedItems}}
+				   allow-upload
+				   treat-items-as="file"
+				   url-to-admin-php=[[urlToAdminPhp]]>
+		</item-list>
 		<item-content item-title=[[selectedItems.0]]></item-content>
 	</template>
 	<script>
@@ -14,7 +20,16 @@ Display content of a post folder
 					type: String,
 					readonly: true
 				},
+				fileName: String,
+				selectedItemPath: {
+					type: String,
+					computed: "_getSelectedItemPath(folderPath, fileName)"
+				},
 				urlToAdminPhp: String
+			},
+
+			_getSelectedItemPath: function(folderPath, fileName) {
+				return page.helper.joinPath(folderPath, fileName);
 			}
 		});
 	</script>

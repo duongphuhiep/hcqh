@@ -7,12 +7,30 @@ Any children elements can alert something in the alert-corner by sending raise-a
 -->
 <dom-module id="home-page">
 	<template>
+		<style is="custom-style">
+			paper-drawer-panel {
+			--paper-drawer-panel-left-drawer-container: {
+				 background-color: lightgray;
+			 };
+			}
+			.nav {
+				overflow: scroll;
+				border-right: 1px solid #ccc;
+			}
+			:host {
+				display: block;
+			}
+			.main {
+				background-color: #eee;
+			}
+		</style>
+
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
 			<div class="nav" drawer>
 				<item-title parent-path="[[bannerFolder]]" file-name="Banner" treat-as="folder" deletable=false renamable=false></item-title>
 				<item-title parent-path="[[memberFolder]]" file-name="Members" treat-as="folder"  deletable="false" renamable="false"></item-title>
-				<item-list folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item=[[folderPath]]></item-list>
+				<item-list folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item-path=[[folderPath]]></item-list>
 			</div>
 
 			<paper-header-panel class="main" main mode="waterfall">
@@ -25,31 +43,13 @@ Any children elements can alert something in the alert-corner by sending raise-a
 
 				<!-- Main Content -->
 				<div class="content">
-					<folder-content folder-path=[[folderPath]] url-to-admin-php=[[urlToAdminPhp]]></folder-content>
+					<folder-content folder-path=[[folderPath]] url-to-admin-php=[[urlToAdminPhp]] file-name=[[fileName]]></folder-content>
 				</div>
 
 			</paper-header-panel>
 		</paper-drawer-panel>
 
 		<alert-corner id="alertCorner" auto-close="10000"></alert-corner>
-
-		<style is="custom-style">
-			paper-drawer-panel {
-				--paper-drawer-panel-left-drawer-container: {
-					 background-color: lightgray;
-				 };
-			}
-			.nav {
-				overflow: scroll;
-				border-right: 1px solid #ccc;
-			}
-			:host {
-			  display: block;
-			}
-			.main {
-			  background-color: #eee;
-			}
-		</style>
 
 	</template>
 
@@ -66,7 +66,8 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			properties: {
 				blogFolder: String,
 				folderPath: String,
-				urlToAdminPhp: String,
+				fileName: String,
+				urlToAdminPhp: String
 			},
 
 			listeners: {

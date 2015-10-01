@@ -25,6 +25,18 @@
 				app.displayLoginPage();
 			}
 			app.folderPath = ctx.params.folder;
+			app.fileName = null;
+		});
+
+		page('/file/:folder(.*)/:file', function (ctx) {
+			if (app.isAuthorized) {
+				app.route = 'home';
+			}
+			else {
+				app.displayLoginPage();
+			}
+			app.folderPath = ctx.params.folder;
+			app.fileName = ctx.params.file;
 		});
 
 		/*page('*', function (ctx) {
