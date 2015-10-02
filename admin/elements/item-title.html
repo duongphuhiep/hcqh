@@ -21,6 +21,7 @@ Properties:
 				margin:5px;
 				vertical-align: top;
 				cursor: pointer;
+				display: var(--item-title-card-display, inline-block);
 			}
 
 			paper-input {
@@ -28,7 +29,7 @@ Properties:
 			}
 
 			paper-card:hover {
-			@apply(--shadow-elevation-8dp);
+				@apply(--shadow-elevation-8dp);
 			}
 
 			paper-icon-button {
@@ -126,19 +127,13 @@ Properties:
 				},
 				parentPath: String,
 				urlToAdminPhp: String,
-				deletable: {
-					type: Boolean,
-					value: true
-				},
-				renamable: {
-					type: Boolean,
-					value: true
-				},
+				deletable: Boolean,
+				renamable: Boolean,
 				/**
 				 * possible value "file" or "folder"
 				 */
 				treatAs: {
-					type: Boolean,
+					type: String,
 					value: 'file',
 					observer: "_updateStyles"
 				},

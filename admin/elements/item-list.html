@@ -3,12 +3,12 @@ Display items in a post folder
 -->
 <dom-module id="item-list">
 	<template>
-		<style>
+		<style is="custom-style">
 			paper-progress {
 				width: 100%;
 			}
 			item-title {
-				display: inline-block;
+				display: var(--item-list-item-title-display, inline-block);
 			}
 			.iron-selected {
 				background: var(--default-primary-color);
@@ -43,7 +43,7 @@ Display items in a post folder
 
 		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}} activate-event="">
 			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
-				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]]></item-title>
+				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]] deletable renamable></item-title>
 			</template>
 		</iron-selector>
 	</template>
