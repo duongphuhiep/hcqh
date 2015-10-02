@@ -34,6 +34,9 @@ Any children elements can alert something in the alert-corner by sending raise-a
 				--item-list-item-title-display: block;
 				--item-title-card-display: list-item;
 			}
+			paper-button {
+				background: darkgreen;
+			}
 		</style>
 
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
@@ -51,7 +54,8 @@ Any children elements can alert something in the alert-corner by sending raise-a
 				<paper-toolbar>
 					<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 					<div class="title">{{welcomeHeader}}</div>
-					<google-signin id="gs" client-id="786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com" scopes="profile"></google-signin>
+					<google-signin id="gs" scopes="profile"></google-signin>
+					<paper-button on-tap="_creatNewPost"><iron-icon icon="add"></iron-icon>New Post</paper-button>
 				</paper-toolbar>
 
 				<!-- Main Content -->
