@@ -7,9 +7,9 @@
 			commonmark-editor {
 				display: block;
 				background: #fff;
-			@apply(--shadow-elevation-2dp);
+				@apply(--shadow-elevation-2dp);
 				height: 700px;
-				margin: 10px;
+				margin: 20px 5%;
 			}
 			paper-progress {
 				width: 100%;
@@ -39,7 +39,7 @@
 		</template>
 		<template is="dom-if" if="[[itemTitle.isMarkdown]]">
 			<commonmark-editor id="edit" working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
-			<paper-button tabindex="0" raised class="colorful custom"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			<paper-button raised><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isImage]]">
 			<!-- <img src="[[itemTitle.filePath]]"> -->
