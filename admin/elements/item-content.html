@@ -27,19 +27,34 @@
 		<iron-ajax
 			id="loader"
 			method="GET"
+			headers='{"pragma": "no-cache", "Cache-Control":"no-cache"}'
 			url=[[itemTitle.filePath]]
 			handle-as="text"
 			last-response="{{content}}"
 			debounce-duration="100"
 			loading={{loading}}
-			on-response="_onResponse"
+			on-response="_onLoaderResponse"
 			on-error = "_onError"></iron-ajax>
+
+		<iron-ajax
+			id="saver"
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			body=[[ajaxBody]]
+			handle-as="text"
+			last-response="{{content}}"
+			debounce-duration="100"
+			loading={{loading}}
+			on-response="_onSaverResponse"
+			on-error = "_onError"></iron-ajax>
+
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isMarkdown]]">
-			<commonmark-editor id="edit" working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
-			<paper-button raised><iron-icon icon="check"></iron-icon>Save</paper-button>
+			<commonmark-editor working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
+			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isImage]]">
 			<!-- <img src="[[itemTitle.filePath]]"> -->
@@ -56,6 +71,7 @@
 					value: Object,
 					observer: "itemChanged"
 				},
+				urlToAdminPhp: String,
 				dirty: {
 					type: Boolean,
 					notify: true,
@@ -65,19 +81,40 @@
 
 			itemChanged: function(e) {
 				if (e && e.isMarkdown) {
-					this.$.loader.generateRequest();
+					this.$.loader.generateRequest(); //reload content
 				}
 				else {
-					this.dirty = false; //reset the dirty state
+					this.dirty = false; //reset the dirty state (no more dirty after display a new item)
 				}
 			},
-			_onResponse: function(e) {
+			_onLoaderResponse: function(e) {
 				if (this.itemTitle.isMarkdown) {
-					this.dirtyContent = this.content; //reset the dirty content
+					//reset the dirty content and state (no more dirty after reload)
+					this.dirtyContent = this.content;
+					this.dirty = false;
 				}
 			},
 			_onError: function(e) {
-				this.fire("raise-alert-error", content);
+				this.fire("raise-alert-error", e.detail.error);
+			},
+
+			_saveDirtyContent: function() {
+				this.ajaxBody = {
+					action: "save",
+					filePath: this.itemTitle.filePath,
+					newContent: this.dirtyContent,
+					adminToken: page.helper.adminToken()
+				};
+				this.$.saver.generateRequest();
+			},
+			_onSaverResponse: function(e) {
+				//here we expect that the server will return the same content as we saved but it was not the case
+				//reset the dirty state
+				this.dirty = (e.detail.response !== this.dirtyContent);
+				if (this.dirty) {
+					this.fire("raise-alert-error", "Server is not return the expected content");
+					console.error("unexpected response from Server", e.detail.response);
+				}
 			}
         });
     </script>

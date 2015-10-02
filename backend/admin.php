@@ -1,6 +1,6 @@
 <?php
 
-sleep(1);
+//sleep(1);
 define("BASE_DIR", "../../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -43,7 +43,7 @@ function isAdmin($idtoken) {
 			return true;
 		}
 	}
-	unauthorize('User '.$googleUserId.' ('.$data['email'].') is not administartor');
+	unauthorized('User '.$googleUserId.' ('.$data['email'].') is not administartor');
 	return false;
 }
 
@@ -64,7 +64,7 @@ function ls($path) {
  */
 function ren($parentPath, $currentName, $newName) {
 	if (!strpos($parentPath, 'content')) {
-		unauthorize($parentPath.' is out of the "content" folder');
+		unauthorized($parentPath.' is out of the "content/" folder');
 	}
 	$newFile = joinPaths($parentPath, $newName);
 	if (!file_exists($newFile)) {
@@ -87,7 +87,7 @@ function ren($parentPath, $currentName, $newName) {
  */
 function rm($parentPath, $itemName) {
 	if (!strpos($parentPath, 'content')) {
-		unauthorize($parentPath.' is out of the "content" folder');
+		unauthorized($parentPath.' is out of the "content/" folder');
 	}
 	$path = joinPaths($parentPath, $itemName);
 	if (is_dir($path)) {
@@ -128,13 +128,28 @@ function rm($parentPath, $itemName) {
 	return $resu;
 }
 
+/**
+ * write the text content to a file, then re-open the file, read the content and return it
+ * @param $path
+ * @param $content
+ */
+function save($path, $content) {
+	if (!strpos($path, 'content')) {
+		unauthorized($path.' is out of the "content/" folder');
+	}
+	if (!file_put_contents($path, $content)) {
+		internalError('Failed to save file "'.$path.'"');
+	}
+	return file_get_contents($path);
+}
+
 function internalError($message) {
 	exitWithError('HTTP/1.1 500 Internal Server Error', $message);
 }
 function badRequest($message) {
 	exitWithError('HTTP/1.1 400 Bad Request', $message);
 }
-function unauthorize($message) {
+function unauthorized($message) {
 	exitWithError('HTTP/1.0 401 Unauthorized', $message);
 }
 function exitWithError($header, $message) {
@@ -188,33 +203,35 @@ if ($requestMethod == 'POST') {
 
 		/* read request body */
 		$requestBodyStr = file_get_contents('php://input');
-
-		if (!empty($requestBodyStr)) {
-			$requestBody = json_decode($requestBodyStr);
-			if (!isset($requestBody)) {
-				badRequest("Invalid request body ".$requestBodyStr);
-			}
-			/* handle request */
-			$action = $requestBody->action;
-			if ($action == "ls") {
-				$objResult = ls(joinPaths(BASE_DIR, $requestBody->path));
+		$requestBody = json_decode($requestBodyStr);
+		if (!isset($requestBody)) {
+			badRequest("Invalid request body ".$requestBodyStr);
+		}
+		/* handle request */
+		$action = $requestBody->action;
+		if ($action == "ls") {
+			$objResult = ls(joinPaths(BASE_DIR, $requestBody->path));
+			reponseJson($objResult);
+		} else if ($action == "ren") {
+			if (isAdmin($requestBody->adminToken)) {
+				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
 				reponseJson($objResult);
-			} else if ($action == "ren") {
-				if (isAdmin($requestBody->adminToken)) {
-					$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
-					$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
-					reponseJson($objResult);
-				}
-			} else if ($action == "rm") {
-				if (isAdmin($requestBody->adminToken)) {
-					$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
-					$objResult = rm($parentPath, $requestBody->currentName);
-					reponseJson($objResult);
-				}
 			}
-			else {
-				badRequest("Invalid action ".$action);
+		} else if ($action == "rm") {
+			if (isAdmin($requestBody->adminToken)) {
+				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$objResult = rm($parentPath, $requestBody->currentName);
+				reponseJson($objResult);
 			}
+		} else if ($action == "save") {
+			if (isAdmin($requestBody->adminToken)) {
+				$filePath = joinPaths(BASE_DIR, $requestBody->filePath);
+				echo save($filePath, $requestBody->newContent);
+			}
+		}
+		else {
+			badRequest("Invalid action ".$action);
 		}
 	}
 }
