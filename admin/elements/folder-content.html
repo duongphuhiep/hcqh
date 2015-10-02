@@ -8,7 +8,8 @@ Display content of a post folder
 				   selected-items={{selectedItems}}
 				   allow-upload
 				   treat-items-as="file"
-				   url-to-admin-php=[[urlToAdminPhp]]>
+				   url-to-admin-php=[[urlToAdminPhp]]
+				   allow-post-toolbar=[[allowPostToolbar]]>
 		</item-list>
 		<item-content item-title=[[selectedItems.0]]
 					  url-to-admin-php=[[urlToAdminPhp]]
@@ -33,11 +34,19 @@ Display content of a post folder
 					type: Boolean,
 					notify: true,
 					value: false
+				},
+				allowPostToolbar: {
+					type: Boolean,
+					computed: "_showPostToolbar(folderPath)"
 				}
 			},
 
 			_getSelectedItemPath: function(folderPath, fileName) {
 				return page.helper.joinPath(folderPath, fileName);
+			},
+
+			_showPostToolbar: function(folderPath) {
+				return folderPath.indexOf("content/blog")>0;
 			}
 		});
 	</script>

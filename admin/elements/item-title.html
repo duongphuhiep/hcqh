@@ -102,10 +102,6 @@ Properties:
 			is: 'item-title',
 
 			ready: function() {
-				if (this.treatAs === "file") {
-					this.renamable = "vi.md" !== this.fileName;
-					this.deletable = "vi.md" !== this.fileName;
-				}
 				this._updateStyles();
 				this.renaming = false;
 			},
@@ -116,6 +112,11 @@ Properties:
 				}
 				else {
 					this.style["font-size"] = null;
+				}
+
+				if (this.treatAs === "file") {
+					this.renamable = "vi.md" !== this.fileName && "config.txt" !== this.fileName;
+					this.deletable = "vi.md" !== this.fileName && "config.txt" !== this.fileName;;
 				}
 			},
 

@@ -13,10 +13,17 @@ Display items in a post folder
 			.iron-selected {
 				background: var(--default-primary-color);
 			}
-			file-upload {
-				display: block;
+
+			.toolbar {
 				width: 90%;
 				margin: 20px 5%;
+			}
+			.toolbar .left{
+				float:left;
+				padding-right: 10px;
+			}
+			.toolbar .right{
+				overflow:hidden;
 				background: white;
 			}
 		</style>
@@ -37,9 +44,22 @@ Display items in a post folder
 			<paper-progress indeterminate></paper-progress>
 		</template>
 
-		<template is="dom-if" if="{{allowUpload}}">
-			<file-upload url=[[urlToAdminPhp]] target-server-folder=[[folderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
-		</template>
+
+		<div class="toolbar">
+			<template is="dom-if" if="{{allowPostToolbar}}">
+				<div class="left">
+					<button>fr</button>
+				</div>
+				<div class="left">
+					<button>en</button>
+				</div>
+			</template>
+			<template is="dom-if" if="{{allowUpload}}">
+				<div class="right">
+					<file-upload class="right" url=[[urlToAdminPhp]] target-server-folder=[[folderPath]] on-upload-success="_uploadSuccess" on-upload-error="_uploadError"></file-upload>
+				</div>
+			</template>
+		</div>
 
 		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}} activate-event="">
 			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
@@ -55,6 +75,7 @@ Display items in a post folder
 				folderPath: String,
 				urlToAdminPhp: String,
 				allowUpload: Boolean,
+				allowPostToolbar: Boolean,
 				ajaxBody: {
 					type: String,
 					computed: "_computeAjaxBody(folderPath)",
