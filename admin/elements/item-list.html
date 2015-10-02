@@ -33,7 +33,18 @@ Display items in a post folder
 			method="POST"
 			url=[[urlToAdminPhp]]
 			content-type="application/json"
-			body=[[ajaxBody]]
+			body=[[ajaxBodyLoad]]
+			handle-as="json"
+			last-response={{list}}
+			debounce-duration="100"
+			loading={{loading}}
+			on-error = "_onError"></iron-ajax>
+
+		<iron-ajax
+			id="creator"
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
 			handle-as="json"
 			last-response={{list}}
 			debounce-duration="100"
@@ -48,10 +59,10 @@ Display items in a post folder
 		<div class="toolbar">
 			<template is="dom-if" if="{{allowPostToolbar}}">
 				<div class="left">
-					<button>fr</button>
+					<button on-tap="createFr">fr</button>
 				</div>
 				<div class="left">
-					<button>en</button>
+					<button on-tap="createEn">en</button>
 				</div>
 			</template>
 			<template is="dom-if" if="{{allowUpload}}">
@@ -76,9 +87,9 @@ Display items in a post folder
 				urlToAdminPhp: String,
 				allowUpload: Boolean,
 				allowPostToolbar: Boolean,
-				ajaxBody: {
+				ajaxBodyLoad: {
 					type: String,
-					computed: "_computeAjaxBody(folderPath)",
+					computed: "_ajaxBodyLoad(folderPath)",
 					readOnly: true
 				},
 				/*file or folder*/
@@ -124,9 +135,38 @@ Display items in a post folder
 				this.list = newCollection; //reload the collection
 			},
 
-			_computeAjaxBody: function(folderPath) {
+			_ajaxBodyLoad: function(folderPath) {
 				return {action: "ls", path: folderPath};
 			},
+
+			_ajaxBodyCreation: function(newFileName, initialContent) {
+				return {
+					action: "create",
+					parentPath: this.folderPath,
+					fileName: newFileName,
+					content: initialContent,
+					adminToken: page.helper.adminToken
+				};
+			},
+
+			_newFile: function(newFileName) {
+				//check if the file is on the list
+				if (this.list.indexOf(newFileName)<0) {
+					//TODO create it + refresh list + goto it
+				}
+				else {
+					var pageToGo = '/file/' + page.helper.joinPath(this.folderPath, newFileName);
+					page(pageToGo);
+				}
+			},
+			createFr: function() {
+				this._newFile('fr.md');
+			},
+			createEn: function() {
+				this._newFile('en.md');
+			},
+
+
 
 			/**
 			 * display markdown file first then image files after.
