@@ -53,10 +53,7 @@
 
 		page.exit('*', function (ctx, next) {
 			if (app.dirty) {
-				//console.info('Exit file', ctx);
-				//confirm leaving
-				//var message = "Are you sure you want to leave this page?\nYour change will be lost:\n" + ctx.params.folder + '/' + ctx.params.file;
-				var message = "Are you sure you want to leave this page?\nYour change will be lost on click OK";
+				var message = "Are you sure you want to leave this page?\nYour change will be lost if you click on OK";
 				if (confirm(message)) {
 					next(); //leave
 				}
