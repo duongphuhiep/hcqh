@@ -28,6 +28,7 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			}
 			item-title {
 				display: block;
+				--item-title-card-display: list-item;
 			}
 			paper-drawer-panel {
 				--item-list-item-title-display: block;
@@ -38,7 +39,7 @@ Any children elements can alert something in the alert-corner by sending raise-a
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
 			<div class="nav" drawer>
-				<iron-selector attr-for-selected="filePath"  selected-item-path=[[folderPath]] activate-event="">
+				<iron-selector attr-for-selected="filePath" selected=[[folderPath]] activate-event="">
 					<item-title parent-path=[[parentOfBannerFolder]] file-name="banner" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 					<item-title parent-path=[[parentMembersFolder]] file-name="members" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 				</iron-selector>
