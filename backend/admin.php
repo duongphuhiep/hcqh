@@ -1,6 +1,6 @@
 <?php
 
-//sleep(1);
+sleep(1);
 define("BASE_DIR", "../../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -74,7 +74,7 @@ function ren($parentPath, $currentName, $newName) {
 		}
 	}
 	else {
-		exitWithError('HTTP/1.1 409 Conflict', 'Failed to rename "'.$currentName.'", the new name "'.$newName.'" is already used');
+		conflict('Failed to rename "'.$currentName.'", the new name "'.$newName.'" is already used');
 	}
 	return ls($parentPath);
 }
@@ -128,6 +128,54 @@ function rm($parentPath, $itemName) {
 	return $resu;
 }
 
+///**
+// * create a new text file with a initial content and return list of the siblings files
+// * @param $parentPath: String - parent folder
+// * @param $fileName: String - name of the new file to create
+// * @param $content: String - initial content
+// * @return array of files in the parent folder
+// */
+//function create($parentPath, $fileName, $content) {
+//	if (!strpos($parentPath, 'content')) {
+//		unauthorized($parentPath.' is out of the "content/" folder');
+//	}
+//	$newFile = joinPaths($parentPath, $fileName);
+//	if (!file_exists($newFile)) {
+//		if (!file_put_contents($newFile, $content)) {
+//			internalError('Failed to create new file "'.$newFile.'"');
+//		}
+//	}
+//	else {
+//		conflict('Failed to create "'.$newFile.'", it already exist');
+//	}
+//	return ls($parentPath);
+//}
+
+/**
+ * copy a file to a new file in a $parentFolder
+ * @param $parentPath: String - parent folder
+ * @param $srcFileName: String - name of the source file
+ * @param $destFileName: String - name of the new file
+ * @return array of files in the parent folder
+ */
+function cp($parentPath, $srcFileName, $destFileName) {
+	if (!strpos($parentPath, 'content')) {
+		unauthorized($parentPath.' is out of the "content/" folder');
+	}
+	$srcFile = joinPaths($parentPath, $srcFileName);
+	$destFile = joinPaths($parentPath, $destFileName);
+	if (!file_exists($destFile)) {
+		if (!copy($srcFile, $destFile)) {
+			internalError('Failed to copy from "'.$srcFile.'" to "'.$destFile.'"');
+		}
+	}
+	else {
+		conflict('Failed to create "'.$destFile.'", it already exist');
+	}
+	return ls($parentPath);
+}
+
+
 /**
  * write the text content to a file, then re-open the file, read the content and return it
  * @param $path
@@ -151,6 +199,9 @@ function badRequest($message) {
 }
 function unauthorized($message) {
 	exitWithError('HTTP/1.0 401 Unauthorized', $message);
+}
+function conflict($message) {
+	exitWithError('HTTP/1.1 409 Conflict', $message);
 }
 function exitWithError($header, $message) {
 	header($header);
@@ -185,7 +236,7 @@ if ($requestMethod == 'POST') {
 				$target_file = joinPaths($targetFolder, $file["name"]);
 
 				if (file_exists($target_file)) {
-					badRequest("File has already exists on server ".$target_file); return;
+					conflict("File has already exists on server ".$target_file); return;
 				}
 				else {
 					if(!move_uploaded_file($file["tmp_name"], $target_file)) {
@@ -224,7 +275,21 @@ if ($requestMethod == 'POST') {
 				$objResult = rm($parentPath, $requestBody->currentName);
 				reponseJson($objResult);
 			}
-		} else if ($action == "save") {
+		} else if ($action == "cp") {
+			if (isAdmin($requestBody->adminToken)) {
+				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$objResult =  cp($parentPath, $requestBody->srcFileName, $requestBody->destFileName);
+				reponseJson($objResult);
+			}
+		}
+		/*else if ($action == "create") {
+			if (isAdmin($requestBody->adminToken)) {
+				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$objResult =  create($parentPath, $requestBody->fileName, $requestBody->content);
+				reponseJson($objResult);
+			}
+		}*/
+		else if ($action == "save") {
 			if (isAdmin($requestBody->adminToken)) {
 				$filePath = joinPaths(BASE_DIR, $requestBody->filePath);
 				echo save($filePath, $requestBody->newContent);

@@ -107,7 +107,7 @@ Properties:
 			},
 
 			_updateStyles: function() {
-				if (this.treatAs === "file" && this.isMarkdown) {
+				if (this.treatAs === "file" && (this.isMarkdown || this.fileName==='config.txt')) {
 					this.style["font-size"] = "20px";
 				}
 				else {

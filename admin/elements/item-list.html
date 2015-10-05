@@ -55,7 +55,6 @@ Display items in a post folder
 			<paper-progress indeterminate></paper-progress>
 		</template>
 
-
 		<div class="toolbar">
 			<template is="dom-if" if="{{allowPostToolbar}}">
 				<div class="left">
@@ -139,20 +138,35 @@ Display items in a post folder
 				return {action: "ls", path: folderPath};
 			},
 
-			_ajaxBodyCreation: function(newFileName, initialContent) {
+			_ajaxBodyCreation: function(newFileName) {
 				return {
-					action: "create",
+					action: "cp",
 					parentPath: this.folderPath,
-					fileName: newFileName,
-					content: initialContent,
-					adminToken: page.helper.adminToken
+					srcFileName: 'vi.md',
+					destFileName: newFileName,
+					adminToken: page.helper.adminToken()
 				};
 			},
+
+			/*_initialContent: function() {
+				var currentUser = gapi.auth2.getAuthInstance().currentUser.get();
+				var profile = currentUser.getBasicProfile();
+				var folderName = this.folderPath.replace(/^.*[\\\/]/, '');
+				var author = profile.getName();
+				return '<!---'
+				+ '\ntitle: '+ folderName
+				+ '\nauthor: '+ author
+				+ '-->\n'
+			},*/
 
 			_newFile: function(newFileName) {
 				//check if the file is on the list
 				if (this.list.indexOf(newFileName)<0) {
-					//TODO create it + refresh list + goto it
+					var requester = this.$.creator;
+					requester.body = this._ajaxBodyCreation(newFileName);
+					requester.generateRequest(); //will refresh the list after success
+					var pageToGo = '/file/' + page.helper.joinPath(this.folderPath, newFileName);
+					page(pageToGo);
 				}
 				else {
 					var pageToGo = '/file/' + page.helper.joinPath(this.folderPath, newFileName);
@@ -166,8 +180,6 @@ Display items in a post folder
 				this._newFile('en.md');
 			},
 
-
-
 			/**
 			 * display markdown file first then image files after.
 			 * 'vi.md' is always the first item in the list
@@ -175,6 +187,13 @@ Display items in a post folder
 			_compare: function(a, b) {
 				if (this.treatItemsAs==='folder') {
 					return b.localeCompare(a);
+				}
+
+				if (a==='config.txt') {
+					return -1;
+				}
+				else if (b==='config.txt') {
+					return 1;
 				}
 
 				var isMdA = page.helper.isMarkdown(a);
