@@ -230,7 +230,7 @@ Properties:
 				return treatAs === 'file' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
 			_isText: function(treatAs, fileName) {
-				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js)$/i);
+				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js|html|tag|css)$/i);
 			},
 			_isMarkdown: function(treatAs, fileName) {
 				return treatAs === 'file' && page.helper.isMarkdown(fileName);
