@@ -20,7 +20,7 @@ Properties:
 				max-width: 300px;
 				margin:5px;
 				vertical-align: top;
-				/*cursor: pointer;*/
+				cursor: pointer;
 				display: var(--item-title-card-display, inline-block);
 			}
 
@@ -45,11 +45,6 @@ Properties:
 			:host {
 				vertical-align: text-top;
 			}
-			a.card-content {
-				display: block;
-				color:inherit;
-				text-decoration: inherit;
-			}
 		</style>
 
 		<iron-ajax
@@ -65,7 +60,7 @@ Properties:
 			on-error="_onError"
 			on-response="_notifyChangeToContainer"></iron-ajax>
 
-		<paper-card>
+		<paper-card on-tap="_onTap">
 			<template is="dom-if" if="{{loading}}">
 				<paper-progress indeterminate></paper-progress>
 			</template>
@@ -81,24 +76,24 @@ Properties:
 				</div>
 			</template>
 			<template is="dom-if" if={{!renaming}}>
-				<a href={{pageToGo}} class="card-content">
+				<div class="card-content">
 					<template is="dom-if" if={{isImage}}>
 						<img class='thumb' src="[[filePath]]">
 					</template>
 					<div>{{fileName}}</div>
-					<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
-						<div class="card-actions">
-							<template is="dom-if" if={{deletable}}>
-								<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
-								<paper-tooltip for="delete">Delete</paper-tooltip>
-							</template>
-							<template is="dom-if" if={{renamable}}>
-								<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
-								<paper-tooltip for="rename">Rename</paper-tooltip>
-							</template>
-						</div>
-					</template>
-				</a>
+				</div>
+				<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
+					<div class="card-actions">
+						<template is="dom-if" if={{deletable}}>
+							<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
+							<paper-tooltip for="delete">Delete</paper-tooltip>
+						</template>
+						<template is="dom-if" if={{renamable}}>
+							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
+							<paper-tooltip for="rename">Rename</paper-tooltip>
+						</template>
+					</div>
+				</template>
 			</template>
 		</paper-card>
 	</template>
@@ -182,13 +177,15 @@ Properties:
 
 			_pageToGo: function(isPostFolder, treatAs, filePath) {
 				if (isPostFolder) {
-					return '#!/file/'+page.helper.joinPath(filePath, 'vi.md');
+					return '/file/'+page.helper.joinPath(filePath, 'vi.md');
 				}
 				else {
-					return '#!/'+treatAs +'/'+ filePath;
+					return '/'+treatAs +'/'+ filePath;
 				}
 			},
-
+			_onTap: function() {
+				page(this.pageToGo);
+			},
 			_hasAction: function(deletable, renamable){
 				return deletable || renamable;
 				return true;
