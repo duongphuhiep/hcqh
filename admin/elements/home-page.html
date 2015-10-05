@@ -37,7 +37,22 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			paper-button {
 				background: darkgreen;
 			}
+
+			paper-progress {
+				width: 100%;
+			}
 		</style>
+
+		<iron-ajax
+			id="newPostRequester"
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			handle-as="json"
+			debounce-duration="50"
+			loading = {{loading}}
+			on-error="_onError"
+			on-response="_onResponse"></iron-ajax>
 
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
@@ -46,7 +61,7 @@ Any children elements can alert something in the alert-corner by sending raise-a
 					<item-title parent-path=[[parentOfBannerFolder]] file-name="banner" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 					<item-title parent-path=[[parentMembersFolder]] file-name="members" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 				</iron-selector>
-				<item-list folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item-path=[[folderPath]]></item-list>
+				<item-list id="blogPosts" folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item-path=[[folderPath]]></item-list>
 			</div>
 
 			<paper-header-panel class="main" main mode="waterfall">
@@ -55,11 +70,14 @@ Any children elements can alert something in the alert-corner by sending raise-a
 					<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 					<div class="title">{{welcomeHeader}}</div>
 					<google-signin id="gs" scopes="profile"></google-signin>
-					<paper-button on-tap="_creatNewPost"><iron-icon icon="add"></iron-icon>New Post</paper-button>
+					<paper-button on-tap="_createNewPost"><iron-icon icon="add"></iron-icon>New Post</paper-button>
 				</paper-toolbar>
 
 				<!-- Main Content -->
 				<div class="content">
+					<template is="dom-if" if="{{loading}}">
+						<paper-progress indeterminate></paper-progress>
+					</template>
 					<folder-content folder-path=[[folderPath]]
 									url-to-admin-php=[[urlToAdminPhp]]
 									file-name=[[fileName]]
@@ -139,8 +157,32 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			},
 			_raiseAlertError: function(e) {
 				this.$.alertCorner.showError(e.detail);
-			}
+			},
 
+			_createNewPost: function() {
+				var postName = prompt("Enter a name (dung tieng Viet khong dau)", "Unnamed");
+				if (postName) {
+					var requester = this.$.newPostRequester;
+					requester.body = {
+						action: 'newpost',
+						postName: postName,
+						adminToken: page.helper.adminToken()
+					};
+					requester.generateRequest();
+				}
+			},
+			_onError: function(e) {
+				this._raiseAlertError(e.detail.error)
+			},
+			_onResponse: function(e) {
+				var response = e.detail.response;
+				console.info(response);
+				this.$.blogPosts.reload({newCollection:response.allPostIds});
+
+				//Goto the new post
+				var pageToGo = '/file/' + page.helper.joinPath(app.blogFolder, response.newPostId)+'/vi.md';
+				page(pageToGo);
+			}
 		});
 
 	</script>

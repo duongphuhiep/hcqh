@@ -113,13 +113,18 @@ Display items in a post folder
 			},
 
 			_reload: function(e) {
-				this.list = e.detail.newCollection; //reload the collection
-				if (e.detail.changedItem) {
+				this.reload(e.detail);
+			},
+
+			reload: function(state) {
+				this.list = state.newCollection; //reload the collection
+				if (state.changedItem) {
 					//force render & wait until it finish, before changing the selection,
 					// otherwise no item will be selected
 					this.$.repeater.render();
+
 					//change the selection
-					this.selectedItemPath = e.detail.changedItem;
+					this.selectedItemPath = state.changedItem;
 				}
 			},
 

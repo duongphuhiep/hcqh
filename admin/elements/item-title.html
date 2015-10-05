@@ -156,9 +156,25 @@ Properties:
 				}
 			},
 
+			_isPostFolder: function() {
+				if (this.treatAs === 'folder') {
+					var patt = /\d\d\d\d-\d\d-\d\d.*/g
+					if (this.fileName.match(patt)) {
+						return true;
+					}
+				}
+				return false;
+			},
+
 			_onTap: function() {
-				var pageToGo = '/'+this.treatAs+'/' + this.filePath;
-				page(pageToGo);
+				var pageToGo;
+				if (this._isPostFolder()) {
+					pageToGo = 'file/'+page.helper.joinPath(this.filePath, 'vi.md');
+				}
+				else {
+					pageToGo = this.treatAs +'/'+ this.filePath;
+				}
+				page('/'+pageToGo);
 			},
 
 			_hasAction: function(deletable, renamable){

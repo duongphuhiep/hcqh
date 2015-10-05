@@ -1,7 +1,8 @@
 <?php
 
 sleep(1);
-define("BASE_DIR", "../../");
+define("ROOT_DIR", "../../");
+define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
 // true on Windows
@@ -40,7 +41,7 @@ function isAdmin($idtoken) {
 		$AUTH_USERS = array("113703431246868902879"); //add more admin users later here
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
-			return true;
+			return $data;
 		}
 	}
 	unauthorized('User '.$googleUserId.' ('.$data['email'].') is not administartor');
@@ -175,6 +176,41 @@ function cp($parentPath, $srcFileName, $destFileName) {
 	return ls($parentPath);
 }
 
+/**
+ * Create a new post, and put some default content
+ * @param $blogFolder
+ * @param $postName
+ * @param $userData
+ * @return array
+ */
+function newPost($blogFolder, $postName, $userData) {
+	$postId = date('Y-m-d').' '.$postName;
+	$initialContent = "<!--"
+		."\ntitle: ".$postName
+		."\nauthor: ".$userData['name']
+		."\n-->\n\n";
+
+	$postFolder = joinPaths($blogFolder, $postId);
+	if (!mkdir($postFolder)) {
+		internalError('Failed to create folder "'.$postFolder.'"');
+	}
+
+	$newFile = joinPaths($postFolder, 'vi.md');
+	if (!file_exists($newFile)) {
+		if (!file_put_contents($newFile, $initialContent)) {
+			internalError('Failed to create new file "'.$newFile.'"');
+		}
+	}
+	else {
+		conflict('Failed to create "'.$newFile.'", it already exist');
+	}
+
+	return array(
+		'newPostId' => $postId,
+		'allPostIds' => ls($blogFolder)
+	);
+}
+
 
 /**
  * write the text content to a file, then re-open the file, read the content and return it
@@ -229,7 +265,7 @@ if ($requestMethod == 'POST') {
 
 		//so client is uploading files
 		if (isAdmin($_POST['adminToken'])) {
-			$targetFolder = joinPaths(BASE_DIR, $_POST['targetServerFolder']);
+			$targetFolder = joinPaths(ROOT_DIR, $_POST['targetServerFolder']);
 			//ChromePhp::info("upload to handle", $_POST['targetServerFolder'], $_FILES);
 
 			foreach($_FILES as $key => $file) {
@@ -261,37 +297,38 @@ if ($requestMethod == 'POST') {
 		/* handle request */
 		$action = $requestBody->action;
 		if ($action == "ls") {
-			$objResult = ls(joinPaths(BASE_DIR, $requestBody->path));
+			$objResult = ls(joinPaths(ROOT_DIR, $requestBody->path));
 			reponseJson($objResult);
 		} else if ($action == "ren") {
 			if (isAdmin($requestBody->adminToken)) {
-				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$parentPath = joinPaths(ROOT_DIR, $requestBody->parentPath);
 				$objResult = ren($parentPath, $requestBody->currentName, $requestBody->newName);
 				reponseJson($objResult);
 			}
 		} else if ($action == "rm") {
 			if (isAdmin($requestBody->adminToken)) {
-				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$parentPath = joinPaths(ROOT_DIR, $requestBody->parentPath);
 				$objResult = rm($parentPath, $requestBody->currentName);
 				reponseJson($objResult);
 			}
 		} else if ($action == "cp") {
 			if (isAdmin($requestBody->adminToken)) {
-				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
+				$parentPath = joinPaths(ROOT_DIR, $requestBody->parentPath);
 				$objResult =  cp($parentPath, $requestBody->srcFileName, $requestBody->destFileName);
 				reponseJson($objResult);
 			}
 		}
-		/*else if ($action == "create") {
-			if (isAdmin($requestBody->adminToken)) {
-				$parentPath = joinPaths(BASE_DIR, $requestBody->parentPath);
-				$objResult =  create($parentPath, $requestBody->fileName, $requestBody->content);
+		else if ($action == "newpost") {
+			$userData = isAdmin($requestBody->adminToken);
+			if ($userData) {
+				$blogFolder = joinPaths(BASE_DIR, '/content/blog/');
+				$objResult =  newPost($blogFolder, $requestBody->postName, $userData);
 				reponseJson($objResult);
 			}
-		}*/
+		}
 		else if ($action == "save") {
 			if (isAdmin($requestBody->adminToken)) {
-				$filePath = joinPaths(BASE_DIR, $requestBody->filePath);
+				$filePath = joinPaths(ROOT_DIR, $requestBody->filePath);
 				echo save($filePath, $requestBody->newContent);
 			}
 		}
