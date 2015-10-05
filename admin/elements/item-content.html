@@ -11,6 +11,13 @@
 				height: 700px;
 				margin: 20px 5%;
 			}
+			text-editor {
+				display: block;
+				background: #fff;
+				@apply(--shadow-elevation-2dp);
+				height: 700px;
+				margin: 20px 5%;
+			}
 			paper-progress {
 				width: 100%;
 			}
@@ -52,11 +59,15 @@
 		<template is="dom-if" if="{{loading}}">
 			<paper-progress indeterminate></paper-progress>
 		</template>
-		<template is="dom-if" if="[[itemTitle.isMarkdown]]">
+		<template is="dom-if" if="[[itemTitle.isMarkdown]]" restamp>
 			<commonmark-editor working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
 			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
-		<template is="dom-if" if="[[itemTitle.isImage]]">
+		<template is="dom-if" if="[[itemTitle.isText]]" restamp>
+			<text-editor value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
+			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+		</template>
+		<template is="dom-if" if="[[itemTitle.isImage]]" restamp>
 			<!-- <img src="[[itemTitle.filePath]]"> -->
 			<iron-image src="[[itemTitle.filePath]]"></iron-image>
 		</template>
@@ -80,7 +91,7 @@
 			},
 
 			itemChanged: function(e) {
-				if (e && e.isMarkdown) {
+				if (e && (e.isMarkdown || e.isText)) {
 					this.$.loader.generateRequest(); //reload content
 				}
 				else {
@@ -88,7 +99,7 @@
 				}
 			},
 			_onLoaderResponse: function(e) {
-				if (this.itemTitle.isMarkdown) {
+				if (this.itemTitle.isMarkdown || this.itemTitle.isText) {
 					//reset the dirty content and state (no more dirty after reload)
 					this.dirtyContent = this.content;
 					this.dirty = false;

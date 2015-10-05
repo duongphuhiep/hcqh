@@ -144,6 +144,11 @@ Properties:
 					computed: '_isImage(treatAs, fileName)',
 					notify: true
 				},
+				isText: {
+					type: Boolean,
+					computed: '_isText(treatAs, fileName)',
+					notify: true
+				},
 				isMarkdown: {
 					type: Boolean,
 					computed: '_isMarkdown(treatAs, fileName)',
@@ -222,10 +227,13 @@ Properties:
 				}
 			},
 			_isImage: function(treatAs, fileName) {
-				return treatAs !== 'folder' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+				return treatAs === 'file' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+			},
+			_isText: function(treatAs, fileName) {
+				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js)$/i);
 			},
 			_isMarkdown: function(treatAs, fileName) {
-				return treatAs !== 'folder' && page.helper.isMarkdown(fileName);
+				return treatAs === 'file' && page.helper.isMarkdown(fileName);
 			},
 			_getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(parentPath, fileName);
