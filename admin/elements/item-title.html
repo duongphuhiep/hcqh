@@ -20,7 +20,7 @@ Properties:
 				max-width: 300px;
 				margin:5px;
 				vertical-align: top;
-				cursor: pointer;
+				/*cursor: pointer;*/
 				display: var(--item-title-card-display, inline-block);
 			}
 
@@ -45,6 +45,11 @@ Properties:
 			:host {
 				vertical-align: text-top;
 			}
+			a.card-content {
+				display: block;
+				color:inherit;
+				text-decoration: inherit;
+			}
 		</style>
 
 		<iron-ajax
@@ -60,7 +65,7 @@ Properties:
 			on-error="_onError"
 			on-response="_notifyChangeToContainer"></iron-ajax>
 
-		<paper-card on-tap="_onTap">
+		<paper-card>
 			<template is="dom-if" if="{{loading}}">
 				<paper-progress indeterminate></paper-progress>
 			</template>
@@ -76,24 +81,24 @@ Properties:
 				</div>
 			</template>
 			<template is="dom-if" if={{!renaming}}>
-				<div class="card-content">
+				<a href={{pageToGo}} class="card-content">
 					<template is="dom-if" if={{isImage}}>
 						<img class='thumb' src="[[filePath]]">
 					</template>
 					<div>{{fileName}}</div>
-				</div>
-				<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
-					<div class="card-actions">
-						<template is="dom-if" if={{deletable}}>
-							<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
-							<paper-tooltip for="delete">Delete</paper-tooltip>
-						</template>
-						<template is="dom-if" if={{renamable}}>
-							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
-							<paper-tooltip for="rename">Rename</paper-tooltip>
-						</template>
-					</div>
-				</template>
+					<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
+						<div class="card-actions">
+							<template is="dom-if" if={{deletable}}>
+								<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
+								<paper-tooltip for="delete">Delete</paper-tooltip>
+							</template>
+							<template is="dom-if" if={{renamable}}>
+								<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
+								<paper-tooltip for="rename">Rename</paper-tooltip>
+							</template>
+						</div>
+					</template>
+				</a>
 			</template>
 		</paper-card>
 	</template>
@@ -153,28 +158,35 @@ Properties:
 					type: String,
 					computed: "_getFilePath(fileName, parentPath)",
 					notify: true
+				},
+
+				isPostFolder: {
+					type: Boolean,
+					computed: "_isPostFolder(treatAs, fileName)"
+				},
+				pageToGo: {
+					type: String,
+					computed: "_pageToGo(isPostFolder, treatAs, filePath)"
 				}
 			},
 
-			_isPostFolder: function() {
-				if (this.treatAs === 'folder') {
+			_isPostFolder: function(treatAs, fileName) {
+				if (treatAs === 'folder') {
 					var patt = /\d\d\d\d-\d\d-\d\d.*/g
-					if (this.fileName.match(patt)) {
+					if (fileName.match(patt)) {
 						return true;
 					}
 				}
 				return false;
 			},
 
-			_onTap: function() {
-				var pageToGo;
-				if (this._isPostFolder()) {
-					pageToGo = 'file/'+page.helper.joinPath(this.filePath, 'vi.md');
+			_pageToGo: function(isPostFolder, treatAs, filePath) {
+				if (isPostFolder) {
+					return '#!/file/'+page.helper.joinPath(filePath, 'vi.md');
 				}
 				else {
-					pageToGo = this.treatAs +'/'+ this.filePath;
+					return '#!/'+treatAs +'/'+ filePath;
 				}
-				page('/'+pageToGo);
 			},
 
 			_hasAction: function(deletable, renamable){
