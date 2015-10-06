@@ -1,11 +1,5 @@
 var gulp = require('gulp');
-var gp_riot = require('gulp-riot');
-var gp_concat = require('gulp-concat');
-var gp_rename = require('gulp-rename');
-var gp_uglify = require('gulp-uglify');
-var gp_sourcemaps = require('gulp-sourcemaps');
-var gp_plumber = require('gulp-plumber');
-var gp_browserify = require('gulp-browserify');
+var $ = require('gulp-load-plugins')();
 var liveServer = require("live-server");
 
 /**
@@ -13,7 +7,7 @@ compile all riot tag to gen/**
 */
  gulp.task('compile:tag', function(){
      return gulp.src(['app/**/*.tag'])
-         .pipe(gp_riot({modular: true}))
+         .pipe($.riot({modular: true}))
          .pipe(gulp.dest('gen'));
  });
 
@@ -22,14 +16,14 @@ compile all riot tag to gen/tags.js
  */
 gulp.task('bundle:tag', function(){
     return gulp.src(['app/**/*.tag'])
-        .pipe(gp_plumber({
+        .pipe($.plumber({
             handleError: function (err) {
                 console.log(err);
                 this.emit('end');
             }
         }))
-        .pipe(gp_riot())
-        .pipe(gp_concat('tags.js'))
+        .pipe($.riot())
+        .pipe($.concat('tags.js'))
         .pipe(gulp.dest('gen'));
 });
 
@@ -37,13 +31,13 @@ gulp.task('bundle:tag', function(){
 gulp.task('bundle', ['bundle:tag'], function() {
     // generate dist/main.*.js
     gulp.src('app/main.js')
-        .pipe(gp_plumber({
+        .pipe($.plumber({
             handleError: function (err) {
                 console.log(err);
                 this.emit('end');
             }
         }))
-        .pipe(gp_browserify({
+        .pipe($.browserify({
             detectGlobal:true,
             debug : false
         }))
@@ -51,10 +45,10 @@ gulp.task('bundle', ['bundle:tag'], function() {
 
         //minify dist/main.js to dist/main.min.js
 
-        .pipe(gp_sourcemaps.init())
-        .pipe(gp_rename('main.min.js'))
-        .pipe(gp_uglify())
-        .pipe(gp_sourcemaps.write('./'))
+        .pipe($.sourcemaps.init())
+        .pipe($.rename('main.min.js'))
+        .pipe($.uglify())
+        .pipe($.sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
 });
 
@@ -106,29 +100,38 @@ gulp.task('watch:admin', ['bundle:admin'], function () {
 
 	//liveServer.start({ignore:'app,admin,lib,backend_mock,tests,reports,gen', open:'/admin'});
 });
+
 // generate dist/*.js with browserify
 gulp.task('bundle:admin', function() {
-	// generate dist/main.*.js
+	// generate dist/admin.*.js
 	gulp.src('admin/admin.js')
-		.pipe(gp_plumber({
+		.pipe($.plumber({
 			handleError: function (err) {
 				console.log(err);
 				this.emit('end');
 			}
 		}))
-		.pipe(gp_browserify({
+		.pipe($.browserify({
 			detectGlobal:true,
 			debug : false
 		}))
 		.pipe(gulp.dest('dist'))
 
-		//minify dist/main.js to dist/main.min.js
+		//minify dist/admin.js to dist/admin.min.js
 
-		.pipe(gp_sourcemaps.init())
-		.pipe(gp_rename('admin.min.js'))
-		.pipe(gp_uglify())
-		.pipe(gp_sourcemaps.write('./'))
+		.pipe($.sourcemaps.init())
+		.pipe($.rename('admin.min.js'))
+		.pipe($.uglify())
+		.pipe($.sourcemaps.write('./'))
 		.pipe(gulp.dest('dist'));
 });
 
-//gulp.task('default', ['bundle'], function(){});
+// Polybuild will take care of inlining HTML imports,
+// scripts and CSS for you.
+var polybuild = require('polybuild');
+
+gulp.task('vulcanize', function () {
+  return gulp.src('admin/index.html')
+    .pipe(polybuild({maximumCrush: true}))
+    .pipe(gulp.dest('admin'));
+});
