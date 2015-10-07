@@ -73,7 +73,7 @@
 			RiotControl.trigger("languageChange", lang);
 		}
 		else {
-			console.log("Ignore languageChange event");
+			console.info("Ignore languageChange event");
 		}
 	};
 })();

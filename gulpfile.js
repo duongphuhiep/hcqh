@@ -1,65 +1,135 @@
+/**
+ * - the 'gen' package is created by compiling the source files (riot tag or typescript)
+ * - the 'dist' package is created by concatenate everything in the 'gen' package
+ * - the 'prod' package is created by minify the 'dist' package
+ * we deploy only the 'prod' package on the server
+ *
+ * gulp task will create these packages in the following folders:
+ * _gen, _dist, _prod
+ *
+ * Developper can test both the prod package or dist package with 'watch_prod' task
+ *   navigate http://localhost:8080/
+ *   navigate http://localhost:8080/_prod
+ *
+ * Developper can test only the dev package with 'watch' task
+ *
+ *
+ * @type {Gulp|exports|module.exports}
+ */
+
+
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var liveServer = require("live-server");
+var runSequence = require('run-sequence');
 
 /**
 compile all riot tag to gen/**
 */
- gulp.task('compile:tag', function(){
-     return gulp.src(['app/**/*.tag'])
-         .pipe($.riot({modular: true}))
-         .pipe(gulp.dest('gen'));
- });
 
-/**
-compile all riot tag to gen/tags.js
- */
-gulp.task('bundle:tag', function(){
-    return gulp.src(['app/**/*.tag'])
-        .pipe($.plumber({
-            handleError: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe($.riot())
-        .pipe($.concat('tags.js'))
-        .pipe(gulp.dest('gen'));
+gulp.task('_compile_tag', function(){
+	 return gulp.src(['app/**/*.tag'])
+         .pipe($.riot({modular: true}))
+         .pipe(gulp.dest('_gen'));
+ });
+gulp.task('_copy_appjs', function() {
+	return gulp.src(['app/**/*.js'])
+		.pipe($.copy('_gen', {prefix:1}));
+});
+gulp.task('_copy_appjs', function() {
+	return gulp.src(['app/**/*.js'])
+		.pipe($.copy('_gen', {prefix:1}));
+});
+gulp.task('_copy_backend_mock', function() {
+	return gulp.src(['backend_mock/**/*.js'])
+		.pipe($.copy('_gen'));
 });
 
-// generate dist/*.js with browserify
-gulp.task('bundle', ['bundle:tag'], function() {
-    // generate dist/main.*.js
-    gulp.src('app/main.js')
-        .pipe($.plumber({
-            handleError: function (err) {
-                console.log(err);
-                this.emit('end');
-            }
-        }))
-        .pipe($.browserify({
-            detectGlobal:true,
-            debug : false
-        }))
-        .pipe(gulp.dest('dist'))
+/**
+ * The gen folder contains all js which is not bundled
+ */
+gulp.task('gen', function(cb) {
+	runSequence(['_compile_tag', '_copy_appjs', '_copy_backend_mock'], cb);
+});
 
-        //minify dist/main.js to dist/main.min.js
+/**
+ * generate main.js with browserify
+ */
+gulp.task('bundle', ['gen'], function() {
+	return gulp.src('_gen/main.js')
+		.pipe($.plumber({
+			handleError: function (err) {
+				console.log(err);
+				this.emit('end');
+			}
+		}))
+		.pipe($.browserify({
+			detectGlobal:true,
+			debug : false
+		}))
+		.pipe(gulp.dest('_dist'));
+});
 
-        .pipe($.sourcemaps.init())
-        .pipe($.rename('main.min.js'))
-        .pipe($.uglify())
-        .pipe($.sourcemaps.write('./'))
-        .pipe(gulp.dest('dist'));
+/**
+ * The prod folder contains the deployment artifact (the minify version of html/js)
+ */
+gulp.task('_minify_dist_js', function() {
+	return gulp.src(['_dist/*.js'])
+		.pipe($.sourcemaps.init())
+		.pipe($.replace('require("./backend_mock/fake-backend")', '//require("./backend_mock/fake-backend")'))
+		.pipe($.uglify())
+		.pipe($.sourcemaps.write('./'))
+		.pipe(gulp.dest('_prod/_dist'));
+});
+gulp.task('_minify_html_css', function() {
+	return gulp.src(['*.html', '*.css', 'favicon.ico'])
+		.pipe($.if('*.html', $.minifyHtml({
+					quotes: true,
+					empty: true,
+					spare: true
+				})))
+		.pipe($.if('*.css', $.cssmin()))
+		.pipe(gulp.dest('_prod'));
+});
+
+/**
+ * minify everything to the _prod folder, this is the final package to be deployed
+ */
+gulp.task('prod', ['bundle'], function(cb) {
+	runSequence(['_minify_dist_js', '_minify_html_css'], cb);
+});
+gulp.task('prod_content', ['prod'], function() {
+	gulp.src(['content/**/*'])
+		.pipe($.copy('_prod'));
 });
 
 gulp.task('watch', ['bundle'], function(){
     gulp.watch(['app/**/*', 'lib/**/*', 'backend_mock/**/*'], ['bundle']);
-    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen', open:false});
+    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,_gen', open:false});
+});
+gulp.task('watch_prod', ['prod_content'], function(){
+	gulp.watch(['app/**/*', 'lib/**/*', 'backend_mock/**/*'], ['bundle']);
+	liveServer.start({ignore:'app,lib,backend_mock,tests,reports,_gen', open:false});
 });
 
 gulp.task('default', ['bundle'], function(){
-    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,gen'});
+    liveServer.start({ignore:'app,lib,backend_mock,tests,reports,_gen'});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*var browserSync = require('browser-sync');
 var historyApiFallback = require('connect-history-api-fallback');

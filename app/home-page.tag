@@ -31,7 +31,7 @@
 					<div class='col-md-6 well'>
 						Hợp ca Quê hương ra đời vào tháng 4 năm 2009, khởi điểm chỉ với khoảng 15 thành viên cùng chung niềm đam mê âm nhạc. Dưới sự chỉ huy đầy tâm huyết của nhạc trưởng Nguyễn Ngân Hà cùng bao công sức và nỗ lực tập luyện của mỗi thành viên; Hôm nay, chúng tôi có thể tự tin đem lời ca, tiếng hát của mình góp phần phát huy và quảng bá nền âm nhạc Việt nam tới kiều bào và bạn bè quốc tế.
 						<br>
-						Nhưng trên tất cả, Hợp ca chúng tôi là mái nhà chung, là nơi giao lưu, gặp gỡ, của những người con xa nhà, là nơi cho chúng tôi mượn lời ca tiếng hát để thể hiện tình yêu quê hương đất nước Việt nam. Rất nhiều bản hợp xướng bất hủ như « Tiếng hát biên thùy » của Tô Hải, Du kích Sông Thao » của Đỗ Nhuận, "Ca ngợi Tổ quốc" " Hồ Bắc đã được chúng tôi dựng lại thành công trên nhiều sân khấu lớn nhỏ. Có thể nói, con đường và hành trình mà chúng tôi đã và đang bền bỉ theo đuổi được kết tinh bằng tình yêu, lòng đam mê và nhiệt huyết cháy bỏng với âm nhạc dân tộc. Đó là tinh thần quý báu mà mỗi thành viên luôn giữ trong tim. 
+						Nhưng trên tất cả, Hợp ca chúng tôi là mái nhà chung, là nơi giao lưu, gặp gỡ, của những người con xa nhà, là nơi cho chúng tôi mượn lời ca tiếng hát để thể hiện tình yêu quê hương đất nước Việt nam. Rất nhiều bản hợp xướng bất hủ như « Tiếng hát biên thùy » của Tô Hải, Du kích Sông Thao » của Đỗ Nhuận, "Ca ngợi Tổ quốc" " Hồ Bắc đã được chúng tôi dựng lại thành công trên nhiều sân khấu lớn nhỏ. Có thể nói, con đường và hành trình mà chúng tôi đã và đang bền bỉ theo đuổi được kết tinh bằng tình yêu, lòng đam mê và nhiệt huyết cháy bỏng với âm nhạc dân tộc. Đó là tinh thần quý báu mà mỗi thành viên luôn giữ trong tim.
 					</div>
 					<div class='col-md-3 text-center'></div>
 				</div>
@@ -39,7 +39,7 @@
 
 
 		</section>
-		
+
 		<section>
 			<h1 data-i18n="We are recruiting"></h1>
 
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 		</section>
-			
+
 		<section>
 			<h1 data-i18n="On Facebook"></h1>
 			<div class="center-block" style="max-width:500px;">
@@ -107,7 +107,7 @@
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
-		var facebook = require("../lib/facebook");
+		var facebook = require("./facebook");
 
 		var $ = require("jquery");
 		var i18n = require("i18next");

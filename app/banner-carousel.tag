@@ -161,9 +161,9 @@
         var RiotControl = require("RiotControl");
         RiotControl.addStore(_this);
 
-        var Route = require('../app/route');
+        var Route = require('./route');
         var $ = require("jquery");
-        var Utils = require("../lib/utils");
+        var Utils = require("./utils");
         var i18n = require("i18next");
 
         $.ajax({

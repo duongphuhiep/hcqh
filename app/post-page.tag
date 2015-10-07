@@ -40,13 +40,13 @@ component is calculated base on the language meta-data or by the markdown file.
 
 		var i18n = require("i18next");
 		var $ = require("jquery");
-		var Route = require("../app/route");
-		var Lang = require("../app/lang");
+		var Route = require("./route");
+		var Lang = require("./lang");
 		var debounce = require("lodash.debounce");
-		var Utils = require("../lib/utils");
-		var Markdown = require("../app/markdown");
+		var Utils = require("./utils");
+		var Markdown = require("./markdown");
 
-		var Mixins = require('../app/mixins');
+		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 		_this.on("mount pageChange languageChange", function(type) {
@@ -99,7 +99,7 @@ component is calculated base on the language meta-data or by the markdown file.
 				_this.translationFound = _this.loadedLang===lang;
 				_this.hideLoading();
 			}).fail(function (error) {
-				//console.log("fallback to vi", error);
+				//console.info("fallback to vi.md", error);
 				_this.showLoading();
 				$.ajax({
 					url: postFolderPath + "vi.md",
