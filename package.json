@@ -32,6 +32,7 @@
     "browserify-shim": "^3.8.10",
     "commonmark": "^0.22.0",
     "connect-history-api-fallback": "^1.1.0",
+    "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",

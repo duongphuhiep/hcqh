@@ -162,7 +162,7 @@ function replaceAdminRootFolder(rootFolder) {
 }
 
 gulp.task('prod:admin', ['gen:admin', '_copy_backend_php'], function () {
-	var rootFolder = "/v3/";
+	var rootFolder = "/v3.1/";
 	replaceAdminRootFolder(rootFolder)
 });
 
@@ -176,9 +176,10 @@ gulp.task('watch:admin', ['prod:admin:local'], function () {
 
 
 
-
-
-
+var del = require('del');
+gulp.task('clean', function (cb) {
+	del(['_gen', '_dist', '_prod'], cb);
+});
 
 
 
