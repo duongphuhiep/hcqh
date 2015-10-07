@@ -76,6 +76,7 @@ gulp.task('bundle', ['gen'], function() {
 gulp.task('_minify_dist_js', function() {
 	return gulp.src(['_dist/*.js'])
 		.pipe($.sourcemaps.init())
+		//disable fake-backend
 		.pipe($.replace('require("./backend_mock/fake-backend")', '//require("./backend_mock/fake-backend")'))
 		.pipe($.uglify())
 		.pipe($.sourcemaps.write('./'))
@@ -91,12 +92,16 @@ gulp.task('_minify_html_css', function() {
 		.pipe($.if('*.css', $.cssmin()))
 		.pipe(gulp.dest('_prod'));
 });
+gulp.task('_copy_backend_php', function() {
+	gulp.src(['backend/**/*'])
+		.pipe($.copy('_prod'));
+});
 
 /**
  * minify everything to the _prod folder, this is the final package to be deployed
  */
 gulp.task('prod', ['bundle'], function(cb) {
-	runSequence(['_minify_dist_js', '_minify_html_css'], cb);
+	runSequence(['_minify_dist_js', '_minify_html_css', '_copy_backend_php'], cb);
 });
 gulp.task('prod_content', ['prod'], function() {
 	gulp.src(['content/**/*'])
