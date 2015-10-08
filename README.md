@@ -26,7 +26,7 @@ I chose to implement as much complexity as possible on the Front-end (Website & 
 
  * [Polymer](https://www.polymer-project.org/1.0/) based application 
  * Use [Google Sign-In](https://developers.google.com/identity/) for authorization
- * Use other polymer tools eg: [Polybuild](https://github.com/PolymerLabs/polybuild) to packaging
+ * Use other polymer tools e.g. [Polybuild](https://github.com/PolymerLabs/polybuild) for packaging
 
 **Back-end**
  
