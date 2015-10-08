@@ -62,7 +62,13 @@ Any children elements can alert something in the alert-corner by sending raise-a
 					<item-title parent-path=[[contentFolder]] file-name="members" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 					<item-title parent-path=[[contentFolder]] file-name="locales" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 				</iron-selector>
-				<item-list id="blogPosts" folder-path="[[blogFolder]]" url-to-admin-php=[[urlToAdminPhp]] treat-items-as="folder" selected-item-path=[[folderPath]]></item-list>
+				<item-list id="blogPosts"
+						   folder-path="[[blogFolder]]"
+						   url-to-admin-php=[[urlToAdminPhp]]
+						   treat-items-as="folder"
+						   selected-item-path=[[folderPath]]
+						   visit-link-prefix='#post/'>
+				</item-list>
 			</div>
 
 			<paper-header-panel class="main" main mode="waterfall">
