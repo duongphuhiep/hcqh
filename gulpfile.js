@@ -171,7 +171,7 @@ gulp.task('prod:admin:local', ['gen:admin', '_copy_backend_php','_copy_content_t
 	replaceAdminRootFolder(rootFolder)
 });
 gulp.task('watch:admin', ['prod:admin:local'], function () {
-	gulp.watch(['admin/**/*', 'backend_mock/**/*', 'lib/**/*'], ['bundle:admin']);
+	gulp.watch(['admin/**/*', 'backend_mock/**/*', 'lib/**/*'], ['prod:admin:local']);
 });
 
 
