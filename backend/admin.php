@@ -188,6 +188,7 @@ function newPost($blogFolder, $postName, $userData) {
 	$initialContent = "<!--"
 		."\ntitle: ".$postName
 		."\nauthor: ".$userData['name']
+		."\nstatus: draft"
 		."\n-->\n\n";
 
 	$postFolder = joinPaths($blogFolder, $postId);
