@@ -28,6 +28,32 @@ bower install
 gulp            #build dist/* and open browser which auto-refresh for each changes in the dist/* 
 gulp watch      ##listen for files change to rebuilt the dist/* 
 ```
+###Installation for Ubuntu
+
+Loading project from github
+
+```
+$ git clone https://github.com/duongphuhiep/hcqh.git
+```
+
+Installation backages for nodejs
+
+```
+$ sudo apt-get install npm
+$ sudo npm install -g bower
+$ sudo npm install -g gulp
+```
+
+Installation backages for project hcqh
+
+```
+$ sudo npm install -g live-server
+$ cd hcqh
+$ sudo npm install
+$ sudo bower install
+$ sudo bower install i18next --allow-root
+$ gulp bundle
+```
 
 * Website contents is configured in the `content` folder by Cô Chú
 * The `backend` folder hosts the future PHP API service
