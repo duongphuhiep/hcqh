@@ -83,11 +83,10 @@
 		 */
 		function randomAnimation() {
 			var entrancesAnimation = [
-				"bounceIn",
-				"bounceInDown",
-				"bounceInLeft",
-				"bounceInRight",
-				"bounceInUp"
+				"slideInUp",
+				"slideInDown",
+				"slideInLeft",
+				"slideInRight"
 			];
 			return entrancesAnimation[Math.floor(Math.random()*entrancesAnimation.length)];
 		}
