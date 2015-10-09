@@ -31,10 +31,10 @@
 		RiotControl.addStore(_this);
 		var riot = require("riot");
 		var $ = require("jquery");
-		var Route = require("../app/route");
+		var Route = require("./route");
 		var i18n = require("i18next");
-		var Utils = require("../lib/utils");
-		var Mixins = require('../app/mixins');
+		var Utils = require("./utils");
+		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 		/**
@@ -49,7 +49,7 @@
 			}).done(function (rawMembersConfig) {
 				_this.members = parseMembersConfig(rawMembersConfig);
 			}).fail(function (error) {
-				console.log(error);
+				console.error(error);
 				Route.switchToPage("404");
 			}).always(function() {
 				_this.hideLoading();
@@ -83,11 +83,10 @@
 		 */
 		function randomAnimation() {
 			var entrancesAnimation = [
-				"bounceIn",
-				"bounceInDown",
-				"bounceInLeft",
-				"bounceInRight",
-				"bounceInUp"
+				"slideInUp",
+				"slideInDown",
+				"slideInLeft",
+				"slideInRight"
 			];
 			return entrancesAnimation[Math.floor(Math.random()*entrancesAnimation.length)];
 		}

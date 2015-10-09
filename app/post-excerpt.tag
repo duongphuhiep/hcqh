@@ -15,7 +15,7 @@
 
 	<script>
 		var _this = this;
-		var Lang = require('../app/lang');
+		var Lang = require('./lang');
 		var $ = require('jquery');
 		var i18n = require("i18next");
 

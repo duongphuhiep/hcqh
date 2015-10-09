@@ -39,8 +39,8 @@ possible route:
 
 		var riot = require("riot");
 		var i18n = require("i18next");
-		var Lang = require("../app/lang");
-		var Route = require("../app/route");
+		var Lang = require("./lang");
+		var Route = require("./route");
 		var $ = require("jquery");
 		var debounce = require("lodash.debounce");
 
@@ -92,7 +92,7 @@ possible route:
 			if (_this.loadedPageNumber===pageNumber && _this.loadedLang===lang) {
 				return;
 			}
-			
+
 			_this.showLoading();
 
 			$.ajax({
@@ -103,14 +103,14 @@ possible route:
 				_this.loadedPageNumber = pageNumber;
 				_this.loadedLang = lang;
 			}).fail(function (error) {
-				console.log(error);
+				console.error(error);
 				Route.switchToPage("404");
 			}).always(function() {
 				_this.hideLoading();
 			});
 		}
 
-		var Mixins = require('../app/mixins');
+		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 	</script>

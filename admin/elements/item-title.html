@@ -13,8 +13,10 @@ Properties:
 	<template>
 		<style is="custom-style">
 			.thumb {
-				width: 200px;
-				height: 100px;
+				max-width: 200px;
+				max-height: 100px;
+				width: auto;
+				height: auto;
 			}
 			paper-card {
 				max-width: 300px;
@@ -82,7 +84,7 @@ Properties:
 					</template>
 					<div>{{fileName}}</div>
 				</div>
-				<template is="dom-if" if="{{_hasAction(deletable, renamable)}}">
+				<template is="dom-if" if="{{_hasAction(deletable, renamable, visitable)}}">
 					<div class="card-actions">
 						<template is="dom-if" if={{deletable}}>
 							<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
@@ -91,6 +93,10 @@ Properties:
 						<template is="dom-if" if={{renamable}}>
 							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
 							<paper-tooltip for="rename">Rename</paper-tooltip>
+						</template>
+						<template is="dom-if" if={{visitable}}>
+							<paper-icon-button id="open" icon={{openIcon}} alt="Open" on-tap="_openItem"></paper-icon-button>
+							<paper-tooltip for="open">Visit or download item</paper-tooltip>
 						</template>
 					</div>
 				</template>
@@ -130,6 +136,7 @@ Properties:
 				urlToAdminPhp: String,
 				deletable: Boolean,
 				renamable: Boolean,
+				visitable: Boolean,
 				/**
 				 * possible value "file" or "folder"
 				 */
@@ -167,6 +174,11 @@ Properties:
 				pageToGo: {
 					type: String,
 					computed: "_pageToGo(isPostFolder, treatAs, filePath)"
+				},
+				visitLinkPrefix: String,
+				openIcon: {
+					type: String,
+					computed: "_getOpenIcon(treatAs)"
 				}
 			},
 
@@ -191,9 +203,8 @@ Properties:
 			_onTap: function() {
 				page(this.pageToGo);
 			},
-			_hasAction: function(deletable, renamable){
-				return deletable || renamable;
-				return true;
+			_hasAction: function(deletable, renamable, visitable){
+				return deletable || renamable || visitable;
 			},
 			_enterRenameMode: function() {
 				this.newFileName = this.fileName;
@@ -230,10 +241,10 @@ Properties:
 				return treatAs === 'file' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 			},
 			_isText: function(treatAs, fileName) {
-				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js|html|tag|css)$/i);
+				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js|json|html|tag|css)$/i);
 			},
 			_isMarkdown: function(treatAs, fileName) {
-				return treatAs === 'file' && page.helper.isMarkdown(fileName);
+				return treatAs === 'file' && fileName.indexOf(".md", fileName.length - 3) !== -1;
 			},
 			_getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(parentPath, fileName);
@@ -248,6 +259,13 @@ Properties:
 				else  if (currentAction === "rm") {
 					this.fire("refresh-collection", {because: currentAction, newCollection: this.items, changedItem:null});
 				}
+			},
+			_openItem: function(e) {
+				var linkToOpen = this.visitLinkPrefix ? page.rootFolder + this.visitLinkPrefix + this.fileName : this.filePath;
+				window.open(linkToOpen);
+			},
+			_getOpenIcon: function(treatAs) {
+				return treatAs==='file'? 'icons:file-download' : 'icons:open-in-browser';
 			}
 		});
 	</script>

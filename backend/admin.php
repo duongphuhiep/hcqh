@@ -1,7 +1,7 @@
 <?php
 
-sleep(1);
-define("ROOT_DIR", "../../");
+//sleep(1);
+define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT']);
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 

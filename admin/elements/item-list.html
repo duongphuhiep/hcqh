@@ -73,7 +73,13 @@ Display items in a post folder
 
 		<iron-selector selected-items={{selectedItems}} attr-for-selected="filePath" selected={{selectedItemPath}} activate-event="">
 			<template id="repeater" is="dom-repeat" items={{list}} sort="_compare">
-				<item-title treat-as=[[treatItemsAs]] file-name={{item}} parent-path={{folderPath}} url-to-admin-php=[[urlToAdminPhp]] deletable renamable></item-title>
+				<item-title treat-as=[[treatItemsAs]]
+							file-name={{item}}
+							parent-path={{folderPath}}
+							url-to-admin-php=[[urlToAdminPhp]]
+							visit-link-prefix=[[visitLinkPrefix]]
+							deletable renamable visitable>
+				</item-title>
 			</template>
 		</iron-selector>
 	</template>
@@ -98,7 +104,8 @@ Display items in a post folder
 					type: Array,
 					notify: true
 				},
-				selectedItemPath: String
+				selectedItemPath: String,
+				visitLinkPrefix: String
 			},
 
 			/*observers: [

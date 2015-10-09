@@ -29,6 +29,12 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
+			.infoImage {
+				@apply(--paper-font-title);
+				text-align: center;
+				vertical-align: middle;
+				margin: 20px auto;
+			}
 		</style>
 
 		<iron-ajax
@@ -67,9 +73,10 @@
 			<text-editor value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
 			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 		</template>
-		<template is="dom-if" if="[[itemTitle.isImage]]" restamp>
+		<template is="dom-if" if="[[itemTitle.isImage]]" restamp on-dom-change='_onDomChange'>
+			<div class='infoImage'>[[InfoImage]]</div>
 			<!-- <img src="[[itemTitle.filePath]]"> -->
-			<iron-image src="[[itemTitle.filePath]]"></iron-image>
+			<iron-image id='img' src="[[itemTitle.filePath]]"></iron-image>
 		</template>
     </template>
 
@@ -125,6 +132,12 @@
 				if (this.dirty) {
 					this.fire("raise-alert-error", "Server is not return the expected content");
 					console.error("unexpected response from Server", e.detail.response);
+				}
+			},
+			_onDomChange: function(e) {
+				var img = this.$$('#img');
+				if (img) {
+					this.InfoImage = 'Width: ' + img.clientWidth + ' x Height: ' + img.clientHeight;
 				}
 			}
         });
