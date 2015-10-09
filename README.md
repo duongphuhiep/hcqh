@@ -6,6 +6,22 @@ The Hop ca Que-Huong website project comprehends 3 applications (2 front-end app
  * The "Admin" application is also a SPA, it helps to manage website content and configuration.
  * The "Backend" application service provides Restful APIs to access and manipulate the [database](https://github.com/duongphuhiep/hcqh/wiki/Database)
 
+# Run "Website" on localhost
+
+Required [nodejs](https://nodejs.org/en/)
+
+After `git clone`. Run the following commands:
+
+    npm install -g bower         # install package manager globally
+    npm install -g gulp          # install build tools globally
+    npm install -g live-server   # install a server http globally
+    
+    cd hcqh                      # Go to the project folder
+    gulp bundle                  # build the website
+    live-server                  # run a http server, automatically open Chrome at localhost:8080
+
+You can play with the website. It is just a quick start. [Read more infos on Wiki](https://github.com/duongphuhiep/hcqh/wiki/Local-installation)
+
 # Framework and library
   
 I chose to implement as much complexity as possible on the Front-end (Website & Admin) so that the "Backend" stays as stupid and minimal as possible. Normally, the 2 front-end applications should use the same stack framework / library. However I want to to experience different technique to develop SPA, so the "Website" and "Admin" are based on 2 different frameworks. 
@@ -32,4 +48,4 @@ I chose to implement as much complexity as possible on the Front-end (Website & 
  
  * PHP, no library 
  
-[See wiki for more info](https://github.com/duongphuhiep/hcqh/wiki)
+[Read more infos on Wiki](https://github.com/duongphuhiep/hcqh/wiki)
