@@ -1,7 +1,7 @@
 <?php
 
 //sleep(1);
-define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT']);
+define("ROOT_DIR", $_SERVER["DOCUMENT_ROOT"]); //on prod: define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -88,31 +88,23 @@ function ren($parentPath, $currentName, $newName) {
  */
 function rm($parentPath, $itemName) {
 	if (!strpos($parentPath, 'content')) {
-		unauthorized($parentPath.' is out of the "content/" folder');
+		unauthorized($parentPath . ' is out of the "content/" folder');
 	}
 	$path = joinPaths($parentPath, $itemName);
 	if (is_dir($path)) {
-		$it = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
-		$files = new RecursiveIteratorIterator($it,
-			RecursiveIteratorIterator::CHILD_FIRST);
-		foreach ($files as $file) {
+		$iterator = new RecursiveDirectoryIterator($path);
+		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
+		{
 			if ($file->isDir()) {
-				if (!rmdir($file->getRealPath())) {
-					internalError('Failed to remove the directory "'.$file->getRealPath().'"');
-				}
+				rmdir($file->getPathname());
 			} else {
-				if (!unlink($file->getRealPath())) {
-					internalError('Failed to remove the file "'.$file->getRealPath().'"');
-				}
+				unlink($file->getPathname());
 			}
 		}
-		if (!rmdir($path)) {
-			internalError('Failed to remove the directory "'.$path.'"');
-		}
-	}
-	else {
+		rmdir($path);
+	} else {
 		if (!unlink($path)) {
-			internalError('Failed to remove the file "'.$path.'"');
+			internalError('Failed to remove the file "' . $path . '"');
 		}
 	}
 
