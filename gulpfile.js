@@ -127,7 +127,7 @@ gulp.task('watch', ['bundle'], function(){
     liveServer.start({ignore:'app,lib,backend_mock,tests,reports,_gen', open:false});
 });
 gulp.task('watch_prod', ['prod_content'], function(){
-	gulp.watch(['app/**/*', 'lib/**/*', 'backend_mock/**/*'], ['bundle']);
+	gulp.watch(['app/**/*', 'lib/**/*', 'backend_mock/**/*'], ['prod_content']);
 	liveServer.start({ignore:'app,lib,backend_mock,tests,reports,_gen', open:false});
 });
 
