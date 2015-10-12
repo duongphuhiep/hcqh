@@ -3,7 +3,7 @@ Responsive navigation bar
 */
 <navbar-search>
 	<!--<nav class="navbar navbar-fixed-top">-->
-	<nav class={ navbar:true, navbar-inverse:inverseColor, navbar-fixed-top:true }>
+	<nav class={ navbar:true, navbar-inverse:true, navbar-fixed-top:true }>
 		<div class ="container">
 			<div class ="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -40,8 +40,6 @@ Responsive navigation bar
 		var Route = require("./route");
 		var $ = require("jquery");
 		var i18n = require("i18next");
-
-		_this.inverseColor = true;
 
 		_this.on('mount', function() {
 			_this.pageName = Route.getCurrentPageInfo().pageName;
