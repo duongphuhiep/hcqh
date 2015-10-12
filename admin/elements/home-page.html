@@ -23,7 +23,7 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			.main {
 				background: lightgray;
 			}
-			.iron-selected {
+			.nav .iron-selected {
 				background: var(--default-primary-color);
 			}
 			item-title {
@@ -41,6 +41,15 @@ Any children elements can alert something in the alert-corner by sending raise-a
 			paper-progress {
 				width: 100%;
 			}
+
+			.nav a {
+				display: list-item;
+				margin: 20px 5px;
+			}
+			.nav a paper-card {
+				width: 100%;
+				padding: 16px;
+			}
 		</style>
 
 		<iron-ajax
@@ -57,6 +66,9 @@ Any children elements can alert something in the alert-corner by sending raise-a
 		<paper-drawer-panel id="drawerPanel" responsive-width="1024px">
 
 			<div class="nav" drawer>
+				<a href="#!/themes">
+					<paper-card>Themes</paper-card>
+				</a>
 				<iron-selector attr-for-selected="filePath" selected=[[folderPath]] activate-event="">
 					<item-title parent-path=[[parentOfBannerFolder]] file-name="banner" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
 					<item-title parent-path=[[contentFolder]] file-name="members" treat-as="folder" url-to-admin-php=[[urlToAdminPhp]]></item-title>
@@ -85,11 +97,20 @@ Any children elements can alert something in the alert-corner by sending raise-a
 					<template is="dom-if" if="{{loading}}">
 						<paper-progress indeterminate></paper-progress>
 					</template>
-					<folder-content folder-path=[[folderPath]]
-									url-to-admin-php=[[urlToAdminPhp]]
-									file-name=[[fileName]]
-									dirty={{dirty}}>
-					</folder-content>
+
+					<iron-pages attr-for-selected="data-route" selected={{subRoute}}>
+						<section data-route="home">
+							<folder-content folder-path=[[folderPath]]
+											url-to-admin-php=[[urlToAdminPhp]]
+											file-name=[[fileName]]
+											dirty={{dirty}}>
+							</folder-content>
+						</section>
+						<section data-route="themes">
+							<theme-changer url-to-admin-php=[[urlToAdminPhp]]></theme-changer>
+						</section>
+					</iron-pages>
+
 				</div>
 
 			</paper-header-panel>
@@ -117,6 +138,10 @@ Any children elements can alert something in the alert-corner by sending raise-a
 					type: Boolean,
 					notify: true,
 					value: false
+				},
+				subRoute: {
+					type: String,
+					value: 'home'
 				}
 			},
 

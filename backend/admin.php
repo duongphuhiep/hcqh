@@ -204,6 +204,45 @@ function newPost($blogFolder, $postName, $userData) {
 	);
 }
 
+/**
+ * inject other bootstrap theme to index.html
+ * @param $themeUrl
+ */
+function setTheme($themeUrl) {
+	$pathToIndexHtml = joinPaths(BASE_DIR, 'index.html');
+	$content = file_get_contents($pathToIndexHtml);
+	$pattern = '/(.+)(https:\/\/maxcdn.bootstrapcdn.com\/.+\/bootstrap.min.css)(.+)/i';
+	$replacement = '${1}'.$themeUrl.'${3}';
+	$content = preg_replace($pattern, $replacement, $content, 1);
+	if (!is_null($content)) {
+		file_put_contents($pathToIndexHtml, $content);
+	}
+}
+
+/**
+ * inject inverseNavBar to main.js
+ * @param $inverseNavBar
+ */
+function setInverseNavBar($inverseNavBar) {
+	$pathToMainJs = joinPaths(BASE_DIR, '_dist/main.js');
+	$content = file_get_contents($pathToMainJs);
+	$replacement = 'navbar-inverse:'.($inverseNavBar ? 'true': 'false');
+	$content = str_replace('navbar-inverse:true', $replacement, $content);
+	$content = str_replace('navbar-inverse:false', $replacement, $content);
+	if (!is_null($content)) {
+		file_put_contents($pathToMainJs, $content);
+	}
+}
+
+/**
+ * inject other bootstrap theme to index.html
+ * @param $themeUrl
+ * @param $inverseNavBar
+ */
+function applyTheme($themeUrl, $inverseNavBar) {
+	setTheme($themeUrl);
+	setInverseNavBar($inverseNavBar);
+}
 
 /**
  * write the text content to a file, then re-open the file, read the content and return it
@@ -323,6 +362,11 @@ if ($requestMethod == 'POST') {
 			if (isAdmin($requestBody->adminToken)) {
 				$filePath = joinPaths(ROOT_DIR, $requestBody->filePath);
 				echo save($filePath, $requestBody->newContent);
+			}
+		}
+		else if ($action == "settheme") {
+			if (isAdmin($requestBody->adminToken)) {
+				applyTheme($requestBody->themeUrl, $requestBody->inverseNavBar);
 			}
 		}
 		else {

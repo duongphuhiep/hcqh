@@ -11,18 +11,35 @@
 		app.blogFolder = page.rootFolder + "content/blog";
 
 		page('/', function (ctx, next) {
-			document.title = '/';
+			document.title = 'Hop-Ca Admin - Home';
 			//console.info('Enter home',ctx);
+			if (app.isAuthorized) {
+				app.route = 'home';
+				app.subRoute = 'home';
+			}
+			else {
+				app.displayLoginPage();
+			}
+			app.subRoute = 'home';
+			app.folderPath = null;
+			app.fileName = null;
+		});
+
+		page('/themes', function (ctx, next) {
+			document.title = 'Hop-Ca Themes';
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
 			else {
 				app.displayLoginPage();
 			}
+			app.subRoute = 'themes';
+			app.folderPath = null;
+			app.fileName = null;
 		});
 
 		page('/folder/:folder(.*)', function (ctx) {
-			document.title = 'folder/'+ctx.params.folder;
+			document.title = 'Hop-Ca Admin - folder/'+ctx.params.folder;
 			//console.info('Enter folder',ctx.path);
 			if (app.isAuthorized) {
 				app.route = 'home';
@@ -30,19 +47,21 @@
 			else {
 				app.displayLoginPage();
 			}
+			app.subRoute = 'home';
 			app.folderPath = ctx.params.folder;
 			app.fileName = null;
 		});
 
 		page('/file/:folder(.*)/:file', function (ctx) {
 			//console.info('Enter file',ctx.path);
-			document.title = 'file/'+ctx.params.folder+'/'+ctx.params.file;
+			document.title = 'Hop-Ca Admin - file/'+ctx.params.folder+'/'+ctx.params.file;
 			if (app.isAuthorized) {
 				app.route = 'home';
 			}
 			else {
 				app.displayLoginPage();
 			}
+			app.subRoute = 'home';
 			app.folderPath = ctx.params.folder;
 			app.fileName = ctx.params.file;
 		});

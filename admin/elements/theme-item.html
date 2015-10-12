@@ -1,0 +1,71 @@
+<dom-module id="theme-item">
+    <template>
+		<style>
+			.half {
+				width: 50%;
+				float: left;
+			}
+			.text {
+				vertical-align: middle;
+				height: 50px;
+			}
+			paper-button {
+				height: 50px;
+				background: var(--default-primary-color);
+				color: var(--text-primary-color);
+			}
+			:host {
+				display: block;
+				background: white;
+			}
+		</style>
+
+		<iron-ajax
+			id="sender"
+			method="POST"
+			url=[[urlToAdminPhp]]
+			content-type="application/json"
+			body=[[ajaxBody]]
+			handle-as="json"
+			debounce-duration="100"
+			loading = {{loading}}
+			on-error="_onError"
+			on-response="_visit"></iron-ajax>
+
+		<template is="dom-if" if="{{loading}}">
+			<paper-progress indeterminate></paper-progress>
+		</template>
+		<span class="half text">{{themeName}}</span>
+		<span class="half">
+			<paper-button raised on-tap="_switchTheme"><iron-icon icon="check"></iron-icon>Apply</paper-button>
+		</span>
+		<hr>
+    </template>
+
+    <script>
+        Polymer({
+            is: "theme-item",
+			properties: {
+				urlToAdminPhp: String,
+				themeName: String,
+				themeValue: String,
+				inverseNavBar: Boolean
+			},
+			_onError: function(e) {
+				this.fire("raise-alert-error", e.detail.error);
+			},
+			_visit: function() {
+
+			},
+			_switchTheme: function() {
+				this.ajaxBody = {action:'settheme',
+					themeUrl: this.themeValue,
+					inverseNavBar: this.inverseNavBar,
+					adminToken: page.helper.adminToken()
+				};
+				this.$.sender.generateRequest();
+			}
+        });
+    </script>
+
+</dom-module>
