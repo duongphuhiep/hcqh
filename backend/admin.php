@@ -38,7 +38,15 @@ function isAdmin($idtoken) {
 		$googleUserId = $data["sub"];
 		//$email = $data["email"];
 
-		$AUTH_USERS = array("113703431246868902879"); //add more admin users later here
+		//add/remove admin users here
+		$AUTH_USERS = array(
+			"113703431246868902879", //Phu Hiep
+			"107145814703476265092", //Tich Ky
+			"114101028161312088899", //Ngan Ha
+			"116683251432505969319", //Quynh Nga
+			"109388954927603052779", //Pham Dat
+			"117475364919742721893" //Dau Xuan Tuan
+		);
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
 			return $data;
