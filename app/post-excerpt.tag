@@ -9,7 +9,7 @@
 
 	<p class="animated fadeInDown">{ excerpt } </p>
 	<p class="text-right">
-	<a class="btn btn-default animated fadeInRight" href="#{ postLink }">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
+	<a class="btn btn-default animated fadeInUp" href="#{ postLink }">Read More <i class="glyphicon glyphicon-menu-right"></i></a>
 	</p>
 	<hr>
 
