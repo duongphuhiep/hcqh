@@ -4,7 +4,7 @@
 	<h2><a href="#{ postLink }">{ title }</a></h2>
 
 	<p>
-		<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ author }</em>
+		<i class="glyphicon glyphicon-time"></i> { publishString } by <em>{ author }</em>
 	</p>
 
 	<p class="animated fadeInDown">{ excerpt } </p>
@@ -18,12 +18,26 @@
 		var Lang = require('./lang');
 		var $ = require('jquery');
 		var i18n = require("i18next");
+		var moment = require("moment");
+
+
+		this.getMomentString = function(date) {
+			var momentDate = moment(date);
+			//return momentDate.format('ll') + ' ('+momentDate.fromNow()+')'
+			return date + ' ('+momentDate.fromNow()+')'
+		};
 
 		_this.reloadState = function() {
 			var postId = this.publish +' '+ this.name;
 			_this.postLink =  "post/"+postId;
 			_this.translationFound = this.lang === Lang.getCurrentLanguage();
-		}
+			_this.publishString = _this.getMomentString(_this.publish);
+
+		};
+
+		this.on("languageChange", function() {
+			_this.publishString = _this.getMomentString(_this.publish);
+		});
 
 		this.on("mount update", function() {
 			_this.reloadState();
