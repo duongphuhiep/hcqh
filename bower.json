@@ -26,7 +26,7 @@
   "dependencies": {
     "animate.css": "~3.4.0",
     "commonmark": "~0.21.0",
-    "commonmark-editor": "~1.0.6",
+    "commonmark-editor": "~1.0.7",
     "google-signin": "GoogleWebComponents/google-signin#^1.0.0",
     "i18next": "~1.10.2",
     "iron-icons": "PolymerElements/iron-icons#^1.0.0",
