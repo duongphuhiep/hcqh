@@ -9,7 +9,7 @@
 		</div>
 		<div class="row">
 			<div each={ members }  class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumb">
-				<div class="thumbnail fadeInOnScroll">
+				<div class="thumbnail">
 					<!--<img class="img-responsive limitedSize animated bounceIn" src={ this.image }>-->
 					<!--<img class={img-responsive:true, limitedSize:true, animated:true, animation:true} src={ this.image }>-->
 					<img class={ this.cssClazz } src={ this.image }>
