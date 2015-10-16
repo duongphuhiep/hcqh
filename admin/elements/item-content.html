@@ -22,7 +22,6 @@
 				width: 100%;
 			}
 			paper-button {
-				display: block;
 				background: var(--default-primary-color);
 				color: var(--text-primary-color);
 				width: 100px;
@@ -34,6 +33,9 @@
 				text-align: center;
 				vertical-align: middle;
 				margin: 20px auto;
+			}
+			.center {
+				text-align: center;
 			}
 		</style>
 
@@ -67,11 +69,15 @@
 		</template>
 		<template is="dom-if" if="[[itemTitle.isMarkdown]]" restamp>
 			<commonmark-editor working-dir=[[itemTitle.parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
-			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			<div class="center">
+				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			</div>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isText]]" restamp>
 			<text-editor value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
-			<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			<div class="center">
+				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			</div>
 		</template>
 		<template is="dom-if" if="[[itemTitle.isImage]]" restamp on-dom-change='_onDomChange'>
 			<div class='infoImage'>[[InfoImage]]</div>
