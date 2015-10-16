@@ -46,7 +46,7 @@ Display content of a post folder
 			},
 
 			_showPostToolbar: function(folderPath) {
-				return folderPath.indexOf("content/blog")>0;
+				return folderPath && folderPath.indexOf("content/blog")>0;
 			}
 		});
 	</script>

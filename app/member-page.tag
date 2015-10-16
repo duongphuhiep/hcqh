@@ -8,7 +8,7 @@
 			<h1 class="page-header" data-i18n="Members"></h1>
 		</div>
 		<div class="row">
-			<div each={ members }  class="col-lg-3 col-md-4 col-xs-6 thumb limitedSize">
+			<div each={ members }  class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumb">
 				<div class="thumbnail">
 					<!--<img class="img-responsive limitedSize animated bounceIn" src={ this.image }>-->
 					<!--<img class={img-responsive:true, limitedSize:true, animated:true, animation:true} src={ this.image }>-->
@@ -22,6 +22,9 @@
 		.limitedSize {
 			max-width: 400px;
 			max-height: 300px;
+		}
+		.thumbnail {
+			height: 300px;
 		}
 	</style>
 

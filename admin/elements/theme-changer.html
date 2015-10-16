@@ -1,0 +1,47 @@
+<dom-module id="theme-changer">
+    <template>
+		<style>
+			:host {
+				display: block;
+				margin: 20px;
+				max-width: 600px;
+				background: white;
+				padding: 50px;
+			}
+		</style>
+
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+					theme-name="Default"
+					inverse-nav-bar
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item>
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/united/bootstrap.min.css"
+					theme-name="United"
+					inverse-nav-bar
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item>
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cyborg/bootstrap.min.css"
+					theme-name="Cyborg"
+					inverse-nav-bar
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item>
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cosmo/bootstrap.min.css"
+					theme-name="Cosmo"
+					inverse-nav-bar
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item>
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cerulean/bootstrap.min.css"
+					theme-name="Cerulean"
+					inverse-nav-bar
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item>
+		<theme-item theme-value="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/slate/bootstrap.min.css"
+					theme-name="Slate"
+					url-to-admin-php=[[urlToAdminPhp]]></theme-item> <!--do not inverse nav-bar-->
+    </template>
+
+    <script>
+        Polymer({
+            is: "theme-changer",
+			properties: {
+				urlToAdminPhp: String
+			}
+        });
+    </script>
+
+</dom-module>

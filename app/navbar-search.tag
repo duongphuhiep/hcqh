@@ -2,7 +2,8 @@
 Responsive navigation bar
 */
 <navbar-search>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<!--<nav class="navbar navbar-fixed-top">-->
+	<nav class={ navbar:true, navbar-inverse:true, navbar-fixed-top:true }>
 		<div class ="container">
 			<div class ="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">

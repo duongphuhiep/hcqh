@@ -6,6 +6,22 @@ The Hop ca Que-Huong website project comprehends 3 applications (2 front-end app
  * The "Admin" application is also a SPA, it helps to manage website content and configuration.
  * The "Backend" application service provides Restful APIs to access and manipulate the [database](https://github.com/duongphuhiep/hcqh/wiki/Database)
 
+# Run "Website" on localhost
+
+Required [nodejs](https://nodejs.org/en/)
+
+After `git clone`. Run the following commands:
+
+    npm install -g bower         # install package manager globally
+    npm install -g gulp          # install build tools globally
+    npm install -g live-server   # install a server http globally
+    
+    cd hcqh                      # Go to the project folder
+    gulp bundle                  # build the website
+    live-server                  # run a http server, automatically open Chrome at localhost:8080
+
+You can play with the website. It is just a quick start. [Read more infos on Wiki](https://github.com/duongphuhiep/hcqh/wiki/Local-installation)
+
 # Framework and library
   
 I chose to implement as much complexity as possible on the Front-end (Website & Admin) so that the "Backend" stays as stupid and minimal as possible. Normally, the 2 front-end applications should use the same stack framework / library. However I want to to experience different technique to develop SPA, so the "Website" and "Admin" are based on 2 different frameworks. 
@@ -32,52 +48,4 @@ I chose to implement as much complexity as possible on the Front-end (Website & 
  
  * PHP, no library 
  
-[See wiki for more info](https://github.com/duongphuhiep/hcqh/wiki)
- 
-## Local installation  
-Require: [nodejs](https://nodejs.org/)
-
-```
-npm install
-bower install
-gulp            #build dist/* and open browser which auto-refresh for each changes in the dist/* 
-gulp watch      ##listen for files change to rebuilt the dist/* 
-```
-###Installation for Ubuntu
-
-Loading project from github
-
-```
-$ git clone https://github.com/duongphuhiep/hcqh.git
-```
-
-Installation backages for nodejs
-
-```
-$ sudo apt-get install npm
-$ sudo npm install -g bower
-$ sudo npm install -g gulp
-```
-
-Installation backages for project hcqh
-
-```
-$ sudo npm install -g live-server
-$ cd hcqh
-$ sudo npm install
-$ sudo bower install
-$ sudo bower install i18next --allow-root
-$ gulp bundle
-```
-
-* Website contents is configured in the `content` folder by Cô Chú
-* The `backend` folder hosts the future PHP API service
-
-## Gulp task
-`gulp watch` command will watch file changes during the developement, foreach changes:
-* it will compile riot tags in `/app` to `/gen`
-  * you can do it manually with `gulp bundle:tag`
-* then use `browserify` discovers from `app/main.js` and bundle all applicatif modules to `dist/main.js`
-* then minify it `/dist/main.min.js`
-  * you can manually compile `/dist/main*.js` with `gulp bundle`
-* then `live-server` will see changes in `/dist` and ask to browser to refresh the local web page `localhost:8080`
+[Read more infos on Wiki](https://github.com/duongphuhiep/hcqh/wiki)

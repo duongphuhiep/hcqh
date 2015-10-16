@@ -15,6 +15,7 @@ component is calculated base on the language meta-data or by the markdown file.
 	<div class="container">
 
 		<div hide={ translationFound } class="alert alert-danger" role="alert" data-i18n="Translation not found"></div>
+		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not complete"></span></div>
 
 		<!-- Page Heading -->
 		<h1>{ head.title }</h1>
@@ -142,6 +143,10 @@ component is calculated base on the language meta-data or by the markdown file.
 			var md = Markdown.process(content, _this.postFolderPath);
 			if (md.header) {
 				_this.head = Utils.parseConfig(md.header);
+				_this.statusIsComplete = true;
+				if (_this.head.status && _this.head.status !== 'complete') {
+					_this.statusIsComplete = false;
+				}
 			}
 			else {
 				console.warn("No header detected on ", Route.getCurrentPageInfo());

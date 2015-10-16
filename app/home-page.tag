@@ -22,9 +22,9 @@
 				<div class='col-md-3 text-center'></div>
 			</div>
 
-			<p class="btn center-block" data-toggle="collapse" data-target="#speechText">
+			<div class="infosubtitle" data-toggle="collapse" data-target="#speechText">
 				Cannot see the video or subtitle?
-			</p>
+			</div>
 			<div class="collapse" id="speechText">
 				<div class="row">
 					<div class='col-md-3 text-center'></div>
@@ -100,6 +100,14 @@
 		p {
 			padding-top: 20px;
 			padding-bottom: 20px;
+		}
+
+		.infosubtitle {
+			padding-top: 20px;
+			padding-bottom: 20px;
+			width: 100%;
+			text-align: center;
+			cursor: pointer;
 		}
 	</style>
 

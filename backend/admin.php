@@ -1,7 +1,7 @@
 <?php
 
 //sleep(1);
-define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT']);
+define("ROOT_DIR", $_SERVER["DOCUMENT_ROOT"]); //gulp will replace it with define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -38,7 +38,15 @@ function isAdmin($idtoken) {
 		$googleUserId = $data["sub"];
 		//$email = $data["email"];
 
-		$AUTH_USERS = array("113703431246868902879"); //add more admin users later here
+		//add/remove admin users here
+		$AUTH_USERS = array(
+			"113703431246868902879", //Phu Hiep
+			"107145814703476265092", //Tich Ky
+			"114101028161312088899", //Ngan Ha
+			"116683251432505969319", //Quynh Nga
+			"109388954927603052779", //Pham Dat
+			"117475364919742721893" //Dau Xuan Tuan
+		);
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
 			return $data;
@@ -88,31 +96,23 @@ function ren($parentPath, $currentName, $newName) {
  */
 function rm($parentPath, $itemName) {
 	if (!strpos($parentPath, 'content')) {
-		unauthorized($parentPath.' is out of the "content/" folder');
+		unauthorized($parentPath . ' is out of the "content/" folder');
 	}
 	$path = joinPaths($parentPath, $itemName);
 	if (is_dir($path)) {
-		$it = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
-		$files = new RecursiveIteratorIterator($it,
-			RecursiveIteratorIterator::CHILD_FIRST);
-		foreach ($files as $file) {
+		$iterator = new RecursiveDirectoryIterator($path);
+		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
+		{
 			if ($file->isDir()) {
-				if (!rmdir($file->getRealPath())) {
-					internalError('Failed to remove the directory "'.$file->getRealPath().'"');
-				}
+				rmdir($file->getPathname());
 			} else {
-				if (!unlink($file->getRealPath())) {
-					internalError('Failed to remove the file "'.$file->getRealPath().'"');
-				}
+				unlink($file->getPathname());
 			}
 		}
-		if (!rmdir($path)) {
-			internalError('Failed to remove the directory "'.$path.'"');
-		}
-	}
-	else {
+		rmdir($path);
+	} else {
 		if (!unlink($path)) {
-			internalError('Failed to remove the file "'.$path.'"');
+			internalError('Failed to remove the file "' . $path . '"');
 		}
 	}
 
@@ -188,6 +188,7 @@ function newPost($blogFolder, $postName, $userData) {
 	$initialContent = "<!--"
 		."\ntitle: ".$postName
 		."\nauthor: ".$userData['name']
+		."\nstatus: draft"
 		."\n-->\n\n";
 
 	$postFolder = joinPaths($blogFolder, $postId);
@@ -211,6 +212,45 @@ function newPost($blogFolder, $postName, $userData) {
 	);
 }
 
+/**
+ * inject other bootstrap theme to index.html
+ * @param $themeUrl
+ */
+function setTheme($themeUrl) {
+	$pathToIndexHtml = joinPaths(BASE_DIR, 'index.html');
+	$content = file_get_contents($pathToIndexHtml);
+	$pattern = '/(.+)(https:\/\/maxcdn.bootstrapcdn.com\/.+\/bootstrap.min.css)(.+)/i';
+	$replacement = '${1}'.$themeUrl.'${3}';
+	$content = preg_replace($pattern, $replacement, $content, 1);
+	if (!is_null($content)) {
+		file_put_contents($pathToIndexHtml, $content);
+	}
+}
+
+/**
+ * inject inverseNavBar to main.js
+ * @param $inverseNavBar
+ */
+function setInverseNavBar($inverseNavBar) {
+	$pathToMainJs = joinPaths(BASE_DIR, '_dist/main.js');
+	$content = file_get_contents($pathToMainJs);
+	$replacement = 'navbar-inverse:'.($inverseNavBar ? 'true': 'false');
+	$content = str_replace('navbar-inverse:true', $replacement, $content);
+	$content = str_replace('navbar-inverse:false', $replacement, $content);
+	if (!is_null($content)) {
+		file_put_contents($pathToMainJs, $content);
+	}
+}
+
+/**
+ * inject other bootstrap theme to index.html
+ * @param $themeUrl
+ * @param $inverseNavBar
+ */
+function applyTheme($themeUrl, $inverseNavBar) {
+	setTheme($themeUrl);
+	setInverseNavBar($inverseNavBar);
+}
 
 /**
  * write the text content to a file, then re-open the file, read the content and return it
@@ -330,6 +370,11 @@ if ($requestMethod == 'POST') {
 			if (isAdmin($requestBody->adminToken)) {
 				$filePath = joinPaths(ROOT_DIR, $requestBody->filePath);
 				echo save($filePath, $requestBody->newContent);
+			}
+		}
+		else if ($action == "settheme") {
+			if (isAdmin($requestBody->adminToken)) {
+				applyTheme($requestBody->themeUrl, $requestBody->inverseNavBar);
 			}
 		}
 		else {

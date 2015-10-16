@@ -12,6 +12,7 @@
 	var Cookies = require("jscookie");
 	var RiotControl = require("RiotControl");
 	var $ = require("jquery");
+	var moment = require('moment');
 
 	//initialization
 
@@ -23,6 +24,8 @@
 	i18n.init(option, function(err, t) {
 		$(function() { $(document).i18n(); });
 	});
+
+	moment.locale(getCurrentLanguage());
 
 	function getQueryStringParams(sParam) {
 		var sPageURL = window.location.search.substring(1);
@@ -68,6 +71,8 @@
 		i18n.setLng(lang, function(err, t) {
             $(document).i18n();
         });
+
+		moment.locale(lang);
 
 		if (previousLang !== lang) {
 			RiotControl.trigger("languageChange", lang);
