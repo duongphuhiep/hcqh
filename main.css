@@ -2,3 +2,6 @@
 body {
 	margin-top: 50px;
 }
+.fadeInOnScroll {
+	opacity: 0.3;
+}

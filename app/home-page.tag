@@ -4,7 +4,7 @@
 
 	<div class="container">
 
-		<section>
+		<section class="fadeInOnScroll">
 			<h1>
 				<span data-i18n="A vietnamese vocal ensemble in France"></span><br>
 				<small data-i18n="two minutes introduction"></small>
@@ -40,7 +40,7 @@
 
 		</section>
 
-		<section>
+		<section class="fadeInOnScroll">
 			<h1 data-i18n="We are recruiting"></h1>
 
 			<div class="row">
@@ -55,7 +55,7 @@
 			</div>
 		</section>
 
-		<section>
+		<section class="fadeInOnScroll">
 			<h1 data-i18n="On Facebook"></h1>
 			<div class="center-block" style="max-width:500px;">
 				<div class="fb-page"
