@@ -1,8 +1,11 @@
 <?php
+
+define("NB_POSTS_IN_PAGE", 10); // A page has 10 blog posts
+
 require_once("lib/mainBackEnd.php");
 
 // 
-$blogPath = joinPaths(BASE_DIR, "/content/blog");
+$blogFolderPath = joinPaths(BASE_DIR, "/content/blog");
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 if ($requestMethod == 'GET') {
 	if (isset($_GET['lang']) && isset($_GET['page'])) {
@@ -12,18 +15,63 @@ if ($requestMethod == 'GET') {
 
 // take list of blog posts
 function blogPosts($lang, $page) {
-	global $blogPath;
-	$listFolders = ls($blogPath);
-	$listBlogPosts = each($listFolders);
+	
+	global $blogFolderPath;
+	
+	$indexFirstBlog = ((int)$page -1) * NB_POSTS_IN_PAGE + 1;
+	$indexLastBlog = $indexFirstBlog + NB_POSTS_IN_PAGE -1;
+	$listFolders = ls($blogFolderPath);
 
 	$listBlogPosts = array();
-	foreach ($listFolders as $value) {
-		if (checkPostFolder($value)) {
-			array_push($listBlogPosts, $value);
+	$count = 0;
+	$posts = array();
+
+	foreach ($listFolders as $post) {
+		if (checkPostFolder($post)) {
+			$count++;
+			if ($count < $indexFirstBlog || $count > $indexLastBlog) {
+				next();
+			}
+			// can be remove after
+			array_push($listBlogPosts, $post);
+			//
+
+			$blogPostPath = joinPaths($blogFolderPath, $post);
+			$blogFile = joinPaths($blogPostPath , $lang.".md");
+			
+			if (!file_exists($blogFile)) {
+				$blogFile = joinPaths($blogPostPath , "vi.md");
+			}
+
+			array_push($posts, readBlogPost($blogFile));
 		}
 	}
-	//TODO 
-	return reponseJson($listBlogPosts);
+
+	$response = array("page" => (int)$page);
+	$response["totalpages"] = (int)($count/NB_POSTS_IN_PAGE + 1);
+	$response["totalposts"] = $count;
+	$response["lang"] = $lang;
+	$response["posts"] = $posts;
+	
+	return reponseJson($response);
+}
+
+// read blog post file
+function readBlogPost($file) {
+	$path_parts = pathinfo($file);
+
+	$resPost = array();
+	$dirname = pathinfo($path_parts['dirname'])["filename"];
+
+	$resPost["publish"] = get_date($dirname);
+    $resPost["name"] = get_name($dirname);
+    
+    // TODO read title, author and excerpt on file
+    $resPost["title"] = "Tập học viết Markdown";
+    $resPost["author"] = "Hiệp";
+    $resPost["lang"] = "fr"; 
+    $resPost["excerpt"] = "First 200 characters of the blog post stripped markdown format";
+    return $resPost;
 }
 
 // check if post folder satisfy
@@ -38,22 +86,21 @@ function checkPostFolder($postFolder) {
 
 // check if post folder content satisfy
 function checkContent($postFolder) {
-	global $blogPath;
-	$contents = ls(joinPaths($blogPath, $postFolder));
-	$exist = false;
+	global $blogFolderPath;
+	$contents = ls(joinPaths($blogFolderPath, $postFolder));
+	$viFile = false;
 	foreach ($contents as $value) {
 		if (strpos("vi.md", $value) !== FALSE) {
-        	$exist = true;
+        	$viFile = true;
     	}
 	}
-	return $exist;
+	return $viFile;
 }
 
 // check if folder name satisfy
 function checkName($postFolder) {
 	if (contains_date($postFolder)) {
-		if (preg_match('/[A-Z]+[a-z]+/', $postFolder))
-		{
+		if (preg_match('/[A-Z]+[a-z]+/', $postFolder)) {
 			return true;
 		}
 	}
@@ -63,12 +110,24 @@ function checkName($postFolder) {
 // Check if a string contains date (yyyy-mm-dd)
 function contains_date($str)
 {
-    if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches))
-    {
-        if (checkdate($matches[2], $matches[3], $matches[1]))
-        {
+    if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
+        if (checkdate($matches[2], $matches[3], $matches[1])) {
             return true;
         }
     }
     return false;
+}
+
+// get date on string of folder name
+function get_date($str)
+{
+    if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
+        return $matches[0];
+    }
+}
+
+// get name on string of folder name
+function get_name($str)
+{
+    return substr($str,11, strlen($str));
 }
