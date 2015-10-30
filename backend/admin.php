@@ -1,7 +1,7 @@
 <?php
 
 require_once("lib/ChromePhp.php");
-require_once("lib/mainLib.php");
+require_once("lib/mainBackEnd.php");
 
 /**
  * check if the token comes from an administrator

@@ -62,7 +62,8 @@ function readBlogPost($file) {
 	$path_parts = pathinfo($file);
 
 	$resPost = array();
-	$dirname = pathinfo($path_parts['dirname'])["filename"];
+	$path_dir = pathinfo($path_parts['dirname']);
+	$dirname = $path_dir["filename"];
 
 	$resPost["publish"] = get_date($dirname);
     $resPost["name"] = get_name($dirname);
@@ -154,6 +155,6 @@ function clean_quote($str) {
 	foreach ($charsToRemove as $char) {
 		$str = str_replace($char, "", $str);
 	}
-	
+
 	return trim($str);
 }
