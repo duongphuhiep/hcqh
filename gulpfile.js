@@ -112,7 +112,7 @@ gulp.task('_copy_backend_php', function() {
 gulp.task('_copy_backend_php_prod', ['_copy_backend_php'], function() {
 	//TODO: change after publish the app to the root folder on GoDaddy
 	var rootFolder = '../../'; //root to the www folder relative to admin.php, on godaddy we have www/v3.1/backend/admin.php
-	return gulp.src(['backend/admin.php'])
+	return gulp.src(['backend/*.php'])
 		.pipe($.replace('$_SERVER["DOCUMENT_ROOT"]','"'+rootFolder+'"'))
 		.pipe(gulp.dest('_prod/backend'));
 });

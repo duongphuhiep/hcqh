@@ -5,7 +5,7 @@ define("QUOTE_SIZE", 200);
 
 require_once("mainBackEnd.php");
 
-// 
+//
 $blogFolderPath = joinPaths(BASE_DIR, "/content/blog");
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 if ($requestMethod == 'GET') {
@@ -16,9 +16,9 @@ if ($requestMethod == 'GET') {
 
 // take list of blog posts
 function blogPosts($lang, $page) {
-	
+
 	global $blogFolderPath;
-	
+
 	$indexFirstBlog = ((int)$page -1) * NB_POSTS_IN_PAGE + 1;
 	$indexLastBlog = $indexFirstBlog + NB_POSTS_IN_PAGE -1;
 	$listFolders = ls($blogFolderPath);
@@ -39,7 +39,7 @@ function blogPosts($lang, $page) {
 
 			$blogPostPath = joinPaths($blogFolderPath, $post);
 			$blogFile = joinPaths($blogPostPath , $lang.".md");
-			
+
 			if (!file_exists($blogFile)) {
 				$blogFile = joinPaths($blogPostPath , "vi.md");
 			}
@@ -54,7 +54,7 @@ function blogPosts($lang, $page) {
 	$result["lang"] = $lang;
 	rsort($posts);
 	$result["posts"] = $posts;
-	
+
 	return reponseJson($result);
 }
 
@@ -86,14 +86,14 @@ function readBlogPost($file) {
     	$resPost["author"] = trim($matches[1]);
     }
 
-    $resPost["lang"] = $path_parts["filename"]; 
-    
+    $resPost["lang"] = $path_parts["filename"];
+
     $contentsAndHeader = str_replace("\n", " ", $fileContents);
     if (preg_match('/-->(.*$)/', $contentsAndHeader, $matches)) {
     	$quote = substr(trim($matches[1]), 1, QUOTE_SIZE);
    		$resPost["excerpt"] = clean_quote($quote);
     }
-    
+
 	fclose($postFile);
     return $resPost;
 }
