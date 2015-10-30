@@ -23,7 +23,6 @@ function blogPosts($lang, $page) {
 	$indexLastBlog = $indexFirstBlog + NB_POSTS_IN_PAGE -1;
 	$listFolders = ls($blogFolderPath);
 
-	$listBlogPosts = array();
 	$count = 0;
 	$posts = array();
 
@@ -33,9 +32,6 @@ function blogPosts($lang, $page) {
 			if ($count < $indexFirstBlog || $count > $indexLastBlog) {
 				next();
 			}
-			// can be remove after
-			array_push($listBlogPosts, $post);
-			//
 
 			$blogPostPath = joinPaths($blogFolderPath, $post);
 			$blogFile = joinPaths($blogPostPath , $lang.".md");
@@ -69,23 +65,24 @@ function readBlogPost($file) {
 	$resPost["publish"] = get_date($dirname);
     $resPost["name"] = get_name($dirname);
 
-    // TODO read title, author and excerpt on file
    	$postFile = fopen($file, "r") or die("Unable to open file!");
 
 	$fileContents = fread($postFile,filesize($file));
 
-	if (preg_match('/<--(.*$)-->/i', $fileContents, $matches)) {
-		$resPost["header"] = trim($matches[1]);
+    $posStart = strpos($fileContents, "<!--");
+    $posEnd = strpos($fileContents, "-->");
+
+	$header = substr($fileContents, ($posStart + 5), ($posEnd - $posStart - 5));
+
+	foreach (preg_split("/\n/", $header) as $meta_data) {
+		if ($meta_data != "") {
+    		$posSplit = strpos($meta_data, ":");
+			$key = substr($meta_data, 0, $posSplit);
+			$value = substr($meta_data, ($posSplit + 1));
+	    	$resPost[trim($key)] = trim($value);
+		}
 	}
-
-	if (preg_match('/title:(.+)/i', $fileContents, $matches)) {
-    	$resPost["title"] = trim($matches[1]);
-    }
-
-	if (preg_match('/author:(.+)/i', $fileContents, $matches)) {
-    	$resPost["author"] = trim($matches[1]);
-    }
-
+	
     $resPost["lang"] = $path_parts["filename"];
 
     $contentsAndHeader = str_replace("\n", " ", $fileContents);
