@@ -40,8 +40,9 @@ function blogPosts($lang, $page) {
 				$blogFile = joinPaths($blogPostPath , "vi.md");
 			}
 
-			if (readBlogPost($blogFile) != null) {
-				array_push($posts, readBlogPost($blogFile));
+			$jsonBlogPost = readBlogPost($blogFile);
+			if ($jsonBlogPost != null) {
+				array_push($posts, $jsonBlogPost);
 			}
 		}
 	}
@@ -84,6 +85,7 @@ function readBlogPost($file) {
 	    	$resPost[strtolower(trim($key))] = trim($value);
 		}
 	}
+	
 	if (array_key_exists('status', $resPost)){
 		if (strtolower($resPost["status"]) != "completed") {
 			return;
