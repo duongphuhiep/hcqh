@@ -40,7 +40,9 @@ function blogPosts($lang, $page) {
 				$blogFile = joinPaths($blogPostPath , "vi.md");
 			}
 
-			array_push($posts, readBlogPost($blogFile));
+			if (readBlogPost($blogFile) != null) {
+				array_push($posts, readBlogPost($blogFile));
+			}
 		}
 	}
 
@@ -79,10 +81,15 @@ function readBlogPost($file) {
     		$posSplit = strpos($meta_data, ":");
 			$key = substr($meta_data, 0, $posSplit);
 			$value = substr($meta_data, ($posSplit + 1));
-	    	$resPost[trim($key)] = trim($value);
+	    	$resPost[strtolower(trim($key))] = trim($value);
 		}
 	}
-	
+	if (array_key_exists('status', $resPost)){
+		if (strtolower($resPost["status"]) != "completed") {
+			return;
+		}
+	}
+
     $resPost["lang"] = $path_parts["filename"];
 
     $contentsAndHeader = str_replace("\n", " ", $fileContents);
