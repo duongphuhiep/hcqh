@@ -1,6 +1,7 @@
 <?php
 
 define("NB_POSTS_IN_PAGE", 10); // A page has 10 blog posts
+define("QUOTE_SIZE", 200);
 
 require_once("lib/mainBackEnd.php");
 
@@ -47,13 +48,13 @@ function blogPosts($lang, $page) {
 		}
 	}
 
-	$response = array("page" => (int)$page);
-	$response["totalpages"] = (int)($count/NB_POSTS_IN_PAGE + 1);
-	$response["totalposts"] = $count;
-	$response["lang"] = $lang;
-	$response["posts"] = $posts;
+	$result = array("page" => (int)$page);
+	$result["totalpages"] = (int)($count/NB_POSTS_IN_PAGE + 1);
+	$result["totalposts"] = $count;
+	$result["lang"] = $lang;
+	$result["posts"] = $posts;
 	
-	return reponseJson($response);
+	return reponseJson($result);
 }
 
 // read blog post file
@@ -65,12 +66,29 @@ function readBlogPost($file) {
 
 	$resPost["publish"] = get_date($dirname);
     $resPost["name"] = get_name($dirname);
-    
+
     // TODO read title, author and excerpt on file
-    $resPost["title"] = "Tập học viết Markdown";
-    $resPost["author"] = "Hiệp";
-    $resPost["lang"] = "fr"; 
-    $resPost["excerpt"] = "First 200 characters of the blog post stripped markdown format";
+   	$postFile = fopen($file, "r") or die("Unable to open file!");
+
+	$fileContents = fread($postFile,filesize($file));
+
+	if (preg_match('/title:(.+)/i', $fileContents, $matches)) {
+    	$resPost["title"] = trim($matches[1]);
+    }
+
+	if (preg_match('/author:(.+)/i', $fileContents, $matches)) {
+    	$resPost["author"] = trim($matches[1]);
+    }
+
+    $resPost["lang"] = $path_parts["filename"]; 
+    
+    $contentsAndHeader = str_replace("\n", " ", $fileContents);
+    if (preg_match('/-->(.*$)/', $contentsAndHeader, $matches)) {
+    	$quote = substr($matches[1], 1, QUOTE_SIZE);
+   		$resPost["excerpt"] = clean_quote($quote);
+    }
+    
+	fclose($postFile);
     return $resPost;
 }
 
@@ -108,8 +126,7 @@ function checkName($postFolder) {
 }
 
 // Check if a string contains date (yyyy-mm-dd)
-function contains_date($str)
-{
+function contains_date($str) {
     if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
         if (checkdate($matches[2], $matches[3], $matches[1])) {
             return true;
@@ -119,15 +136,24 @@ function contains_date($str)
 }
 
 // get date on string of folder name
-function get_date($str)
-{
+function get_date($str) {
     if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
         return $matches[0];
     }
 }
 
 // get name on string of folder name
-function get_name($str)
-{
+function get_name($str) {
     return substr($str,11, strlen($str));
+}
+
+// remove markdown elements
+function clean_quote($str) {
+	$charsToRemove = array("#", "*", ">");
+
+	foreach ($charsToRemove as $char) {
+		$str = str_replace($char, "", $str);
+	}
+	
+	return trim($str);
 }
