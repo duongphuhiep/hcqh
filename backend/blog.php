@@ -3,7 +3,7 @@
 define("NB_POSTS_IN_PAGE", 10); // A page has 10 blog posts
 define("QUOTE_SIZE", 200);
 
-require_once("lib/mainBackEnd.php");
+require_once("mainBackEnd.php");
 
 // 
 $blogFolderPath = joinPaths(BASE_DIR, "/content/blog");
@@ -52,6 +52,7 @@ function blogPosts($lang, $page) {
 	$result["totalpages"] = (int)($count/NB_POSTS_IN_PAGE + 1);
 	$result["totalposts"] = $count;
 	$result["lang"] = $lang;
+	rsort($posts);
 	$result["posts"] = $posts;
 	
 	return reponseJson($result);
@@ -73,6 +74,10 @@ function readBlogPost($file) {
 
 	$fileContents = fread($postFile,filesize($file));
 
+	if (preg_match('/<--(.*$)-->/i', $fileContents, $matches)) {
+		$resPost["header"] = trim($matches[1]);
+	}
+
 	if (preg_match('/title:(.+)/i', $fileContents, $matches)) {
     	$resPost["title"] = trim($matches[1]);
     }
@@ -85,7 +90,7 @@ function readBlogPost($file) {
     
     $contentsAndHeader = str_replace("\n", " ", $fileContents);
     if (preg_match('/-->(.*$)/', $contentsAndHeader, $matches)) {
-    	$quote = substr($matches[1], 1, QUOTE_SIZE);
+    	$quote = substr(trim($matches[1]), 1, QUOTE_SIZE);
    		$resPost["excerpt"] = clean_quote($quote);
     }
     
