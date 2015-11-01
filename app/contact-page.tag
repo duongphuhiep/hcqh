@@ -24,7 +24,7 @@
 					</dl>
 				</div>
 				L’entrée est libre.<br/> 
-				Donc n’hesitez pas venir d’assiter notre scéance et visiter notre Centre Culturel.<br/>
+				Donc n’hésitez pas venir d’assiter notre scéance et visiter notre Centre Culturel.<br/>
 
 				<div class="info">
 					<div class="col-md-4">
@@ -42,8 +42,8 @@
 				</div> <!-- INFO -->
 			</div> <!-- DESCRIPTION -->
 
-			<div class="col-md-6">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2626.771975940758!2d2.372578!3d48.824412!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6722f75b72c97%3A0xcb39b0862217068b!2s19+Rue+Albert%2C+75013+Paris%2C+France!5e0!3m2!1sen!2sfr!4v1446132134528" width="600" height="450" style="border:0" allowfullscreen></iframe>
+			<div class="col-md-6 embed-responsive embed-responsive-16by9">
+				<iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2626.771975940758!2d2.372578!3d48.824412!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6722f75b72c97%3A0xcb39b0862217068b!2s19+Rue+Albert%2C+75013+Paris%2C+France!5e0!3m2!1sen!2sfr!4v1446380474339" width="800" height="600" style="border:0" allowfullscreen></iframe>
 			</div> <!-- MAP -->
 		</div> <!-- ROW -->
 	</div> <!-- CONTAINER -->
