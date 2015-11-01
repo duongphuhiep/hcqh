@@ -9,7 +9,8 @@ Display content of a post folder
 				   allow-upload
 				   treat-items-as="file"
 				   url-to-admin-php=[[urlToAdminPhp]]
-				   allow-post-toolbar=[[allowPostToolbar]]>
+				   allow-post-toolbar=[[allowPostToolbar]]
+				   inside-folder-content>
 		</item-list>
 		<item-content item-title=[[selectedItems.0]]
 					  url-to-admin-php=[[urlToAdminPhp]]
@@ -38,8 +39,17 @@ Display content of a post folder
 				allowPostToolbar: {
 					type: Boolean,
 					computed: "_showPostToolbar(folderPath)"
+				},
+				selectedItems: {
+					type: Array,
+					notify: true/*,
+					observer: "_selectedItemsChanged"*/
 				}
 			},
+/*
+			_selectedItemsChanged: function(e) {
+				console.info('_selectedItemsChanged 2 ',e);
+			},*/
 
 			_getSelectedItemPath: function(folderPath, fileName) {
 				return page.helper.joinPath(folderPath, fileName);
