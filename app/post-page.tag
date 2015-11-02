@@ -15,7 +15,7 @@ component is calculated base on the language meta-data or by the markdown file.
 	<div class="container">
 
 		<div hide={ translationFound } class="alert alert-danger" role="alert" data-i18n="Translation not found"></div>
-		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not complete"></span></div>
+		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not completed"></span></div>
 
 		<!-- Page Heading -->
 		<h1>{ head.title }</h1>
@@ -144,7 +144,7 @@ component is calculated base on the language meta-data or by the markdown file.
 			if (md.header) {
 				_this.head = Utils.parseConfig(md.header);
 				_this.statusIsComplete = true;
-				if (_this.head.status && _this.head.status !== 'complete') {
+				if (_this.head.status && _this.head.status !== 'completed') {
 					_this.statusIsComplete = false;
 				}
 			}
