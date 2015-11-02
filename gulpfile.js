@@ -125,7 +125,7 @@ gulp.task('_copy_content_to_prod', function() {
  * minify everything to the _prod folder, this is the final package to be deployed
  */
 gulp.task('prod', ['bundle'], function(cb) {
-	runSequence(['_minify_dist_js', '_minify_html_css', '_copy_backend_php'], cb);
+	runSequence(['_minify_dist_js', '_minify_html_css', '_copy_backend_php_prod'], cb);
 });
 gulp.task('prod_content', ['prod', '_copy_content_to_prod']);
 
