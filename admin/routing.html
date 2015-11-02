@@ -132,6 +132,19 @@
 			return fileName.indexOf(".md", fileName.length - 3) !== -1 && !this.isTemp(fileName);
 		},
 
+		extMatchImage: function(fileName) {
+			return fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+		},
+		extMatchText: function(fileName) {
+			return fileName.match(/\.(txt|text|config|ini|cfg|js|json|html|tag|css)$/i);
+		},
+		extMatchMarkdown: function(fileName) {
+			return fileName.indexOf(".md", fileName.length - 3) !== -1;
+		},
+		parentPath: function(fileName) {
+			return myURL.substring(0, myURL.lastIndexOf( "/" ) + 1);
+		},
+
 		/**
 		 * Check if fileName is a temporary file. The fileName starts with "_" is a temp file, not markdown file
 		 *

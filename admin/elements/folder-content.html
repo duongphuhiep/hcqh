@@ -5,14 +5,14 @@ Display content of a post folder
 	<template>
 		<item-list folder-path=[[folderPath]]
 				   selected-item-path="{{selectedItemPath}}"
-				   selected-items={{selectedItems}}
 				   allow-upload
 				   treat-items-as="file"
 				   url-to-admin-php=[[urlToAdminPhp]]
 				   allow-post-toolbar=[[allowPostToolbar]]
 				   inside-folder-content>
 		</item-list>
-		<item-content item-title=[[selectedItems.0]]
+		<item-content folder-path=[[folderPath]]
+					  file-path="{{selectedItemPath}}"
 					  url-to-admin-php=[[urlToAdminPhp]]
 					  dirty={{dirty}}>
 		</item-content>

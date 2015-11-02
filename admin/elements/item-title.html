@@ -238,13 +238,13 @@ Properties:
 				}
 			},
 			_isImage: function(treatAs, fileName) {
-				return treatAs === 'file' && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+				return treatAs === 'file' && page.helper.extMatchImage(fileName);
 			},
 			_isText: function(treatAs, fileName) {
-				return treatAs === 'file' && fileName.match(/\.(txt|text|config|ini|cfg|js|json|html|tag|css)$/i);
+				return treatAs === 'file' && page.helper.extMatchText(fileName);
 			},
 			_isMarkdown: function(treatAs, fileName) {
-				return treatAs === 'file' && fileName.indexOf(".md", fileName.length - 3) !== -1;
+				return treatAs === 'file' && page.helper.extMatchMarkdown(fileName);
 			},
 			_getFilePath: function(fileName, parentPath) {
 				return page.helper.joinPath(parentPath, fileName);
