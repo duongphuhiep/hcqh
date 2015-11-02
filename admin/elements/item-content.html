@@ -49,7 +49,7 @@
 			debounce-duration="100"
 			loading={{loading}}
 			on-response="_onLoaderResponse"
-			on-error = "_onError"></iron-ajax>
+			on-error = "_onLoadError"></iron-ajax>
 
 		<iron-ajax
 			id="saver"
@@ -135,9 +135,15 @@
 					this.dirtyContent = this.content;
 					this.dirty = false;
 				}
+				this.style['display']='block';
 			},
 			_onError: function(e) {
-				this.fire("raise-alert-error", e.detail.error);
+				this.fire("raise-alert-error", e.detail.error+": "+e.target.url);
+				console.error(e);
+			},
+			_onLoadError: function(e) {
+				this.fire("raise-alert-error", e.detail.error+": "+e.target.url);
+				this.style['display']='none';
 			},
 
 			_saveDirtyContent: function() {
