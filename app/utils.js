@@ -64,7 +64,7 @@ module.exports.parseConfig = function (rawConfig) {
 	var items = rawConfig.split("\n");
 	$.each(items, function( index, value ) {
 		var separatorPos = value.indexOf(":");
-		var k = value.substr(0, separatorPos).trim();
+		var k = value.substr(0, separatorPos).trim().toLowerCase();
 		var v = value.substr(separatorPos+1).trim();
 		if (k) {
 			config[k] = v;
