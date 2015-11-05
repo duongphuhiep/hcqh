@@ -254,10 +254,10 @@ Properties:
 
 				if (currentAction === "ren") {
 					//this.fileName = this.newFileName;
-					this.fire("refresh-collection", {because: currentAction, newCollection: this.items, changedItem:page.helper.joinPath(this.parentPath, this.newFileName)});
+					this.fire("refresh-collection", {because: currentAction, newCollection: e.detail.response, changedItem: page.helper.joinPath(this.parentPath, this.newFileName)});
 				}
 				else  if (currentAction === "rm") {
-					this.fire("refresh-collection", {because: currentAction, newCollection: this.items, changedItem:null});
+					this.fire("refresh-collection", {because: currentAction, newCollection: e.detail.response, changedItem: null});
 				}
 			},
 			_openItem: function(e) {
