@@ -13,6 +13,9 @@ function startsWith($haystack, $needle) {
 	return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
 }
 
+function IsNullOrEmptyString($s){
+	return (!isset($s) || trim($s)==='');
+}
 
 /* join paths without double slashes */
 function joinPaths($p1, $p2) {

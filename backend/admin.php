@@ -4,6 +4,19 @@ require_once("lib/ChromePhp.php");
 require_once("mainBackEnd.php");
 
 /**
+ * http://stackoverflow.com/questions/1241728/can-i-try-catch-a-warning
+ * turn every warning notice to error
+ */
+function myErrorHandler($errno, $errstr, $errfile, $errline, array $errcontext) {
+	// error was suppressed with the @-operator
+	if (0 === error_reporting()) {
+		return false;
+	}
+	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("myErrorHandler", E_ALL);
+
+/**
  * check if the token comes from an administrator
  * @param $idtoken
  * @return bool
@@ -40,25 +53,60 @@ function isAdmin($idtoken) {
 }
 
 /**
+ * check if the parentPath is inside the /content folder otherwise die gracefully
+ * eg:
+ * "ect/content/foo" -> ok
+ * "/content/foo" -> ok
+ * "ect/content/" -> die
+ *
+ * @param $parentPath
+ */
+function checkAuthorizedPath($parentPath) {
+	if (preg_match("/.*\/content\/.+/i", $parentPath) !== 1) {
+		unauthorized($parentPath . ' is out of the "content/" folder');
+	}
+}
+
+/**
  * Rename file/folder and return list of sibling file/folder
  * @param $path: the folder
  * @return array
  */
 function ren($parentPath, $currentName, $newName) {
-	if (!strpos($parentPath, 'content')) {
-		unauthorized($parentPath.' is out of the "content/" folder');
-	}
-	$newFile = joinPaths($parentPath, $newName);
-	if (!file_exists($newFile)) {
-		$currentFile = joinPaths($parentPath, $currentName);
-		if (!rename($currentFile, $newFile)) {
-			internalError('Failed to rename from "'.$currentFile.'" to "'.$newFile.'"');
+	try {
+		checkAuthorizedPath($parentPath);
+		if (IsNullOrEmptyString($currentName)) {
+			badRequest("Cannot rename " . $parentPath . " because of empty currentName");
 		}
+		if (IsNullOrEmptyString($newName)) {
+			badRequest("Cannot rename " . $parentPath . " because of empty newName");
+		}
+
+		$newFile = joinPaths($parentPath, $newName);
+		if (!file_exists($newFile)) {
+			$currentFile = joinPaths($parentPath, $currentName);
+			if (!rename($currentFile, $newFile)) {
+				internalError('Failed to rename from "' . $currentFile . '" to "' . $newFile . '"');
+			}
+		} else {
+			conflict('Failed to rename "' . $currentName . '", the new name "' . $newName . '" is already used');
+		}
+		return ls($parentPath);
 	}
-	else {
-		conflict('Failed to rename "'.$currentName.'", the new name "'.$newName.'" is already used');
+	catch (Exception $e) {
+		internalError($e);
 	}
-	return ls($parentPath);
+}
+
+/**
+ * remove recursively a folder
+ */
+function delTree($dir) {
+	$files = array_diff(scandir($dir), array('.','..'));
+	foreach ($files as $file) {
+		(is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+	}
+	return rmdir($dir);
 }
 
 /**
@@ -68,38 +116,36 @@ function ren($parentPath, $currentName, $newName) {
  * @return array: ls file/folder in the parentPath after deleting
  */
 function rm($parentPath, $itemName) {
-	if (!strpos($parentPath, 'content')) {
-		unauthorized($parentPath . ' is out of the "content/" folder');
-	}
-	$path = joinPaths($parentPath, $itemName);
-	if (is_dir($path)) {
-		$iterator = new RecursiveDirectoryIterator($path);
-		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
-		{
-			if ($file->isDir()) {
-				rmdir($file->getPathname());
-			} else {
-				unlink($file->getPathname());
+	try {
+		checkAuthorizedPath($parentPath);
+		if (IsNullOrEmptyString($itemName)) {
+			badRequest("Cannot remove " . $parentPath . " itemName must not empty");
+		}
+
+		$path = joinPaths($parentPath, $itemName);
+		if (is_dir($path)) {
+			delTree($path);
+		} else {
+			if (!unlink($path)) {
+				internalError('Failed to remove the file "' . $path . '"');
 			}
 		}
-		rmdir($path);
-	} else {
-		if (!unlink($path)) {
-			internalError('Failed to remove the file "' . $path . '"');
+
+		$resu = ls($parentPath);
+
+		//work-around for Windows: the deleted folder is still in the result list, we must to delete it in the list before return the result
+		if (WIN_OS) {
+			if (($key = array_search($itemName, $resu)) !== false) {
+				unset($resu[$key]);
+			}
+			$resu = array_values($resu);
 		}
+
+		return $resu;
 	}
-
-	$resu = ls($parentPath);
-
-	//work-around for Windows: the deleted folder is still in the result list, we must to delete it in the list before return the result
-	if (WIN_OS) {
-		if (($key = array_search($itemName, $resu)) !== false) {
-			unset($resu[$key]);
-		}
-		$resu = array_values($resu);
+	catch (Exception $e) {
+		internalError($e);
 	}
-
-	return $resu;
 }
 
 ///**
@@ -133,20 +179,30 @@ function rm($parentPath, $itemName) {
  * @return array of files in the parent folder
  */
 function cp($parentPath, $srcFileName, $destFileName) {
-	if (!strpos($parentPath, 'content')) {
-		unauthorized($parentPath.' is out of the "content/" folder');
-	}
-	$srcFile = joinPaths($parentPath, $srcFileName);
-	$destFile = joinPaths($parentPath, $destFileName);
-	if (!file_exists($destFile)) {
-		if (!copy($srcFile, $destFile)) {
-			internalError('Failed to copy from "'.$srcFile.'" to "'.$destFile.'"');
+	try {
+		checkAuthorizedPath($parentPath);
+		if (IsNullOrEmptyString($srcFileName)) {
+			badRequest("Cannot copy " . $parentPath . " because of empty srcFileName");
 		}
+		if (IsNullOrEmptyString($destFileName)) {
+			badRequest("Cannot copy " . $parentPath . " because of empty destFileName");
+		}
+
+		$srcFile = joinPaths($parentPath, $srcFileName);
+		$destFile = joinPaths($parentPath, $destFileName);
+		if (!file_exists($destFile)) {
+			if (!copy($srcFile, $destFile)) {
+				internalError('Failed to copy from "'.$srcFile.'" to "'.$destFile.'"');
+			}
+		}
+		else {
+			conflict('Failed to create "'.$destFile.'", it already exist');
+		}
+		return ls($parentPath);
 	}
-	else {
-		conflict('Failed to create "'.$destFile.'", it already exist');
+	catch (Exception $e) {
+		internalError($e);
 	}
-	return ls($parentPath);
 }
 
 /**
@@ -157,32 +213,37 @@ function cp($parentPath, $srcFileName, $destFileName) {
  * @return array
  */
 function newPost($blogFolder, $postName, $userData) {
-	$postId = date('Y-m-d').' '.$postName;
-	$initialContent = "<!--"
-		."\ntitle: ".$postName
-		."\nauthor: ".$userData['name']
-		."\nstatus: draft"
-		."\n-->\n\n";
+	try {
+		$postId = date('Y-m-d').' '.$postName;
+		$initialContent = "<!--"
+			."\ntitle: ".$postName
+			."\nauthor: ".$userData['name']
+			."\nstatus: draft"
+			."\n-->\n\n";
 
-	$postFolder = joinPaths($blogFolder, $postId);
-	if (!mkdir($postFolder)) {
-		internalError('Failed to create folder "'.$postFolder.'"');
-	}
-
-	$newFile = joinPaths($postFolder, 'vi.md');
-	if (!file_exists($newFile)) {
-		if (!file_put_contents($newFile, $initialContent)) {
-			internalError('Failed to create new file "'.$newFile.'"');
+		$postFolder = joinPaths($blogFolder, $postId);
+		if (!mkdir($postFolder)) {
+			internalError('Failed to create folder "'.$postFolder.'"');
 		}
-	}
-	else {
-		conflict('Failed to create "'.$newFile.'", it already exist');
-	}
 
-	return array(
-		'newPostId' => $postId,
-		'allPostIds' => ls($blogFolder)
-	);
+		$newFile = joinPaths($postFolder, 'vi.md');
+		if (!file_exists($newFile)) {
+			if (!file_put_contents($newFile, $initialContent)) {
+				internalError('Failed to create new file "'.$newFile.'"');
+			}
+		}
+		else {
+			conflict('Failed to create "'.$newFile.'", it already exist');
+		}
+
+		return array(
+			'newPostId' => $postId,
+			'allPostIds' => ls($blogFolder)
+		);
+	}
+	catch (Exception $e) {
+		internalError($e);
+	}
 }
 
 /**
@@ -221,8 +282,13 @@ function setInverseNavBar($inverseNavBar) {
  * @param $inverseNavBar
  */
 function applyTheme($themeUrl, $inverseNavBar) {
-	setTheme($themeUrl);
-	setInverseNavBar($inverseNavBar);
+	try {
+		setTheme($themeUrl);
+		setInverseNavBar($inverseNavBar);
+	}
+	catch (Exception $e) {
+		internalError($e);
+	}
 }
 
 /**
@@ -231,13 +297,16 @@ function applyTheme($themeUrl, $inverseNavBar) {
  * @param $content
  */
 function save($path, $content) {
-	if (!strpos($path, 'content')) {
-		unauthorized($path.' is out of the "content/" folder');
+	try {
+		checkAuthorizedPath($path);
+		if (!file_put_contents($path, $content)) {
+			internalError('Failed to save file "' . $path . '"');
+		}
+		return file_get_contents($path);
 	}
-	if (!file_put_contents($path, $content)) {
-		internalError('Failed to save file "'.$path.'"');
+	catch (Exception $e) {
+		internalError($e);
 	}
-	return file_get_contents($path);
 }
 
 function internalError($message) {
