@@ -25,6 +25,7 @@ function blogPosts($lang, $page) {
 
 	$count = 0;
 	$posts = array();
+	rsort($listFolders);
 
 	foreach ($listFolders as $post) {
 		if (checkPostFolder($post) && ($indexFirstBlog <= $indexLastBlog)) {
@@ -49,7 +50,6 @@ function blogPosts($lang, $page) {
 	$result["totalpages"] = (int)($count/NB_POSTS_IN_PAGE + 1);
 	$result["totalposts"] = $count;
 	$result["lang"] = $lang;
-	rsort($posts);
 	$result["posts"] = $posts;
 
 	return reponseJson($result);
