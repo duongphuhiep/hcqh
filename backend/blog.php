@@ -27,22 +27,20 @@ function blogPosts($lang, $page) {
 	$posts = array();
 
 	foreach ($listFolders as $post) {
-		if (checkPostFolder($post)) {
+		if (checkPostFolder($post) && ($indexFirstBlog <= $indexLastBlog)) {
 			$count++;
-			if ($count < $indexFirstBlog || $count > $indexLastBlog) {
-				next();
-			}
+			if ($count >= $indexFirstBlog && $count <= $indexLastBlog) {
+				$blogPostPath = joinPaths($blogFolderPath, $post);
+				$blogFile = joinPaths($blogPostPath , $lang.".md");
 
-			$blogPostPath = joinPaths($blogFolderPath, $post);
-			$blogFile = joinPaths($blogPostPath , $lang.".md");
+				if (!file_exists($blogFile)) {
+					$blogFile = joinPaths($blogPostPath , "vi.md");
+				}
 
-			if (!file_exists($blogFile)) {
-				$blogFile = joinPaths($blogPostPath , "vi.md");
-			}
-
-			$jsonBlogPost = readBlogPost($blogFile);
-			if ($jsonBlogPost != null) {
-				array_push($posts, $jsonBlogPost);
+				$jsonBlogPost = readBlogPost($blogFile);
+				if ($jsonBlogPost != null) {
+					array_push($posts, $jsonBlogPost);
+				}
 			}
 		}
 	}
@@ -85,7 +83,7 @@ function readBlogPost($file) {
 	    	$resPost[strtolower(trim($key))] = trim($value);
 		}
 	}
-	
+
 	if (array_key_exists('status', $resPost)){
 		if (strtolower($resPost["status"]) != "completed") {
 			return;
@@ -94,11 +92,9 @@ function readBlogPost($file) {
 
     $resPost["lang"] = $path_parts["filename"];
 
-    $contentsAndHeader = str_replace("\n", " ", $fileContents);
-    if (preg_match('/-->(.*$)/', $contentsAndHeader, $matches)) {
-    	$quote = substr(trim($matches[1]), 1, QUOTE_SIZE);
-   		$resPost["excerpt"] = clean_quote($quote);
-    }
+    $contentsAndHeader = str_replace("\n", " ",  substr($fileContents, $posEnd + 3));
+    $quote = substr(trim($contentsAndHeader), 0, QUOTE_SIZE);
+   	$resPost["excerpt"] = clean_quote($quote);
 
 	fclose($postFile);
     return $resPost;
@@ -161,11 +157,12 @@ function get_name($str) {
 
 // remove markdown elements
 function clean_quote($str) {
-	$charsToRemove = array("#", "*", ">");
+	$charsToRemove = array("#", "*", ">", "[", "]");
 
 	foreach ($charsToRemove as $char) {
 		$str = str_replace($char, "", $str);
 	}
 
+	//TODO clean image, link
 	return trim($str);
 }
