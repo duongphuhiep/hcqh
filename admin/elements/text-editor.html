@@ -59,14 +59,18 @@ A Simple text editor which can detect dirty state (when humans clients change th
 			},
 
 			inputChangeAction: function(e) {
-				//only update if the content has been changed
 				var textArea = this.$.input;
-				if (this.cachedSrc !== textArea.value && e && e.constructor.name==="KeyboardEvent") {
-					this._setChangedByUser(true);
+
+				if (this.cachedSrc !== textArea.value){
+					this._setChangedByUser(e && e.constructor.name==="KeyboardEvent");
 				}
-				else {
-					this._setChangedByUser(false);
-				}
+
+				this.debounce("inputChangeAction", function(){
+					if (this.cachedSrc !== textArea.value) {
+						this.cachedSrc = textArea.value;
+					}
+				}, 500);
+
 			}
 		});
 	</script>
