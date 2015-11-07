@@ -68,12 +68,26 @@
 			<paper-progress indeterminate></paper-progress>
 		</template>
 		<template is="dom-if" if="[[isMarkdown]]" restamp>
+			<div class="center">
+				<template is="dom-if" if="[[dirty]]">
+					<b style="color:red">Don't forget to</b>
+				</template>
+				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			</div>
 			<commonmark-editor working-dir=[[parentPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
 			<div class="center">
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 			</div>
 		</template>
 		<template is="dom-if" if="[[isText]]" restamp>
+
+			<div class="center">
+				<template is="dom-if" if="[[dirty]]">
+					<b style="color:red">Don't forget to</b>
+				</template>
+				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
+			</div>
+
 			<text-editor value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
 			<div class="center">
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
