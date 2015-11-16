@@ -3,7 +3,7 @@ A Simple text editor which can detect dirty state (when humans clients change th
 -->
 <dom-module id="text-editor">
 	<template>
-		<textarea id="input" placeholder="{{placeholder}}" on-keyup="inputChangeAction" value="{{value::input}}"></textarea>
+		<textarea id="input" placeholder="{{placeholder}}" on-keyup="keyPressed" value="{{value::input}}"></textarea>
 		<style>
 			* {
 				box-sizing: border-box;
@@ -22,8 +22,7 @@ A Simple text editor which can detect dirty state (when humans clients change th
 				//yeild the distribution content to the textarea (to transclude the imperative content)
 				var content = Polymer.dom(this).textContent;
 				if (content) {
-					this.$.input.value = content;
-					this.inputChangeAction();
+					this.initValue(content);
 				}
 
 				//set height
@@ -58,20 +57,34 @@ A Simple text editor which can detect dirty state (when humans clients change th
 				}
 			},
 
+			/**
+			 * set the value and clear the dirty state
+			 */
+			initValue: function(v) {
+				this.$.input.value = v;
+				this.inputChangeAction(v);
+				this._setChangedByUser(false);
+				//console.info(false);
+			},
+
 			inputChangeAction: function(e) {
 				var textArea = this.$.input;
-
-				if (this.cachedSrc !== textArea.value){
-					this._setChangedByUser(e && e.constructor.name==="KeyboardEvent");
-				}
-
 				this.debounce("inputChangeAction", function(){
 					if (this.cachedSrc !== textArea.value) {
 						this.cachedSrc = textArea.value;
 					}
 				}, 500);
+			},
 
+			keyPressed: function(e) {
+				var textArea = this.$.input;
+				if (!this.changedByUser) {
+					this._setChangedByUser(this.cachedSrc !== textArea.value);
+					//console.info(this.cachedSrc !== textArea.value);
+				}
+				this.inputChangeAction(false);
 			}
+
 		});
 	</script>
 
