@@ -23,6 +23,16 @@ function joinPaths($p1, $p2) {
 	return join('/', array(trim($p1, '/'), trim($p2, '/')));
 }
 
+// Check if a string contains date (yyyy-mm-dd)
+function contains_date($str) {
+	if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
+		if (checkdate($matches[2], $matches[3], $matches[1])) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function reponseJson($obj) {
 	if (isset($obj)) {
 		header('Content-Type: application/json');

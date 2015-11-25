@@ -133,16 +133,6 @@ function checkName($postFolder) {
 	return false;
 }
 
-// Check if a string contains date (yyyy-mm-dd)
-function contains_date($str) {
-    if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
-        if (checkdate($matches[2], $matches[3], $matches[1])) {
-            return true;
-        }
-    }
-    return false;
-}
-
 // get date on string of folder name
 function get_date($str) {
     if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {

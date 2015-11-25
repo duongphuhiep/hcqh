@@ -215,7 +215,11 @@ function cp($parentPath, $srcFileName, $destFileName) {
  */
 function newPost($blogFolder, $postName, $userData) {
 	try {
-		$postId = date('Y-m-d').' '.$postName;
+		$postId = $postName;
+		if (!contains_date($postName)) {
+			$postId = date('Y-m-d') . ' ' . $postName;
+		}
+
 		$initialContent = "<!--"
 			."\ntitle: ".$postName
 			."\nauthor: ".$userData['name']
