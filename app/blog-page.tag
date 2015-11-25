@@ -21,12 +21,20 @@ possible route:
         <!-- /.row -->
 
         <div class="row">
-			<post-excerpt each={ data.posts }></post-excerpt>
-			<!-- Pager -->
-			<ul class="pager">
-				<li hide={ data.page <= 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
-				<li hide={ data.page >= data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
-			</ul>
+
+			<div class="col-lg-2"></div>
+
+			<div class="col-lg-8">
+				<post-excerpt each={ data.posts }></post-excerpt>
+				<!-- Pager -->
+				<ul class="pager">
+					<li hide={ data.page <= 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
+					<li hide={ data.page >= data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
+				</ul>
+			</div>
+
+			<div class="col-lg-2"></div>
+
         </div>
         <!-- /.row -->
     </div>

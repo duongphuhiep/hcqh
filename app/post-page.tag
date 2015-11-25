@@ -17,21 +17,25 @@ component is calculated base on the language meta-data or by the markdown file.
 		<div hide={ translationFound } class="alert alert-danger" role="alert" data-i18n="Translation not found"></div>
 		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not completed"></span></div>
 
-		<!-- Page Heading -->
-		<h1>{ head.title }</h1>
+		<div class="col-lg-2"></div>
 
-		<!-- Date/Time -->
-		<p>
-			<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ head.author }</em>
-		</p>
+		<div class="col-lg-8">
+			<!-- Page Heading -->
+			<h1>{ head.title }</h1>
 
-		<!-- Preview Image
-		<img class="img-responsive" src="http://placehold.it/900x300" alt="">
-		-->
+			<!-- Date/Time -->
+			<p>
+				<i class="glyphicon glyphicon-time"></i> { publish } by <em>{ head.author }</em>
+			</p>
 
-		<!-- Post Content -->
-		<div id="post_content"></div>
+			<!-- Preview Image
+            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+            -->
+			<!-- Post Content -->
+			<div id="post_content"></div>
+		</div>
 
+		<div class="col-lg-2"></div>
 	</div>
 
 	<script>
