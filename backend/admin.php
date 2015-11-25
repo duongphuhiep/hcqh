@@ -41,7 +41,8 @@ function isAdmin($idtoken) {
 			"114101028161312088899", //Ngan Ha
 			"116683251432505969319", //Quynh Nga
 			"109388954927603052779", //Pham Dat
-			"117475364919742721893" //Dau Xuan Tuan
+			"117475364919742721893", //Dau Xuan Tuan
+			"112063421752816816675" //Vo Van Manh
 		);
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
