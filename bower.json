@@ -47,6 +47,6 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.0.0",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
     "polymer": "Polymer/polymer#^1.0.0",
-    "riot": "~2.2.4"
+    "riot": "~2.3.11"
   }
 }

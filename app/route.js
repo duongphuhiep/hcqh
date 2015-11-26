@@ -7,6 +7,9 @@
      * Disable the default riot route parser
      */
     riot.route.parser(function(path) {
+		if (!path) {
+			switchToPage(path);
+		}
         return path;
     });
 
@@ -15,6 +18,7 @@
      return   { pageName: 'post', params: ['2015-02-28%20learn_markdown', 'en'] };
      */
     function parsePath(path) {
+		//console.info("parsePath", path);
         var pageName, rest;
         if (!path) {
             pageName = 'home';
@@ -44,6 +48,7 @@
      *  notify navbar and content-route to change the view
      */
     function switchToPage(path) {
+		//console.info("switchToPage",path);
         currentPageInfo = parsePath(path);
         RiotControl.trigger('pageChange', currentPageInfo);
     }
@@ -62,6 +67,8 @@
     module.exports.pathToBlogFolder = RootContent+"blog/";
     module.exports.pathToBannerFolder = RootContent+"home/banner/";
     module.exports.pathToMemberFolder = RootContent+"members/";
+
+	riot.route.start(true);
 })();
 
 
