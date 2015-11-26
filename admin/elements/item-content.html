@@ -74,7 +74,7 @@
 				</template>
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 			</div>
-			<commonmark-editor working-dir=[[folderPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
+			<commonmark-editor id="markEdt" working-dir=[[folderPath]] value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></commonmark-editor>
 			<div class="center">
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 			</div>
@@ -88,7 +88,7 @@
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 			</div>
 
-			<text-editor value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
+			<text-editor id="textEdt" value={{dirtyContent}} height="700px" changed-by-user={{dirty}}></text-editor>
 			<div class="center">
 				<paper-button raised on-tap="_saveDirtyContent"><iron-icon icon="check"></iron-icon>Save</paper-button>
 			</div>
@@ -134,12 +134,25 @@
 				}
 			},
 
+			//this will set the dirty property to false
+			_resetValue: function(v) {
+				var markEdt = this.$$("#markEdt");
+				var textEdt = this.$$("#textEdt");
+				if (markEdt) {
+					markEdt.initValue(v);
+				}
+				if (textEdt) {
+					textEdt.initValue(v);
+				}
+			},
+
 			itemChanged: function(e) {
 				if (this.isMarkdown || this.isText) {
 					this.$.loader.generateRequest(); //reload content
 				}
 				else {
-					this.dirty = false; //reset the dirty state (no more dirty after display a new item)
+					//reset the dirty state (no more dirty after display a new item)
+					this._resetValue("");
 				}
 			},
 
@@ -147,7 +160,7 @@
 				if (this.isMarkdown || this.isText) {
 					//reset the dirty content and state (no more dirty after reload)
 					this.dirtyContent = this.content;
-					this.dirty = false;
+					this._resetValue(this.content);
 				}
 				this.style['display']='block';
 			},
