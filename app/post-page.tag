@@ -82,7 +82,10 @@ component is calculated base on the language meta-data or by the markdown file.
 		}
 
 		function load(postId, lang) {
+
 			if (postId===_this.loadedPostId && lang===_this.loadedLang) {
+				_this.translationFound = true;
+				_this.update();
 				return;
 			}
 
