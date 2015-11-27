@@ -36,6 +36,13 @@ var $ = require('gulp-load-plugins')();
 var liveServer = require("live-server");
 var runSequence = require('run-sequence');
 
+
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+
+
+
 /**
 compile all riot tag to gen/**
 */
@@ -69,18 +76,22 @@ gulp.task('gen', function(cb) {
  * generate main.js with browserify
  */
 gulp.task('bundle', ['gen'], function() {
-	return gulp.src('_gen/main.js')
-		.pipe($.plumber({
-			handleError: function (err) {
-				console.log(err);
-				this.emit('end');
-			}
-		}))
-		.pipe($.browserify({
-			detectGlobal:true,
-			debug : false
-		}))
-		.pipe(gulp.dest('_dist'));
+
+	// set up the browserify instance on a task basis
+	  var b = browserify({
+	    entries: '_gen/main.js',
+	    debug: true
+	  });
+
+	return b.bundle()
+		.pipe(source('main.js'))
+		.pipe(buffer())
+	    .pipe($.sourcemaps.init({loadMaps: true}))
+	        // Add transformation tasks to the pipeline here.
+	        .pipe($.uglify())
+	        .on('error', $.util.log)
+	    .pipe($.sourcemaps.write('./'))
+	    .pipe(gulp.dest('_dist'))
 });
 
 /**
