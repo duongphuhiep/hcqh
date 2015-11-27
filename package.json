@@ -20,12 +20,12 @@
     "RiotControl": "./lib/riotcontrol.js",
     "jscookie": "./lib/js.cookie.js",
     "i18next": "./bower_components/i18next/i18next.commonjs.withJQuery.js",
-	"riot": "./bower_components/riot/riot.js"
+    "riot": "./bower_components/riot/riot.js"
   },
   "browserify-shim": {
     "jquery": "global:jQuery",
     "commonmark": "global:commonmark",
-	"moment": "global:moment"
+    "moment": "global:moment"
   },
   "devDependencies": {
     "browser-sync": "^2.9.3",
