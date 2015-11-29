@@ -201,6 +201,9 @@
 					this.fire("raise-alert-error", "Server is not return the expected content");
 					console.error("unexpected response from Server", e.detail.response);
 				}
+				else {
+					this._resetValue(this.dirtyContent);
+				}
 			},
 			_onDomChange: function(e) {
 				var img = this.$$('#img');
