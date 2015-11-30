@@ -31,12 +31,23 @@ Properties:
 			}
 
 			paper-card:hover {
-				@apply(--shadow-elevation-8dp);
+				@apply(--shadow-elevation-4dp);
 			}
 
+			/*make button smaller so that We won't click on it by mistake*/
 			paper-icon-button {
 				color: var(--secondary-text-color);
+				padding:0px;
+				width:20px;
+				height:20px;
 			}
+
+			.card-content {
+			}
+			.card-content:hover {
+				@apply(--shadow-elevation-16dp);
+			}
+
 			paper-icon-button:hover {
 				color: var(--primary-text-color);
 			}
@@ -67,23 +78,17 @@ Properties:
 				<paper-progress indeterminate></paper-progress>
 			</template>
 			<template is="dom-if" if={{renaming}}>
-				<div class="card-content">
-					<paper-input label="New name" type="text" value={{newFileName}}></paper-input>
-				</div>
 				<div class="card-actions">
 					<paper-icon-button id="cancel" icon="icons:undo" alt="Cancel" on-tap="_cancelRename"></paper-icon-button>
 					<paper-tooltip for="cancel">Cancel</paper-tooltip>
 					<paper-icon-button id="_submitNewName" icon="icons:check" alt="Submit new name" on-tap="_submitNewName"></paper-icon-button>
 					<paper-tooltip for="_submitNewName">OK</paper-tooltip>
 				</div>
+				<div class="card-content">
+					<paper-input label="New name" type="text" value={{newFileName}}></paper-input>
+				</div>
 			</template>
 			<template is="dom-if" if={{!renaming}}>
-				<div class="card-content">
-					<template is="dom-if" if={{isImage}}>
-						<img class='thumb' src="[[filePath]]">
-					</template>
-					<div>{{fileName}}</div>
-				</div>
 				<template is="dom-if" if="{{_hasAction(deletable, renamable, visitable)}}">
 					<div class="card-actions">
 						<template is="dom-if" if={{deletable}}>
@@ -100,6 +105,12 @@ Properties:
 						</template>
 					</div>
 				</template>
+				<div class="card-content">
+					<template is="dom-if" if={{isImage}}>
+						<img class='thumb' src="[[filePath]]">
+					</template>
+					<div>{{fileName}}</div>
+				</div>
 			</template>
 		</paper-card>
 	</template>
