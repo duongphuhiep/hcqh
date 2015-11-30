@@ -46,16 +46,11 @@ var buffer = require('vinyl-buffer');
 /**
 compile all riot tag to gen/**
 */
-
 gulp.task('_compile_tag', function(){
 	 return gulp.src(['app/**/*.tag'])
          .pipe($.riot({modular: true}))
          .pipe(gulp.dest('_gen'));
  });
-gulp.task('_copy_appjs', function() {
-	return gulp.src(['app/**/*.js'])
-		.pipe($.copy('_gen', {prefix:1}));
-});
 gulp.task('_copy_appjs', function() {
 	return gulp.src(['app/**/*.js'])
 		.pipe($.copy('_gen', {prefix:1}));
@@ -85,6 +80,7 @@ gulp.task('bundle', ['gen'], function() {
 
 	return b.bundle()
 		.pipe(source('main.js'))
+		.pipe($.replace('require("./backend_mock/fake-backend")', '//require("./backend_mock/fake-backend")'))
 		.pipe(buffer())
 	    .pipe($.sourcemaps.init({loadMaps: true}))
 	        // Add transformation tasks to the pipeline here.
@@ -92,12 +88,13 @@ gulp.task('bundle', ['gen'], function() {
 	        .on('error', $.util.log)
 	    .pipe($.sourcemaps.write('./'))
 	    .pipe(gulp.dest('_dist'))
+		.pipe(gulp.dest('_prod/_dist'));
 });
 
 /**
  * The prod folder contains the deployment artifact (the minify version of html/js)
  */
-gulp.task('_minify_dist_js', function() {
+/*gulp.task('_minify_dist_js', function() {
 	return gulp.src(['_dist/*.js'])
 		.pipe($.sourcemaps.init())
 		//disable fake-backend
@@ -105,7 +102,7 @@ gulp.task('_minify_dist_js', function() {
 		.pipe($.uglify())
 		.pipe($.sourcemaps.write('./'))
 		.pipe(gulp.dest('_prod/_dist'));
-});
+});*/
 gulp.task('_minify_html_css', function() {
 	return gulp.src(['*.html', '*.css', 'favicon.ico'])
 		.pipe($.if('*.html', $.minifyHtml({
@@ -136,7 +133,7 @@ gulp.task('_copy_content_to_prod', function() {
  * minify everything to the _prod folder, this is the final package to be deployed
  */
 gulp.task('prod', ['bundle'], function(cb) {
-	runSequence(['_minify_dist_js', '_minify_html_css', '_copy_backend_php_prod'], cb);
+	runSequence(['_minify_html_css', '_copy_backend_php_prod'], cb);
 });
 gulp.task('prod_content', ['prod', '_copy_content_to_prod']);
 
