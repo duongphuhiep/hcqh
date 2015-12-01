@@ -102,7 +102,7 @@ function readBlogPost($file) {
 
 // check if post folder satisfy
 function checkPostFolder($postFolder) {
-	if (checkName($postFolder)) {
+	if (contains_date($postFolder)) { // check if folder name satisfy
 		if (checkContent($postFolder)) {
 			return true;
 		}
@@ -121,16 +121,6 @@ function checkContent($postFolder) {
     	}
 	}
 	return $viFile;
-}
-
-// check if folder name satisfy
-function checkName($postFolder) {
-	if (contains_date($postFolder)) {
-		if (preg_match('/[A-Z]+[a-z]+/', $postFolder)) {
-			return true;
-		}
-	}
-	return false;
 }
 
 // get date on string of folder name
