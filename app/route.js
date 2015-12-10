@@ -3,6 +3,16 @@
     var RiotControl = require("RiotControl");
     var currentPageInfo = getCurrentPageInfoFromBrowser(); //use for caching
 
+	/**
+	 * Disable the default riot route parser
+	 */
+	riot.route.parser(function(path) {
+		if (!path) {
+			switchToPage(path);
+		}
+		return path;
+	});
+
     /**
      input: path is '/post/2015-02-28%20learn_markdown/en'  ->
      return   { pageName: 'post', params: ['2015-02-28%20learn_markdown', 'en'] };
@@ -38,16 +48,16 @@
      *  notify navbar and content-route to change the view
      */
     function switchToPage(path) {
-		//console.info("switchToPage",path);
         currentPageInfo = parsePath(path);
         RiotControl.trigger('pageChange', currentPageInfo);
+		//console.info("switchToPage",currentPageInfo);
     }
 
     /**
      * Handle route change event
      */
     riot.route(function (path) {
-		console.info("route changed", path);
+		//console.info("route changed", path);
         switchToPage(path)
     });
 
@@ -58,8 +68,6 @@
     module.exports.pathToBlogFolder = RootContent+"blog/";
     module.exports.pathToBannerFolder = RootContent+"home/banner/";
     module.exports.pathToMemberFolder = RootContent+"members/";
-
-	console.info("route start");
 
 	riot.route.start(true);
 })();

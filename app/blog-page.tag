@@ -28,8 +28,8 @@ possible route:
 				<post-excerpt each={ data.posts }></post-excerpt>
 				<!-- Pager -->
 				<ul class="pager">
-					<li hide={ data.page <= 1 } class='previous'><a href='#blog/{ data.page - 1 }'>&larr; <span data-i18n='Newer'></span></a></li>
-					<li hide={ data.page >= data.totalpages } class='next'><a href='#blog/{ data.page + 1 }'><span data-i18n='Older'></span> &rarr;</a></li>
+					<li hide={ data.page <= 1 } class='previous'><span onclick={previousClick}>&larr; <span data-i18n='Newer'></span></span></li>
+					<li hide={ data.page >= data.totalpages } class='next'><span onclick={nextClick}><span data-i18n='Older'></span> &rarr;</span></li>
 				</ul>
 			</div>
 
@@ -39,6 +39,12 @@ possible route:
         <!-- /.row -->
     </div>
     <!-- /.container -->
+
+	<style>
+		.previous, .next {
+			cursor: pointer;
+		}
+	</style>
 
 	<script>
 		var _this = this;
@@ -116,7 +122,20 @@ possible route:
 			}).always(function() {
 				_this.hideLoading();
 			});
-		}
+		};
+
+		nextClick() {
+			var newRoute = "blog/"+ (_this.data.page + 1);
+			riot.route(newRoute);
+			window.scrollTo(0, 0);
+		};
+
+		previousClick() {
+			var newRoute = "blog/"+ (_this.data.page - 1);
+			riot.route(newRoute);
+			window.scrollTo(0, 0);
+		};
+
 
 		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
