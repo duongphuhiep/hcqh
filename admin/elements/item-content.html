@@ -122,7 +122,7 @@
 				},
 				filePath: {
 					type: String,
-					observer: "itemChanged"
+					observer: "_itemChanged"
 				},
 				urlToAdminPhp: String,
 				dirty: {
@@ -130,7 +130,6 @@
 					notify: true,
 					value: false
 				},
-
 				isMarkdown: {
 					type: Boolean,
 					computed: "_isMarkdown(filePath)"
@@ -157,7 +156,7 @@
 				}
 			},
 
-			itemChanged: function(e) {
+			_itemChanged: function(e) {
 				if (this.isMarkdown || this.isText) {
 					this.$.loader.generateRequest(); //reload content
 				}
@@ -181,7 +180,7 @@
 			},
 			_onLoadError: function(e) {
 				this.fire("raise-alert-error", e.detail.error+": "+e.target.url);
-				this.style['display']='none';
+				//this.style['display']='none';
 			},
 
 			_saveDirtyContent: function() {

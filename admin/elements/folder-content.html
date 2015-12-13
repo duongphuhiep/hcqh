@@ -28,7 +28,9 @@ Display content of a post folder
 				fileName: String,
 				selectedItemPath: {
 					type: String,
-					computed: "_getSelectedItemPath(folderPath, fileName)"
+					computed: "_getSelectedItemPath(folderPath, fileName)",
+					notify: true
+					//observer: "_selectedItemsChanged"
 				},
 				urlToAdminPhp: String,
 				dirty: {
@@ -46,8 +48,8 @@ Display content of a post folder
 					observer: "_selectedItemsChanged"*/
 				}
 			},
-/*
-			_selectedItemsChanged: function(e) {
+
+			/*_selectedItemsChanged: function(e) {
 				console.info('_selectedItemsChanged 2 ',e);
 			},*/
 
