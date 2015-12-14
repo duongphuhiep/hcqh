@@ -24,8 +24,9 @@ function joinPaths($p1, $p2) {
 }
 
 // Check if a string contains date (yyyy-mm-dd)
+// Check if a string contains date (yyyy-mm-dd)
 function contains_date($str) {
-	if (preg_match('/\b(\d{4})-(\d{2})-(\d{2})\b/', $str, $matches)) {
+	if (preg_match("/(\\d{4})-(\\d{2})-(\\d{2}) [^:\\\\\\/*?<>|\\[\\]]*/", $str, $matches)) {
 		if (checkdate($matches[2], $matches[3], $matches[1])) {
 			return true;
 		}
