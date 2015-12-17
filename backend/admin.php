@@ -42,7 +42,8 @@ function isAdmin($idtoken) {
 			"116683251432505969319", //Quynh Nga
 			"109388954927603052779", //Pham Dat
 			"117475364919742721893", //Dau Xuan Tuan
-			"112063421752816816675" //Vo Van Manh
+			"112063421752816816675", //Vo Van Manh
+			"116778336854527196022" //Nguyen Hong Ha (chau co Ngan Ha)
 		);
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
