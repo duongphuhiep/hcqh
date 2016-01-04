@@ -32,11 +32,19 @@ component is calculated base on the language meta-data or by the markdown file.
             <img class="img-responsive" src="http://placehold.it/900x300" alt="">
             -->
 			<!-- Post Content -->
-			<div id="post_content"></div>
+			<div id="post_content" style="text-align:{ textAlign }" class={ "centered-all-img": centerImages }></div>
 		</div>
 
 		<div class="col-lg-2"></div>
 	</div>
+
+	<style scoped>
+		.centered-all-img img {
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+	</style>
 
 	<script>
 		var _this = this;
@@ -53,6 +61,9 @@ component is calculated base on the language meta-data or by the markdown file.
 
 		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
+
+		_this.textAlign = "justify";
+		_this.centerImages = false;
 
 		_this.on("mount pageChange languageChange", function(type) {
 			var routeInfo = Route.getCurrentPageInfo();
@@ -150,10 +161,20 @@ component is calculated base on the language meta-data or by the markdown file.
 			var md = Markdown.process(content, _this.postFolderPath);
 			if (md.header) {
 				_this.head = Utils.parseConfig(md.header);
+
 				_this.statusIsComplete = true;
 				if (_this.head.status && _this.head.status !== 'completed') {
 					_this.statusIsComplete = false;
 				}
+
+				if (["center", "left", "right", "justify"].indexOf(_this.head.textalign) >= 0) {
+					_this.textAlign = _this.head.textalign;
+				}
+				else {
+					_this.textAlign = "justify";
+				}
+
+				_this.centerImages = ["1", "true", "yes"].indexOf(_this.head.centerimages) >= 0;
 			}
 			else {
 				console.warn("No header detected on ", Route.getCurrentPageInfo());
