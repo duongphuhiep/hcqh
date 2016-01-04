@@ -197,15 +197,16 @@ Display items in a post folder
 			 * 'vi.md' is always the first item in the list
 			 */
 			_compare: function(a, b) {
-				if (this.treatItemsAs==='folder') {
-					return b.localeCompare(a);
-				}
-
-				if (a==='config.txt') {
+				if (a==='config.txt' || !b) { //if a is 'config.txt' or b is null/undefined then a is above
 					return -1;
 				}
-				else if (b==='config.txt') {
+
+				if (b==='config.txt' || !a) { //if b is 'config.txt' or a is null/undefined then b is above
 					return 1;
+				}
+
+				if (this.treatItemsAs==='folder') {
+					return b.localeCompare(a);
 				}
 
 				var isMdA = page.helper.isMarkdown(a);

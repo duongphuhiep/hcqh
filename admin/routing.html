@@ -129,20 +129,20 @@
 		 * @return Boolean true if fileName match *.md
 		 */
 		isMarkdown: function(fileName) {
-			return fileName.indexOf(".md", fileName.length - 3) !== -1 && !this.isTemp(fileName);
+			return fileName && fileName.indexOf(".md", fileName.length - 3) !== -1 && !this.isTemp(fileName);
 		},
 
 		extMatchImage: function(fileName) {
-			return fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
+			return fileName && fileName.match(/\.(jpg|png|bmp|gif|ico|jpeg|svg|jpe|tiff|tif|tga)$/i);
 		},
 		extMatchText: function(fileName) {
-			return fileName.match(/\.(txt|text|config|ini|cfg|js|json|html|tag|css)$/i);
+			return fileName && fileName.match(/\.(txt|text|config|ini|cfg|js|json|html|tag|css)$/i);
 		},
 		extMatchMarkdown: function(fileName) {
-			return fileName.indexOf(".md", fileName.length - 3) !== -1;
+			return fileName && fileName.indexOf(".md", fileName.length - 3) !== -1;
 		},
 		parentPath: function(fileName) {
-			return myURL.substring(0, myURL.lastIndexOf( "/" ) + 1);
+			return fileName && myURL.substring(0, myURL.lastIndexOf( "/" ) + 1);
 		},
 
 		/**
@@ -152,7 +152,7 @@
 		 * @return Boolean true if fileName matches _*.*
 		 */
 		isTemp: function(fileName) {
-			return fileName.indexOf("_") === 0;
+			return fileName && fileName.indexOf("_") === 0;
 		},
 
 		/**

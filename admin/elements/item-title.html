@@ -194,6 +194,9 @@ Properties:
 			},
 
 			_isPostFolder: function(treatAs, fileName) {
+				if (!fileName) {
+					return false;
+				}
 				if (treatAs === 'folder') {
 					var patt = /\d\d\d\d-\d\d-\d\d.*/g
 					if (fileName.match(patt)) {
