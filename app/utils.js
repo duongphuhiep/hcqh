@@ -93,7 +93,7 @@ $(document).ready(function () {
 
 			/* If the object is completely visible in the window, fade it it */
 			if (bottom_of_window > bottom_of_object) {
-				console.info('fadeIn');
+				//console.info('fadeIn');
 				$(this).animate({'opacity': '1'}, 500);
 			}
 		});
