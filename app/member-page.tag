@@ -50,7 +50,8 @@
 				url: Route.pathToMemberFolder+'config.txt',
 				dataType: 'text'
 			}).done(function (rawMembersConfig) {
-				_this.members = parseMembersConfig(rawMembersConfig);
+				var withoutComment = Utils.stripBracesComments(rawMembersConfig);
+				_this.members = parseMembersConfig(withoutComment);
 			}).fail(function (error) {
 				console.error(error);
 				Route.switchToPage("404");

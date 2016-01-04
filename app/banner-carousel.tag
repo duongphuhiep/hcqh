@@ -52,7 +52,8 @@
             url:Route.pathToBannerFolder+"config.txt",
             datatype:"text"
         }).success(function(data){
-            var rawItems = data.split("--");
+			var withoutComment = Utils.stripBracesComments(data);
+            var rawItems = withoutComment.split("--");
             var bannerItems = [];
             var count = 0;
             $.each(rawItems, function( index, rawItem ) {

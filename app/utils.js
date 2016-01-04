@@ -74,6 +74,13 @@ module.exports.parseConfig = function (rawConfig) {
 };
 
 /**
+ * remove all content between curly bracket
+ */
+module.exports.stripBracesComments = function (input) {
+	return input.replace(/{+[\s\S]*?}+/g, "");
+};
+
+/**
  *
  */
 $(document).ready(function () {
