@@ -5,6 +5,8 @@ define("QUOTE_SIZE", 256);
 
 require_once("mainBackEnd.php");
 //require_once("lib/ChromePhp.php");
+require_once("lib/Encoding.php");
+use \ForceUTF8\Encoding;
 
 //
 $blogFolderPath = joinPaths(BASE_DIR, "/content/blog");
@@ -98,7 +100,7 @@ function readBlogPost($file) {
 			$posSplit = strpos($meta_data, ":");
 			$key = substr($meta_data, 0, $posSplit);
 			$value = substr($meta_data, ($posSplit + 1));
-			$resPost[strtolower(trim($key))] = trim($value);
+			$resPost[strtolower(trim($key))] = Encoding::toUTF8(trim($value)); //json_encode(): All string data must be UTF-8 encoded
 		}
 	}
 
@@ -112,7 +114,7 @@ function readBlogPost($file) {
 
 	$contentsAndHeader = str_replace("\n", " ",  substr($fileContents, $posEnd + 3));
 	$quote = substr(trim($contentsAndHeader), 0, QUOTE_SIZE);
-	$resPost["excerpt"] = clean_quote($quote);
+	$resPost["excerpt"] = Encoding::toUTF8(clean_quote($quote)); //json_encode(): All string data must be UTF-8 encoded
 
 	fclose($postFile);
 	return $resPost;
