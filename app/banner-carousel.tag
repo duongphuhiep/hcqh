@@ -6,7 +6,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div each={ bannerItems } class={ item : true, active : index==0 }>
-                <img src={ linkToImage(this.image) }>
+				<asyn-img src={linkToImage(this.image)} width=1920 height=600 />
                 <div if={ title || body || post } class="carousel-caption">
                     <h1 if={ title } class="transparent-background animated fadeInDownBig">{ title }</h1>
                     <div if={ body } class="transparent-background">{ body }</div>

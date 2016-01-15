@@ -17,6 +17,7 @@
 	require("./page-404");
 	require("./banner-carousel");
 	require("./rg-loading");
+	require("./asyn-img");
 	require("./post-excerpt");
 	require("./navbar-search");
 	require("./language-selector");
