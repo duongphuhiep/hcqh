@@ -231,7 +231,7 @@ Properties:
 				this.ajaxBody = {action: "ren",
 						parentPath: this.parentPath,
 						currentName: this.fileName,
-						newName: this.newFileName,
+						newName: this.newFileName.trim(),
 						adminToken: page.helper.adminToken()
 					};
 				this.$.sender.generateRequest();
