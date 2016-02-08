@@ -5,6 +5,6 @@ body {
 .fadeInOnScroll {
 	opacity: 0.8;
 }
-#static-sitemap {
+.crawler {
 	display: none;
 }
