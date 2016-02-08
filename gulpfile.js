@@ -119,9 +119,10 @@ gulp.task('_copy_backend_php', function() {
 });
 gulp.task('_copy_backend_php_prod', ['_copy_backend_php'], function() {
 	//TODO: change after publish the app to the root folder on GoDaddy
-	var rootFolder = '../../'; //root to the www folder relative to admin.php, on godaddy we have www/v3.1/backend/admin.php
+	var rootFolder = '../'; //root to the www folder relative to admin.php, on godaddy we have www/v3.1/backend/admin.php
 	return gulp.src(['backend/*.php'])
 		.pipe($.replace('$_SERVER["DOCUMENT_ROOT"]','"'+rootFolder+'"'))
+		.pipe($.replace('define("ROOT_DIR", "../../")','define("ROOT_DIR", "'+rootFolder+'")'))
 		.pipe(gulp.dest('_prod/backend'));
 });
 gulp.task('_copy_content_to_prod', function() {
@@ -178,7 +179,7 @@ function replaceAdminRootFolder(rootFolder) {
 
 gulp.task('prod:admin', ['gen:admin', '_copy_backend_php_prod'], function () {
 	//TODO: change after publish the app to the root folder on GoDaddy
-	var rootFolder = "/v3.1/"; //root from the www folder to the website folder, on Godaddy the home folder is www/v3.1
+	var rootFolder = "/"; //root from the www folder to the website folder, on Godaddy the home folder is www/v3.1
 	replaceAdminRootFolder(rootFolder)
 });
 
