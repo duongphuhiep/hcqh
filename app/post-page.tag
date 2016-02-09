@@ -9,13 +9,13 @@ component is calculated base on the language meta-data or by the markdown file.
 */
 <post-page>
 	<rg-loading show="{ loading }" spinner="true">
-		<span data-i18n="Loading"></span>
+		<span data-i18n="Loading">Đang tải</span>
 	</rg-loading>
 
 	<div class="container">
 
-		<div hide={ translationFound } class="alert alert-danger" role="alert" data-i18n="Translation not found"></div>
-		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not completed"></span></div>
+		<div hide={ translationFound } class="alert alert-danger" role="alert" data-i18n="Translation not found">Translation not found</div>
+		<div hide={ statusIsComplete } class="alert alert-danger" role="alert">{ head.status } - <span data-i18n="The post status is not completed">Bài viết chưa hoàn thiện</span></div>
 
 		<div class="col-lg-2"></div>
 

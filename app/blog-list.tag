@@ -8,7 +8,7 @@ possible route:
 <blog-list>
     <div class="well">
 		<rg-loading show="{ loading }" spinner="true">
-			<span data-i18n="Loading"></span>
+			<span data-i18n="Loading">Đang tải</span>
 		</rg-loading>
 		<h3 data-i18n="Older posts">Bài cũ hơn</h3>
 		<ul>

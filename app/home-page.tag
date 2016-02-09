@@ -6,8 +6,8 @@
 
 		<section class="fadeInOnScroll">
 			<h1>
-				<span data-i18n="A vietnamese vocal ensemble in France"></span><br>
-				<small data-i18n="two minutes introduction"></small>
+				<span data-i18n="A vietnamese vocal ensemble in France">Dàn Hợp Xướng Việt Nam trên đất Pháp</span><br>
+				<small data-i18n="two minutes introduction">2 phút giới thiệu...</small>
 			</h1>
 
 
@@ -41,22 +41,23 @@
 		</section>
 
 		<section class="fadeInOnScroll">
-			<h1 data-i18n="We are recruiting"></h1>
+			<h1 data-i18n="We are recruiting">Tuyển thành viên</h1>
 
 			<div class="row">
 				<div class='col-md-3 text-center'>
 					<img src="content/home/recruit.png" alt="Recruting" width="100px" height="100px">
 				</div>
 				<div class='col-md-6 pad10' data-i18n="RecruitmentMessage">
+					Bạn thích âm nhạc? Bạn yêu ca hát? Hãy đến với chúng tôi để thỏa mãn niềm đam mê của bạn. Bằng các bản hợp xướng, bạn sẽ góp sức cùng Hợp Ca Quê Hương thể hiện tình yêu đối với quê hương đất nước và góp phần quảng bá nền âm nhạc Việt Nam tới bạn bè quốc tế. Đừng ngần ngại liên lạc với chúng tôi, chúng tôi luôn sẵn sàng chào đón bạn!
 				</div>
 				<div class='col-md-3 text-center pad10'>
-					<a class="btn btn-primary btn-lg" href="#contact" role="button" data-i18n="Contact Us"></a>
+					<a class="btn btn-primary btn-lg" href="#contact" role="button" data-i18n="Contact Us">Liên hệ</a>
 				</div>
 			</div>
 		</section>
 
 		<section class="fadeInOnScroll">
-			<h1 data-i18n="On Facebook"></h1>
+			<h1 data-i18n="On Facebook">Trên Facebook</h1>
 			<div class="center-block" style="max-width:500px;">
 				<div class="fb-page"
 					data-href="https://www.facebook.com/hopcaquehuong"

@@ -1,7 +1,7 @@
-<contact-page>	
+<contact-page>
 	<div class="container">
 		<div>
-			<h1 class="page-header" data-i18n="Contact"></h1>
+			<h1 class="page-header" data-i18n="Contact">Liên hệ</h1>
 		</div> <!-- Page Heading -->
 		<div class="row animated fadeIn">
 			<div class="col-md-6">
@@ -23,7 +23,7 @@
 						</dd>
 					</dl>
 				</div>
-				L’entrée est libre.<br/> 
+				L’entrée est libre.<br/>
 				Donc n’hésitez pas venir d’assiter notre scéance et visiter notre Centre Culturel.<br/>
 
 				<div class="info">
@@ -77,13 +77,13 @@
 			height: 100px;
 			border-radius: 50%;
 			margin-bottom : 5px;
-			-webkit-transition: width 1s, height 1s, -webkit-transform 1s; 
+			-webkit-transition: width 1s, height 1s, -webkit-transform 1s;
 			transition: width 1s, height 1s, transform 1s;
 		}
 		.logo:hover {
 				border-color: $brand-secondary;
 				color:white;
-				-webkit-transform: rotate(360deg); 
+				-webkit-transform: rotate(360deg);
 				transform: rotate(360deg);
 		}
 	</style>

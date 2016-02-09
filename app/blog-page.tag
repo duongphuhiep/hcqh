@@ -7,7 +7,7 @@ possible route:
 */
 <blog-page>
 	<rg-loading show="{ loading }" spinner="true">
-		<span data-i18n="Loading"></span>
+		<span data-i18n="Loading">Đang tải</span>
 	</rg-loading>
 
 	 <!-- Page Content -->
@@ -15,7 +15,7 @@ possible route:
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
-			<h1 class="page-header" data-i18n="Blog"></h1>
+			<h1 class="page-header" data-i18n="Blog">Bài viết</h1>
         </div>
 
         <!-- /.row -->

@@ -2,8 +2,8 @@
 	<div class="container">
 		<div class="jumbotron text-center">
 			<h1>404</h1>
-			<p data-i18n="Sorry! Page not found"></p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button" data-i18n="Return to Home"></a></p>
+			<p data-i18n="Sorry! Page not found">Sorry! Page not found</p>
+			<p><a class="btn btn-primary btn-lg" href="#" role="button" data-i18n="Return to Home">Return to Home</a></p>
 		</div>
 	</div>
 	<script>

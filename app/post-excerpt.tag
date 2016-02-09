@@ -1,6 +1,6 @@
 <post-excerpt>
 
-	<div hide={ translationFound } class="alert alert-warning" role="alert" data-i18n="Translation not found"></div>
+	<div hide={ translationFound } class="alert alert-warning" role="alert" data-i18n="Translation not found">Translation not found</div>
 	<h2><a href="#{ postLink }">{ title }</a></h2>
 
 	<p>
@@ -9,7 +9,7 @@
 
 	<p class="animated fadeInDown">{ excerpt } </p>
 	<p class="text-right">
-	<a class="btn btn-default animated fadeInUp" href="#{ postLink }"><span data-i18n="Read More"></span> <i class="glyphicon glyphicon-menu-right"></i></a>
+	<a class="btn btn-default animated fadeInUp" href="#{ postLink }"><span data-i18n="Read More">Xem bài</span> <i class="glyphicon glyphicon-menu-right"></i></a>
 	</p>
 	<hr>
 

@@ -10,7 +10,7 @@
                 <div if={ title || body || post } class="carousel-caption">
                     <h1 if={ title } class="transparent-background animated fadeInDownBig">{ title }</h1>
                     <div if={ body } class="transparent-background">{ body }</div>
-                    <div if={ post } class="learnmore"><a class="btn btn-lg btn-primary animated fadeInUp" href={ linkToPost(this.post) } target={ openTarget(this.post) } role="button" data-i18n="Learn more"></a></div>
+                    <div if={ post } class="learnmore"><a class="btn btn-lg btn-primary animated fadeInUp" href={ linkToPost(this.post) } target={ openTarget(this.post) } role="button" data-i18n="Learn more">Xem chi tiết</a></div>
                 </div>
             </div>
 

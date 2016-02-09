@@ -1,11 +1,11 @@
 <member-page>
 	<rg-loading show="{ loading }" spinner="true">
-		<span data-i18n="Loading"></span>
+		<span data-i18n="Loading">Đang tải</span>
 	</rg-loading>
 
 	<div class="container">
 		<div class="row">
-			<h1 class="page-header" data-i18n="Members"></h1>
+			<h1 class="page-header" data-i18n="Members">Thành viên</h1>
 		</div>
 		<div class="row">
 			<div each={ members }  class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumb">

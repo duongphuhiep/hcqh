@@ -3,7 +3,7 @@
  * The owner tag would nest the rg-loading component as following:
  *
  * <rg-loading show="{ showLoading }" spinner="true">
- *   <span data-i18n="Loading"></span>
+ *   <span data-i18n="Loading">Đang tải</span>
  * </rg-loading>
  *
  * then in the owner tag script: this.mixin(LoadingMixin)

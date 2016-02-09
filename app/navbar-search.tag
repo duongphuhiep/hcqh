@@ -23,10 +23,10 @@ Responsive navigation bar
 
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
-					<li class={ active: pageName == 'home' }><a href="#" data-i18n="Home"></a></li>
-					<li class={ active: pageName == 'member' }><a href="#member" data-i18n="Members"></a></li>
-					<li class={ active: pageName == 'blog' || pageName == 'post' }><a href="#blog" data-i18n="Blog"></a></li>
-					<li class={ active: pageName == 'contact' }><a href="#contact" data-i18n="Contact"></a></li>
+					<li class={ active: pageName == 'home' }><a href="#" data-i18n="Home">Trang chủ</a></li>
+					<li class={ active: pageName == 'member' }><a href="#member" data-i18n="Members">Thành viên</a></li>
+					<li class={ active: pageName == 'blog' || pageName == 'post' }><a href="#blog" data-i18n="Blog">Bài viết</a></li>
+					<li class={ active: pageName == 'contact' }><a href="#contact" data-i18n="Contact">Liên hệ</a></li>
 				</ul>
 			</div>
 		</div>
