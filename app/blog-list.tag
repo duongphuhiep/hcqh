@@ -1,49 +1,29 @@
 /*
-Display a page blog
+Display a list of blog
 possible route:
 	blog/ must to render data from blog.php?page=1
 	blog/1 must to render data from blog.php?page=1
 	blog/2 must to render data from blog.php?page=2
 */
-<blog-page>
-	<rg-loading show="{ loading }" spinner="true">
-		<span data-i18n="Loading"></span>
-	</rg-loading>
-
-	 <!-- Page Content -->
-    <div class="container">
-
-        <!-- Page Heading/Breadcrumbs -->
-        <div class="row">
-			<h1 class="page-header" data-i18n="Blog"></h1>
-        </div>
-
-        <!-- /.row -->
-
-        <div class="row">
-
-			<div class="col-lg-8">
-				<post-excerpt each={ data.posts }></post-excerpt>
-
-				<!-- Pager -->
-				<ul class="pager">
-					<li hide={ data.page <= 1 } class='previous'><span onclick={previousClick}>&larr; <span data-i18n='Newer'></span></span></li>
-					<li hide={ data.page >= data.totalpages } class='next'><span onclick={nextClick}><span data-i18n='Older'></span> &rarr;</span></li>
-				</ul>
-			</div>
-
-			<div class="col-lg-4">
-				<blog-list></blog-list>
-			</div>
-        </div>
-
-        <!-- /.row -->
+<blog-list>
+    <div class="well">
+		<rg-loading show="{ loading }" spinner="true">
+			<span data-i18n="Loading"></span>
+		</rg-loading>
+		<h3 data-i18n="Older posts">Bài cũ hơn</h3>
+		<ul>
+			<li each={ data.posts }><a href={ postLink(publish, name) }>{ title }</a></li>
+		</ul>
     </div>
-    <!-- /.container -->
 
-	<style>
-		.previous, .next {
-			cursor: pointer;
+	<style scoped>
+		ul {
+			padding:0;
+			list-style: none;
+		}
+		li {
+			padding-bottom: 1em;
+			line-height: 1.5em;
 		}
 	</style>
 
@@ -79,16 +59,19 @@ possible route:
 			//Get the pageNumber from route info or defaulting to 1
 			var pageNumber;
 			if (currentRouteInfo.params) {
-				pageNumber = currentRouteInfo.params[0];
+				pageNumber = Number(currentRouteInfo.params[0])+1;
 			}
 			if (!pageNumber) {
-				pageNumber = 1; //fallback to 1 as default pageNumber
+				pageNumber = 2; //fallback to 2 as default pageNumber
 			}
 
 			load(pageNumber, Lang.getCurrentLanguage());
 			_this.reloadTranslation();
 		}
 
+		_this.postLink = function(publish, postName) {
+			return '#post/'+publish+' '+postName;
+		}
 
 		_this.on('update', function() {
 			_this.reloadTranslation();
@@ -115,6 +98,7 @@ possible route:
 				dataType: 'json'
 			}).done(function (data) {
 				_this.data = data;
+				console.info(data);
 				_this.loadedPageNumber = pageNumber;
 				_this.loadedLang = lang;
 			}).fail(function (error) {
@@ -125,21 +109,8 @@ possible route:
 			});
 		};
 
-		nextClick() {
-			var newRoute = "blog/"+ (_this.data.page + 1);
-			riot.route(newRoute);
-			window.scrollTo(0, 0);
-		};
-
-		previousClick() {
-			var newRoute = "blog/"+ (_this.data.page - 1);
-			riot.route(newRoute);
-			window.scrollTo(0, 0);
-		};
-
-
 		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);
 
 	</script>
-</blog-page>
+</blog-list>

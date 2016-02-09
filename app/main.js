@@ -21,6 +21,7 @@
 	require("./post-excerpt");
 	require("./navbar-search");
 	require("./language-selector");
+	require("./blog-list");
 	require("./content-route");
 
     riot.mount('*');
