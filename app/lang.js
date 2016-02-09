@@ -22,7 +22,8 @@
 	 */
 	var option = { resGetPath: 'content/locales/__lng__-__ns__.json', detectLngQS: 'lang', cookieName: 'lang', fallbackLng: 'vi' };
 	i18n.init(option, function(err, t) {
-		$(function() { $(document).i18n(); });
+		//$(function() { $(document).i18n(); });
+		setLanguage(getCurrentLanguage());
 	});
 
 	moment.locale(getCurrentLanguage());
@@ -39,6 +40,9 @@
 		}
 	}
 
+	/**
+	 * The current language comes from QueryString '?lang=en' or from the cookies, otherwise it fallback to "vi"
+	 */
 	function getCurrentLanguage() {
 		var currentLang = getQueryStringParams('lang');
 		if (!currentLang) {
@@ -49,16 +53,12 @@
 		}
 		return currentLang;
 	};
-
-	/**
-	 * The current language comes from QueryString '?lang=en' or from the cookies, otherwise it fallback to "vi"
-	 */
 	module.exports.getCurrentLanguage = getCurrentLanguage;
 
 	/**
 	 * Set the current language flag, and fire "languageChange" event
 	 */
-	module.exports.setLanguage = function(lang) {
+	 function setLanguage(lang) {
 		if (!lang) {
 			return;
 		}
@@ -81,4 +81,5 @@
 			console.info("Ignore languageChange event");
 		}
 	};
+	module.exports.setLanguage = setLanguage;
 })();
