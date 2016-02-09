@@ -13,6 +13,7 @@
 		RiotControl.addStore(_this);
 
 		_this.on('pageChange', function(e) {
+			if (_this.pageName === e.pageName) { return; }
 			_this.pageName = e.pageName;
 			_this.update();
 		});
