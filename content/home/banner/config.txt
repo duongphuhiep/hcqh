@@ -1,28 +1,54 @@
-image: 2014-spring-show.jpg
-title: 23 Janvier 2016 à Eglise La Madeleine
-body: Eglise La Madeleine, Rencontres internationales Chant choral de Paris, organisé par l’Association Music & Friends
-post: 2009-08-04 Bai viet 04
+{ 
+	Fichier này chứa configuration của Banner, Banner chiếm diện tích lớn nhất ngay trên trang Acceuil, 
+	nên cần phải được manipuler hết sức cẩn thận
+
+	1) Trong fichier này tất cả những phần nằm trong ngoặc nhọn (accolades) đều là "nháp", sẽ bị lờ đi 
+	như thể không tồn tại (ví dụ những lời dặn dò này đều nằm trong ngoặc nhọn)
+
+	2) Có thể Upload bao nhiêu hình banner vào mục này cũng được, nhưng khi đưa ra ngoài, thì chỉ nên 
+	configurer 5 pages banner au maximum.
+
+	3) Tên ảnh sử dụng trong các trang banner phải tuyệt đối chính xác, nếu không sẽ bị hỏng ở bên 
+	ngoài trang Web. Ví dụ upload một cái ảnh tên là "invalid.png" lên, nhưng khi dùng nó lại đề
+	tên là "invalid 1000.png" là không được..
+
+	4) Ưu tiên sử dụng ảnh gốc có độ nét cao. Có thể chỉnh sửa ảnh đôi chút về màu sắc, độ tương phản.. 
+        nhưng nên tránh những chỉnh sửa nặng nề như "xóa nền", thêm bớt chi tiết. Nếu không thể tránh được 
+        thì nên tìm ảnh khác (không nhất thiết phải là ảnh Hợp Ca). Xóa nền sẽ làm cho ảnh giả tạo vì mất  
+	đi ánh sáng tự nhiên. Việc thay thế nền ảnh thường làm giảm chất lượng ảnh đi hơn 50% trừ khi ảnh 
+        được chụp trong studio..
+
+        5) Không được lier trang banner tới một trang Web không tồn tại. Ví dụ "post: Bieu dien Choisy"
+        Không có bất cứ bài viết nào có identifiant là "Bieu dien Choisy" cả. Nếu configurer trang Banner
+        với mục "post" như trên thì trang Banner sẽ hiện ra nút "Xem Chi Tiết", khi người dùng bấm vào nút
+        đó sẽ được dẫn đến 1 trang báo lỗi. Vậy khi trang Banner không được lier tới bài viết nào thì đừng
+        viết mục "post"
+
+	Đọc kỹ cách configurer banner trong tài liệu:
+	https://github.com/duongphuhiep/hcqh/wiki/AUG-Overview#qu%E1%BA%A3n-l%C3%BD-banner
+
+}
+
+image: UNESCO.jpg
+title: Hợp Ca Quê Hương
+post: 2016-01-17 Gioi thieu
 --
-image: prochoir-1920x600.jpg
-title: 23/01/2016 nhà thờ Madeleine
-post: 2009-08-04 Bai viet 04
---
-image: music.jpg
-body: Eglise La Madeleine, Rencontres internationales Chant choral de Paris, organisé par l’Association Music & Friends
-post: 2009-08-04 Bai viet 04
---
-image: CCC-8991-1920x600.jpg
-body: Xem bài viết Tiếng Nhật
-post: 2009-08-03 Bai viet 03
---
-image: piano-banner.jpg
-title: Mái nhà thứ hai
-body: Tình bạn xây dựng trên niềm đam mê Âm nhạc
---
-image: web.jpg
-title: Hợp Ca Quê Hương trên VTV4
+image: 2014 vtv4.jpg
+title: Hợp Ca Quê Hương trên VTV4 2010
+body: Truyền hình Việt Nam 2010-2015
 post: https://www.youtube.com/watch?v=kcankBqI0kQ&feature=youtu.be&t=1h38m13s
 --
-image: about_in5.jpg
+image: 2009 Tai Dai Su Quan.jpg
+title: Hợp ca Quê Hương ra mắt lần đầu 2009
 --
-image: slide_1.png
+image: 2010 Les Invalides.jpg
+title: Kỷ niệm 1000 năm Thănglong-Hanoi 2010 
+body: Ecole Militaire des Invalides 
+--
+image: 2012 Tai UNESCO.jpg
+title: Sân khấu hòa hợp Vọng Cổ-Hợp xướng 2012 
+body: Lần đầu trước quần chúng quốc tế 
+--
+image: 2015 Rouen.jpg
+title: Kết hợp với Dàn Giao Hưởng 2015
+body: Đồng diễn với Dàn Polyphonique de Choisy le Roi 
