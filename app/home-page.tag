@@ -59,17 +59,17 @@
 			<h1 data-i18n="On Facebook"></h1>
 			<div class="center-block" style="max-width:500px;">
 				<div class="fb-page"
-					data-href="https://www.facebook.com/hopcaquehuong?fref=ts"
+					data-href="https://www.facebook.com/hopcaquehuong"
+					data-tabs="timeline"
 					data-small-header="true"
 					data-width="500"
 					data-adapt-container-width="true"
 					data-hide-cover="false"
 					data-show-facepile="true"
-					data-show-posts="true"
-					>
+					data-show-posts="true">
 					<div class="fb-xfbml-parse-ignore">
-						<blockquote cite="https://www.facebook.com/hopcaquehuong?fref=ts">
-							<a href="https://www.facebook.com/hopcaquehuong?fref=ts">Hợp Ca Quê Hương</a>
+						<blockquote cite="https://www.facebook.com/hopcaquehuong">
+							<a href="https://www.facebook.com/hopcaquehuong">Hợp Ca Quê Hương</a>
 						</blockquote>
 					</div>
 				</div>
@@ -115,7 +115,7 @@
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
-		var facebook = require("./facebook");
+		//var facebook = require("./facebook");
 
 		var $ = require("jquery");
 		var i18n = require("i18next");
