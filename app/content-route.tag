@@ -21,9 +21,6 @@
 		var Route = require("./route");
 		_this.pageName = Route.getCurrentPageInfo().pageName;
 
-		var googleAnalytics = require("./googleAnalytics");
-		googleAnalytics.init();
-
 	</script>
 </content-route>
 
