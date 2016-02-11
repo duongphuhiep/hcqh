@@ -8,3 +8,8 @@ body {
 .crawler {
 	display: none;
 }
+#post_content img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
