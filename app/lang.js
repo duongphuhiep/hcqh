@@ -68,9 +68,11 @@
 		Cookies.set('lang', lang, { expires: 365 });
 		moment.locale(lang);
 
-		i18n.setLng(lang, function(err, t) {
-            $(document).i18n();
-        });
+		$(function() {
+			i18n.setLng(lang, function(err, t) {
+				$(document).i18n();
+			});
+		});
 
 		moment.locale(lang);
 
