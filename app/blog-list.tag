@@ -28,12 +28,13 @@ possible route:
 	</style>
 
 	<script>
+		//require('./rg-loading.tag');
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
 		var riot = require("riot");
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 		var Lang = require("./lang");
 		var Route = require("./route");
 		var $ = require("jquery");

@@ -12,7 +12,7 @@
 		RiotControl.addStore(_this);
 
 		var $ = require("jquery");
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 		var debounce = require("lodash.debounce");
 
 		_this.on('mount languageChange pageChange', function() {

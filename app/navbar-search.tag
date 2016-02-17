@@ -39,7 +39,7 @@ Responsive navigation bar
 
 		var Route = require("./route");
 		var $ = require("jquery");
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 
 		_this.on('mount', function() {
 			_this.pageName = Route.getCurrentPageInfo().pageName;

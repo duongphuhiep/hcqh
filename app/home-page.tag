@@ -113,20 +113,16 @@
 	</style>
 
 	<script>
+		//require('./banner-carousel.tag');
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
-		//var facebook = require("./facebook");
 
 		var $ = require("jquery");
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 
 		_this.on('mount languageChange', function() {
 			$(function() { $(_this.root).i18n(); });
-		});
-
-		_this.on('mount', function(){
-			facebook.init();
 		});
 	</script>
 

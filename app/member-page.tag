@@ -29,13 +29,14 @@
 	</style>
 
 	<script>
+		//require('./rg-loading.tag');
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 		var riot = require("riot");
 		var $ = require("jquery");
 		var Route = require("./route");
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 		var Utils = require("./utils");
 		var Mixins = require('./mixins');
 		_this.mixin(Mixins.LoadingMixin);

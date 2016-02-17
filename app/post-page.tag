@@ -47,11 +47,12 @@ component is calculated base on the language meta-data or by the markdown file.
 	</style>
 
 	<script>
+		//require('./rg-loading.tag');
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
 
-		var i18n = require("i18next");
+		//var i18n = require("i18next");
 		var $ = require("jquery");
 		var Route = require("./route");
 		var Lang = require("./lang");

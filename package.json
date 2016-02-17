@@ -9,23 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server"
   },
-  "browserify": {
-    "transform": [
-      [
-        "browserify-shim"
-      ]
-    ]
-  },
   "browser": {
     "RiotControl": "./lib/riotcontrol.js",
-    "jscookie": "./lib/js.cookie.js",
-    "i18next": "./bower_components/i18next/i18next.commonjs.withJQuery.js",
-    "riot": "./bower_components/riot/riot.js"
-  },
-  "browserify-shim": {
-    "jquery": "global:jQuery",
-    "commonmark": "global:commonmark",
-    "moment": "global:moment"
+    "jscookie": "./lib/js.cookie.js"
   },
   "devDependencies": {
     "browser-sync": "^2.9.3",
@@ -56,6 +42,7 @@
     "node-jquery": "^0.1.0",
     "polybuild": "^1.0.5",
     "riotify": "^0.1.2",
+    "riotjs-loader": "^1.2.0",
     "run-sequence": "^1.1.4",
     "sinon": "^1.16.1",
     "uglify-js": "^2.4.24",
@@ -63,9 +50,12 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "i18next": "^2.0.14",
-    "jquery": "^2.1.4",
+    "commonmark": "^0.23.0",
+    "i18next": "^2.1.0",
+    "jquery": "^2.2.0",
+    "jquery-i18next": "0.0.14",
     "lodash.debounce": "^3.1.1",
+    "moment": "^2.11.2",
     "riot": "^2.2.4"
   }
 }

@@ -39,6 +39,7 @@
   </style>
 
     <script>
+		//require("./asyn-img.tag");
         var _this = this;
         var RiotControl = require("RiotControl");
         RiotControl.addStore(_this);
@@ -46,7 +47,7 @@
         var Route = require('./route');
         var $ = require("jquery");
         var Utils = require("./utils");
-        var i18n = require("i18next");
+        //var i18n = require("i18next");
 
         $.ajax({
             url:Route.pathToBannerFolder+"config.txt",

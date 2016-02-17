@@ -8,6 +8,13 @@
 	<page-404 if={ pageName == '404' }></page-404>
 
 	<script>
+		//require("./home-page.tag");
+		//require("./member-page.tag");
+		//require("./blog-page.tag");
+		//require("./post-page.tag");
+		//require("./contact-page.tag");
+		//require("./page-404.tag");
+
 		var _this = this;
 		var RiotControl = require("RiotControl");
 		RiotControl.addStore(_this);
@@ -20,7 +27,6 @@
 
 		var Route = require("./route");
 		_this.pageName = Route.getCurrentPageInfo().pageName;
-
 	</script>
 </content-route>
 
