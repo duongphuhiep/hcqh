@@ -34,7 +34,7 @@
     "iron-image": "PolymerElements/iron-image#~1.0.2",
     "iron-pages": "PolymerElements/iron-pages#~1.0.3",
     "js-cookie": "~2.0.3",
-    "page": "page.js#~1.6.3",
+    "page": "page.js#~1.6.4",
     "paper-button": "PolymerElements/paper-button#^1.0.0",
     "paper-card": "PolymerElements/paper-card#^1.0.0",
     "paper-dialog": "PolymerElements/paper-dialog#~1.0.1",
