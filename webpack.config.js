@@ -15,14 +15,17 @@ module.exports = {
 		path: __dirname + '/_dist/',
 		filename: 'main.js'
 	},
+	devtool: 'source-map',
 	//devtool: 'eval',
 	//debug: true,
+
 	plugins: [
 		new webpack.ProvidePlugin({
 			riot: 'riot'
 		}),
-		new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin(),
 	],
+
 	module: {
 		loaders: [
 			{ test: /\.tag$/, exclude: /node_modules/, loader: 'riotjs' }
