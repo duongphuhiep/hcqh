@@ -1,7 +1,7 @@
 <?php
 
 //sleep(1);
-define("ROOT_DIR", $_SERVER["DOCUMENT_ROOT"]); //gulp will replace it with define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
+define("ROOT_DIR", "../../"); //gulp will replace it with define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
