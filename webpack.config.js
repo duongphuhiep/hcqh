@@ -21,7 +21,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			riot: 'riot'
 		}),
-		//new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin()
 	],
 	module: {
 		loaders: [
