@@ -64,7 +64,7 @@ component is calculated base on the language meta-data or by the markdown file.
 		_this.mixin(Mixins.LoadingMixin);
 
 		_this.textAlign = "justify";
-		_this.centerImages = false;
+		_this.centerImages = true;
 
 		_this.on("mount pageChange languageChange", function(type) {
 			var routeInfo = Route.getCurrentPageInfo();
@@ -175,7 +175,9 @@ component is calculated base on the language meta-data or by the markdown file.
 					_this.textAlign = "justify";
 				}
 
-				_this.centerImages = ["1", "true", "yes"].indexOf(_this.head.centerimages) >= 0;
+				if (["0", "false", "no"].indexOf(_this.head.centerimages) >= 0) {
+					_this.centerImages = false;
+				}
 			}
 			else {
 				console.warn("No header detected on ", Route.getCurrentPageInfo());
