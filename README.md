@@ -1,9 +1,12 @@
+
+Goto [wiki](https://github.com/duongphuhiep/hcqh/wiki) for detail and updated information.
+
 # Overview
 
 The Hop ca Que-Huong website project comprehends 3 applications (2 front-end applications and 1 backend service):
  
- * The "Website" (or Main application) is a Single Web page Application (SPA). 
- * The "Admin" application is also a SPA, it helps to manage website content and configuration.
+ * The ["Website" (or Main application)](http://hopcaquehuong.org/) is a Single Web page Application (SPA). 
+ * The ["Admin" application](http://hopcaquehuong.org/admin/) is also a SPA, it helps to manage website content and configuration.
  * The "Backend" application service provides Restful APIs to access and manipulate the [database](https://github.com/duongphuhiep/hcqh/wiki/Database)
 
 # Run "Website" on localhost
@@ -17,7 +20,7 @@ After `git clone`. Run the following commands:
     npm install -g live-server   # install a server http globally
     
     cd hcqh                      # Go to the project folder
-    gulp bundle                  # build the website
+    gulp                         # build the website
     live-server                  # run a http server, automatically open Chrome at localhost:8080
 
 You can play with the website. It is just a quick start. [Read more infos on Wiki](https://github.com/duongphuhiep/hcqh/wiki/Local-installation)
