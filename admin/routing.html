@@ -74,7 +74,7 @@
 
 		page.exit('*', function (ctx, next) {
 			if (app.dirty) {
-				var message = "Are you sure you want to leave this page?\nYour change will be lost if you click on OK";
+				var message = "Bài viết chưa được lưu! Bạn có chắc chắn muốn rời khỏi trang này không?\n(Nếu bấm OK, những thay đổi trong bài viết sẽ bị mất)";
 				if (confirm(message)) {
 					next(); //leave
 				}
