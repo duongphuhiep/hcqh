@@ -93,15 +93,18 @@ Properties:
 					<div class="card-actions">
 						<template is="dom-if" if={{deletable}}>
 							<paper-icon-button id="delete" icon="icons:clear" alt="Delete" on-tap="_deleteItem"></paper-icon-button>
-							<paper-tooltip for="delete">Delete</paper-tooltip>
+							<paper-tooltip for="delete">Xóa</paper-tooltip>
 						</template>
 						<template is="dom-if" if={{renamable}}>
 							<paper-icon-button id="rename" icon="icons:text-format" alt="Rename" on-tap="_enterRenameMode"></paper-icon-button>
-							<paper-tooltip for="rename">Rename</paper-tooltip>
+							<paper-tooltip for="rename">Đổi tên</paper-tooltip>
 						</template>
 						<template is="dom-if" if={{visitable}}>
 							<paper-icon-button id="open" icon={{openIcon}} alt="Open" on-tap="_openItem"></paper-icon-button>
-							<paper-tooltip for="open">Visit or download item</paper-tooltip>
+							<paper-tooltip for="open">Thăm trang / Tải về</paper-tooltip>
+
+							<paper-icon-button id="showLink" icon="icons:link" alt="Copy Relative Link" on-tap="_showLink"></paper-icon-button>
+							<paper-tooltip for="showLink">Hiển thị link</paper-tooltip>
 						</template>
 					</div>
 				</template>
@@ -241,7 +244,7 @@ Properties:
 				this.fire("raise-alert-error", e.detail.error);
 			},
 			_deleteItem: function(e) {
-				var r = window.confirm("Are you sure to delete "+this.fileName+" ?");
+				var r = window.confirm("Có chắc chắn muốn xóa không? "+this.fileName+" ?");
 				if (r===true) {
 					this.ajaxBody = {action: "rm",
 							parentPath: this.parentPath,
@@ -274,12 +277,21 @@ Properties:
 					this.fire("refresh-collection", {because: currentAction, newCollection: e.detail.response, changedItem: null});
 				}
 			},
-			_openItem: function(e) {
-				var linkToOpen = this.visitLinkPrefix ? page.rootFolder + this.visitLinkPrefix + this.fileName : this.filePath;
-				window.open(linkToOpen);
-			},
+
 			_getOpenIcon: function(treatAs) {
 				return treatAs==='file'? 'icons:file-download' : 'icons:open-in-browser';
+			},
+			_getRelativeLink: function() {
+				return this.visitLinkPrefix ? page.rootFolder + this.visitLinkPrefix + this.fileName : this.filePath;
+			}
+			,
+			_openItem: function(e) {
+				var linkToOpen = this._getRelativeLink();
+				window.open(linkToOpen);
+			},
+			_showLink: function() {
+				var linkToCopy = '[tên link]('+encodeURI(this._getRelativeLink())+')';
+				window.prompt('Link để dán vào bài viết. Nhấn Ctrl+C rồi Enter để copy', linkToCopy);
 			}
 		});
 	</script>
