@@ -1,0 +1,11 @@
+/*because fixed navbar hide the body content*/
+body {
+	margin-top: 50px;
+}
+.navbar {
+	background-color: rgba(255, 255, 255, 0.90)
+}
+
+.crawler {
+	display: none;
+}
