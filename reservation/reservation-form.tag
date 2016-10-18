@@ -15,25 +15,23 @@
 
 		<h2>Réservez votre place</h2>
 		<span class="label label-info">Info</span> Nous ne communiquons jamais vos informations aux autres personnes, nous allons même les supprimers après le jour de la concert.
-
-		<seat num="1" required='true'></seat>
-		<seat num="2" class={invisible:this.seatCount.value<2} required={this.seatCount.value>=2}></seat>
-		<seat num="3" class={invisible:this.seatCount.value<3} required={this.seatCount.value>=3}></seat>
-		<seat num="4" class={invisible:this.seatCount.value<4} required={this.seatCount.value>=4}></seat>
+		<div each={i in this.seatNumbers(this.seatCount.value)}>
+			<seat num={i}></seat>
+		</div>
 
 		<div class="form-group">
-			<div class="col-sm-10 center-block">
-			<button type="submit" class="btn btn-primary center-block" style="min-width:120px">Submit</button>
+			<div class="col-sm-10 col-sm-offset-2">
+				<button type="submit" class="btn btn-primary center-block" style="min-width:120px">Submit</button>
 			</div>
 		</div>
 	</form>
 
-
-	<style scoped>
-		.invisible {
-			display: none;
+	/*return array [1,2,3,..,n]*/
+	seatNumbers(n) {
+		var ss = [];
+		for (var i=1; i<=n; i++) {
+			ss.push(i);
 		}
-	</style>
-
-
+		return ss;
+	}
 </reservation-form>
