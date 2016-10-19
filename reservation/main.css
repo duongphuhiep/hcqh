@@ -1,6 +1,7 @@
 /*because fixed navbar hide the body content*/
 body {
 	margin-top: 50px;
+	background-color: #ececec;
 }
 .navbar {
 	background-color: rgba(255, 255, 255, 0.90)
