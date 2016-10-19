@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<h2>Réservez votre place</h2>
-		<span class="label label-info">Info</span> Nous ne communiquons jamais vos informations aux autres personnes, nous allons même les supprimers après le jour de la concert.
+		<span class="label label-info">Info</span> Nous ne communiquons jamais vos informations aux autres personnes, nous allons même les supprimers après le jour du concert.
 		<div class='section' each={i in this.seatNumbers(this.seatCount.value)}>
 			<seat num={i}></seat>
 		</div>

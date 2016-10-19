@@ -3,14 +3,14 @@
 <head>
 	<title data-i18n="Que Huong Chorale">Hợp Ca Quê Hương</title>
 	<meta name="keywords" content="hopcaquehuong, Chorale, HopXuong, QueHuong, Paris, France, Phap">
-	<meta name="description" content="Dàn Hợp Xướng Quê Hương trên đất Pháp">
+	<meta name="description" content="Réservation en ligne liveshow présentation de notre CD">
 	<meta name="author" content="Hop Ca Que Huong">
 	<meta name="language" content="fr">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css" media="only screen and (min-width:768px)">
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css" media="only screen and (min-width:768px)">-->
 	<link rel="stylesheet" href="main.css">
 	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
 </head>
@@ -24,7 +24,7 @@
 	</div>
 </div>
 </div><div class="jumbotron" style="background:darkslateblue;color:whitesmoke">
-	<div class="container"><h1>Notre plus grande concerte de l'année</h1>
+	<div class="container"><h1>Notre plus grand concert de l'année</h1>
 		<h2>Reservez vos places maintenant, c'est gratuit.</h2>
 		<ul>
 			<li>Nous nous essayons de notre mieux afin de présenter au publique les plus grande d'oeuvres vietnamiens.
@@ -44,7 +44,7 @@
 	<div class="container" style="padding-top:100px; padding-bottom:20px">
 		<div class="row">
 			<div class="col-md-4 text-center">
-				<span class="copyright">Copyright &copy; Que-Huong Chorale 2015</span>
+				<span class="copyright">Copyright &copy; Que-Huong Chorale 2016</span>
 			</div>
 			<div class="col-md-4">
 				<a href="https://www.facebook.com/hopcaquehuong?fref=ts"><img src="../content/footer_icon_facebook.png"  class="center-block text-centered"></a>
