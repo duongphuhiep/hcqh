@@ -3,8 +3,11 @@ body {
 	margin-top: 50px;
 	background-color: #ececec;
 }
-.navbar {
-	background-color: rgba(255, 255, 255, 0.90)
+.header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: rgba(236,236,236,0.8);
 }
 
 .crawler {

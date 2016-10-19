@@ -15,16 +15,14 @@
 	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
 </head>
 <body>
-<nav class="navbar navbar-fixed-top">
+<div class="header">
 	<div class="container">
-		<div class="navbar-header">
-			<a style="padding:0px; text-decoration: none; color: darkslateblue; font-size: large; font-weight: bold" href="../">
-				<img alt="Brand" src="../content/logo.svg" width="50" height="50">
-				Ensemble Chorale Que-Huong
-			</a>
-		</div>
+		<a style="padding:0px; text-decoration: none; color: darkslateblue; font-size: large; font-weight: bold" href="../">
+			<img alt="Brand" src="../content/logo.svg" width="50" height="50">
+			Ensemble Chorale Que-Huong
+		</a>
 	</div>
-</nav>
+</div>
 </div><div class="jumbotron" style="background:darkslateblue;color:whitesmoke">
 	<div class="container"><h1>Notre plus grande concerte de l'année</h1>
 		<h2>Reservez vos places maintenant, c'est gratuit.</h2>
