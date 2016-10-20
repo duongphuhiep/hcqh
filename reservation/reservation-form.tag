@@ -27,7 +27,7 @@
 				</div>
 				<label class='control-label col-sm-2' for='seatCount'>Que l'image dit?</label>
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="captcha_code" size="10" maxlength="6" />
+					<input class="form-control" type="text" name="captcha_code" size="10" maxlength="6" required />
 					<a href="#" onclick="document.getElementById('captcha').src = './securimage/securimage_show.php?' + Math.random(); return false">Je ne vois pas très bien!</a>
 				</div>
 			</div>
