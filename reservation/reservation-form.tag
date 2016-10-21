@@ -6,7 +6,7 @@
 		<div class='section'>
 			<div class='form-group'>
 				<label class='control-label col-sm-2' for='seatCount'>Nombre de places</label>
-				<div class="col-sm-10"><select class="form-control" id='seatCount' onchange={update} required>
+				<div class="col-sm-10"><select class="form-control" id='seatCount' name='seatCount' onchange={update} required>
 					<option value='1'>1 - Je suis tout seul</option>
 					<option value='2'>2 personnes</option>
 					<option value='3'>3 personnes</option>
