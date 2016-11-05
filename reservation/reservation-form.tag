@@ -1,6 +1,6 @@
 <reservation-form>
 	<div class='alert alert-warning'>
-		It's better to make reservation by group so that we'll try our best to make you sit together. How many person are there in your group?
+		Reservez par groupe afin de rester ensemble. Combien de personnes y a-t-il dans votre groupe?
 	</div>
 	<form class='form-horizontal' onsubmit='return validateForm()' action='dobook.php' method='post'>
 		<div class='section'>

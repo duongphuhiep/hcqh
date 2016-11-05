@@ -6,3 +6,4 @@ _*/
 npm-debug.*
 backend_mock/SinonTest.html
 content/
+ftpsync.settings

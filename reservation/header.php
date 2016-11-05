@@ -17,7 +17,7 @@
 <body>
 	<div class="header">
 		<div class="container">
-			<a style="padding:0px; text-decoration: none; color: darkslateblue; font-size: large; font-weight: bold" href="../">
+			<a class="brand-header" href="../">
 				<img alt="Brand" src="../content/logo.svg" width="50" height="50">
 				Ensemble Chorale Que-Huong
 			</a>

@@ -13,3 +13,16 @@ body {
 .crawler {
 	display: none;
 }
+
+.brand-header {
+	padding:0px; text-decoration: none; color: darkslateblue; font-size: large; font-weight: bold;
+}
+
+.retry-link {
+	text-decoration: none; 
+	color: white;
+}
+.retry-link:hover {
+	text-decoration: underline; 
+	color: white;
+}
