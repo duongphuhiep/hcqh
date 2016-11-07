@@ -23,6 +23,21 @@ function process()
 		if ($conn->connect_error) {
 			return array('ok'=>false, 'msg'=>'Base de donées indisponible');
 		}
+
+		//check number of reservation should not exceed 450 places
+		$r = $conn->query('select count(*) from booking');
+		if (!$r) {
+			echo($conn->error); 
+			die(500);
+		}
+		$row = $r->fetch_row();
+		$count = $row[0];
+		if ($count+$seatCount > NBPLACES) {
+			$left = NBPLACES-$count;
+			return array('ok'=>false, 'msg'=>"Malheureusement, Il n'y a plus de places disponibles pour ".$seatCount." personnes. Nombre de places restés: ".$left);
+		}  
+
+		//make reservation
 		$conn->query('START TRANSACTION');
 
 		$mailData = array();
@@ -32,10 +47,13 @@ function process()
 			$email = $_POST['email'.$i];
 			$cancelToken = getGUID();
 
-			$sql = "INSERT INTO booking(`group`, firstname, lastname, email, cancel_token, status, creation)
+			$sql = "INSERT INTO booking(`group`, firstname, lastname, cancel_token, status, creation)
+						VALUES ('".$group."', '".$firstName."', '".$lastName."', '".$cancelToken."', 0, '".date("Y-m-d H:i:s")."')";
+			if (!empty($email)) {
+				$mailData[$i] = array('email' => $email, 'firstname'=>$firstName, 'lastname'=>$lastName, 'cancelToken' => $cancelToken);
+				$sql = "INSERT INTO booking(`group`, firstname, lastname, email, cancel_token, status, creation)
 						VALUES ('".$group."', '".$firstName."', '".$lastName."', '".$email."', '".$cancelToken."', 0, '".date("Y-m-d H:i:s")."')";
-			if (!empty($email))
-				$mailData[$i] = array('email' => $email, 'firstname'=>$firstName, 'lastname'=>$lastName, 'cancelToken' => $cancelToken); 
+			}
 
 			if (!$conn->query($sql)) {
 				$serr = $conn->error;
