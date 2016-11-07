@@ -21,8 +21,10 @@ body {
 .retry-link {
 	text-decoration: none; 
 	color: white;
+	text-decoration: underline;
 }
 .retry-link:hover {
 	text-decoration: underline; 
 	color: white;
+	font-size: 120%;
 }

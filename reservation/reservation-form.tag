@@ -1,5 +1,5 @@
 <reservation-form>
-	<div class='alert alert-warning'>
+	<div class='alert alert-info'>
 		Reservez par groupe afin de rester ensemble. Combien de personnes y a-t-il dans votre groupe?
 	</div>
 	<form class='form-horizontal' onsubmit='return validateForm()' action='dobook.php' method='post'>

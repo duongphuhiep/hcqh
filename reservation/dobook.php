@@ -49,7 +49,7 @@ function process()
 
 		foreach ($mailData as $md) {
 			//var_dump($md);
-		    mail($md['email'], 'Reservation confirmation',  "Bonjour ".$md['firstname']." ".$md['lastname'].",\nMerci d'avoir nous supporter.\n\nVous pouvez s'annuler la reservation a tout moment en cliquant sur ce lien: \nhttp://hopcaquehuong.org/reservation/cancel.php?token=".$md['cancelToken']);
+		    mail($md['email'], 'Reservation confirmation 3/12/2016 20h', "Bonjour ".$md['firstname']." ".$md['lastname'].",\nMerci d'avoir nous supporter.\nVeuillez bien noter la date 3/12/2016 20h-22h.\n Espace Reuilly, 21 rue Hénard, 75012 Paris.\n\nVous pouvez s'annuler la reservation a tout moment en cliquant sur ce lien: \nhttp://hopcaquehuong.org/reservation/cancel.php?token=".$md['cancelToken']);
 		}
 
 		return array('ok'=>true);
@@ -66,17 +66,15 @@ $r = process();
 include_once 'header.php';
 
 if ($r['ok']) {?>
-
 	<div class="jumbotron" style="background:darkslateblue;color:whitesmoke">
 		<div class="container text-center">
 			<h1>Merci</h1>
-			<h2>Veuillez bien noté la date 3/12/2016 17h00. Salle Neuilly</h2>		
+			<h2>Veuillez bien noter la date 3/12/2016 20h</h2>
+			<h2>Espace Reuilly, 21 rue Hénard, 75012 Paris</h2>		
 		</div>
 	</div>
-	<div>
-		<ul>
-			<li>We may transfer your reserved seat to another person if you are 15 minutes late.
-		</ul>
+	<div class='alert alert-warning'>
+		We may transfer your reserved seat to another person if you are 15 minutes late.
 	</div>
 <?php
 } else {?>

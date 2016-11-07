@@ -6,10 +6,9 @@ $msg = '';
 function process()
 {
 	$token = @$_GET['token'];
-	$email = @$_GET['mail'];
-
+	
 	if (empty($token)) {
-		return array('ok'=>false, 'msg'=>'invalide cancellation token');
+		return array('ok'=>false, 'msg'=>'invalid cancellation token');
 	}
 
 	$conn = new mysqli(DBHOST, DBLOGIN, DBPASS, DBNAME);
@@ -17,10 +16,28 @@ function process()
 		return array('ok'=>false, 'msg'=>'Base de donées indisponible');
 	}
 
-	$sql = "delete from booking where cancel_token='".$token."'";
+	//find email correspond to the cancel token
+	$r = $conn->query("select email from booking where cancel_token='".$token."'");
+	if (!$r) {
+		echo($conn->error); 
+		die(500);	
+	}
+	if ($r->num_rows == 0) {
+		return array('ok'=>false, 'msg'=>'invalid cancellation token');	
+	}
+	$row = $r->fetch_row();
+	$email = $row[0];
 
-	if (!$conn->query($sql)) {
-		return array('ok'=>false, 'msg'=>'Unable to '.$sql.': '.$conn->error);
+	//delete all the group reservation correspond to the mail, or the individual reservation correspond to the cancelToken
+	//if the cancelToken correspond to a group creator then all the group reservation will be removed
+	//if the cancelToken correspond to an individual reservation then only this reservation will be removed
+	if (empty($email))
+		$sqlDelete = "delete from booking where cancel_token='".$token."'";
+	else
+		$sqlDelete = "delete from booking where cancel_token='".$token."' or `group`='".$email."'";
+
+	if (!$conn->query($sqlDelete)) {
+		return array('ok'=>false, 'msg'=>'Unable to '.$sqlDelete.': '.$conn->error);
 	}
 
 	$conn->close();
@@ -35,7 +52,6 @@ $r = process();
 include_once 'header.php';
 
 if ($r['ok']) {?>
-
 	<div class="jumbotron" style="background:darkslateblue;color:whitesmoke">
 		<div class="container text-center">
 			<h1>La réservation a été annulée</h1>
@@ -45,7 +61,8 @@ if ($r['ok']) {?>
 <?php
 } else {?>
 	<div class="jumbotron" style="background:darkslateblue;color:whitesmoke">
-		<div class="container text-center"><h1>Echoué</h1>
+		<div class="container text-center">
+			<h1>Echoué</h1>
 			<?php echo $r['msg']; ?>
 		</div>
 	</div>

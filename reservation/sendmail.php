@@ -1,4 +1,23 @@
 <?php
+require_once 'config.php';
+
+$token = @$_GET['token'];
+
+$conn = new mysqli(DBHOST, DBLOGIN, DBPASS, DBNAME);
+$r = $conn->query("select email from booking where cancel_token='".$token."'");
+$row = $r->fetch_row();	
+//var_dump($row)
+
+echo "<pre>";
+
+print_r($row);
+//echo($r->num_rows);
+
+echo "</pre>";
+
+$conn->close();
+
+/*
 $to      = 'duongphuhiep@gmail.com';
 $subject = 'Confirm reservation success html';
 
@@ -14,4 +33,4 @@ $headers = 'From: no-reply@hopcaquehuong.org'
 
 mail($to, $subject, $msg, $headers);
 echo "Email sent html3";
-?>
+*/
