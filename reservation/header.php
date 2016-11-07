@@ -19,7 +19,7 @@
 		<div class="container">
 			<a class="brand-header" href="../">
 				<img alt="Brand" src="../content/logo.svg" width="50" height="50">
-				Ensemble Chorale Que-Huong
+				Ensemble vocal Que-Huong
 			</a>
 		</div>
 	</div>

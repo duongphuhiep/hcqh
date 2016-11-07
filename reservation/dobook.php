@@ -67,7 +67,7 @@ function process()
 
 		foreach ($mailData as $md) {
 			//var_dump($md);
-		    mail($md['email'], 'Reservation confirmation 3/12/2016 20h', "Bonjour ".$md['firstname']." ".$md['lastname'].",\nMerci d'avoir nous supporter.\nVeuillez bien noter la date 3/12/2016 20h-22h.\n Espace Reuilly, 21 rue Hénard, 75012 Paris.\n\nVous pouvez s'annuler la reservation a tout moment en cliquant sur ce lien: \nhttp://hopcaquehuong.org/reservation/cancel.php?token=".$md['cancelToken']);
+		    mail($md['email'], 'Reservation confirmation 3/12/2016 20h Espace Reuilly', "Bonjour ".$md['firstname']." ".$md['lastname'].",\nMerci d'avoir nous supporter.\nVeuillez bien noter la date 3/12/2016 20h-22h.\n Espace Reuilly, 21 rue Hénard, 75012 Paris.\n\nVous pouvez s'annuler la reservation a tout moment en cliquant sur ce lien: \nhttp://hopcaquehuong.org/reservation/cancel.php?token=".$md['cancelToken']);
 		}
 
 		return array('ok'=>true);
