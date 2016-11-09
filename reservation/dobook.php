@@ -8,7 +8,7 @@ function process()
 	$image = new Securimage();
 	if ($image->check($_POST['captcha_code']) == true || DEBUG) {
 		$seatCount = $_POST['seatCount'];
-		if ($seatCount < 0 || $seatCount > 4) {
+		if ($seatCount < 0 || $seatCount > 8) {
 			return array('ok'=>false, 'msg'=>'Nombre de places invalide');
 		}
 

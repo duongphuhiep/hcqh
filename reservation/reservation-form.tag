@@ -11,6 +11,10 @@
 					<option value='2'>2 personnes</option>
 					<option value='3'>3 personnes</option>
 					<option value='4'>4 personnes</option>
+					<option value='5'>5 personnes</option>
+					<option value='6'>6 personnes</option>
+					<option value='7'>7 personnes</option>
+					<option value='8'>8 personnes</option>
 				</select></div>
 			</div>
 		</div>
