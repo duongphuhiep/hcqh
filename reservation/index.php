@@ -10,11 +10,38 @@
 		</ul>
 	</div>
 </div>
+	<?php
+	require_once 'config.php';
+	$conn = new mysqli(DBHOST, DBLOGIN, DBPASS, DBNAME);
+	if ($conn->connect_error) {
+		return array('ok'=>false, 'msg'=>'Base de donées indisponible');
+	}
 
-<div class="container">
-	<section class="main-form">
-		<reservation-form></reservation-form>
-	</section>
-</div>
-
+	//check number of reservation should not exceed 450 places
+	$r = $conn->query('select count(*) from booking');
+	if (!$r) {
+		echo($conn->error);
+		die(500);
+	}
+	$row = $r->fetch_row();
+	$count = $row[0];
+	if ($count >= NBPLACES) {
+	?>
+		<div class="container text-center">
+			<div class="alert alert-info">
+				Malheureusement, Il n'y a plus de places disponibles :(
+			</div>
+		</div>
+	<?php
+	}
+	else {
+	?>
+		<div class="container">
+			<section class="main-form">
+				<reservation-form></reservation-form>
+			</section>
+		</div>
+	<?php
+	}
+	?>
 <?php include_once 'footer.php'?>
