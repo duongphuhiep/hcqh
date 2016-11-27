@@ -22,33 +22,33 @@ if (!$r) {
 
 include_once 'header.php'?>
 
-<div class="container"><?php
-
-	echo $r->num_rows." places are reserved";
-	if ($r->num_rows > 0) {
-		echo "<table border='1'>";
-		echo "<tr>";
-		echo "<th>id</th>";
-		echo "<th>group</th>";
-		echo "<th>first name</th>";
-		echo "<th>last name</th>";
-		echo "<th>email</th>";
-		echo "<th>reservation date</th>";
-		echo "</tr>";
-		// output data of each row
-		while($row = $r->fetch_assoc()) {
+<div class="container">
+	<section><?php
+		echo "<div class='alert alert-info'>".$r->num_rows." places are reserved</div>";
+		if ($r->num_rows > 0) {
+			echo "<table border='1'>";
 			echo "<tr>";
-			echo "<td>" . $row["id"]. "</td>";
-			echo "<td>" . $row["group"]. "</td>";
-			echo "<td>" . $row["firstname"]. "</td>";
-			echo "<td>" . $row["lastname"]. "</td>";
-			echo "<td>" . $row["email"]. "</td>";
-			echo "<td>" . $row["creation"]. "</td>";
+			echo "<th>id</th>";
+			echo "<th>group</th>";
+			echo "<th>first name</th>";
+			echo "<th>last name</th>";
+			echo "<th>email</th>";
+			echo "<th>reservation date</th>";
 			echo "</tr>";
+			// output data of each row
+			while($row = $r->fetch_assoc()) {
+				echo "<tr>";
+				echo "<td>" . $row["id"]. "</td>";
+				echo "<td>" . $row["group"]. "</td>";
+				echo "<td>" . $row["firstname"]. "</td>";
+				echo "<td>" . $row["lastname"]. "</td>";
+				echo "<td>" . $row["email"]. "</td>";
+				echo "<td>" . $row["creation"]. "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
 		}
-		echo "</table>";
-	}
 
-?></div>
+?></section></div>
 
 <?php include_once 'footer.php'?>
