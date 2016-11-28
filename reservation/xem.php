@@ -1,5 +1,6 @@
 <?php
 require_once "secret.php";
+require_once "config.php";
 
 $admintoken = @$_GET['admintoken'];
 if ($admintoken != ADMINTOKEN) {
@@ -24,7 +25,7 @@ include_once 'header.php'?>
 
 <div class="container">
 	<section><?php
-		echo "<div class='alert alert-info'>".$r->num_rows." places are reserved</div>";
+		echo "<div class='alert alert-info'>".$r->num_rows." / ".NBPLACES." places are reserved. Restés: ".(NBPLACES - $r->num_rows)." places </div>";
 		if ($r->num_rows > 0) {
 			echo "<table border='1'>";
 			echo "<tr>";
