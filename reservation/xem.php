@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 	echo('Base de donées indisponible');
 	die(500);
 }
-$sql = "select * from booking";
+$sql = "select * from booking order by id";
 $r = $conn->query($sql);
 if (!$r) {
 	echo($conn->error);
