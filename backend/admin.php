@@ -304,6 +304,9 @@ function applyTheme($themeUrl, $inverseNavBar) {
  * @param $content
  */
 function save($path, $content) {
+	if (strlen($content) < 5)
+		badRequest("content too short");
+
 	try {
 		checkAuthorizedPath($path);
 		if (!file_put_contents($path, $content)) {
