@@ -52,4 +52,3 @@ function ls($path) {
 	return array_slice($all, 2); //remove the "." and ".." folder
 }
 
-?>

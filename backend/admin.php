@@ -2,6 +2,20 @@
 
 require_once("lib/ChromePhp.php");
 require_once("mainBackEnd.php");
+require __DIR__ . '/vendor/autoload.php';
+
+$current_user='';
+$requestBodyStr='';
+
+$formatter = new Monolog\Formatter\LineFormatter("%datetime% %level_name% %message% %context%\n", "Y-m-d H:i:s");
+$logHandler = new Monolog\Handler\RotatingFileHandler(__DIR__ . '/logs/admin.log', Monolog\Logger::DEBUG);
+$logHandler->setFormatter($formatter);
+// $formatterNoDate = new Monolog\Formatter\LineFormatter("%level_name% %message% %context% %extra%\n", "Y-m-d H:i:s");
+// $streamHandler = new Monolog\Handler\StreamHandler('php://stdout', Monolog\Logger::DEBUG);
+// $streamHandler->setFormatter($formatterNoDate);
+$log = new Monolog\Logger('G');
+$log->pushHandler($logHandler);
+// $log->pushHandler($streamHandler);
 
 /**
  * http://stackoverflow.com/questions/1241728/can-i-try-catch-a-warning
@@ -15,13 +29,13 @@ function myErrorHandler($errno, $errstr, $errfile, $errline, array $errcontext) 
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
 set_error_handler("myErrorHandler", E_ALL);
-
 /**
  * check if the token comes from an administrator
  * @param $idtoken
  * @return bool
  */
 function isAdmin($idtoken) {
+	global $log;
 	$ch = curl_init("https://www.googleapis.com/oauth2/v3/tokeninfo");
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array("id_token" => $idtoken)));
@@ -31,8 +45,9 @@ function isAdmin($idtoken) {
 	$data = json_decode($dataString, true);
 
 	if ($data["aud"] == APP_ID) {
+		global $current_user;
 		$googleUserId = $data["sub"];
-		//$email = $data["email"];
+		$current_user = $data["email"];
 
 		//add/remove admin users here
 		$AUTH_USERS = array(
@@ -48,6 +63,8 @@ function isAdmin($idtoken) {
 		);
 
 		if (in_array($googleUserId, $AUTH_USERS, true)) {
+			global $requestBodyStr;
+			$log->info("$current_user - $requestBodyStr");
 			return $data;
 		}
 	}
@@ -101,13 +118,30 @@ function ren($parentPath, $currentName, $newName) {
 	}
 }
 
+// /**
+//  * remove recursively a folder
+//  */
+// function delTree($dir) {
+// 	$files = array_diff(scandir($dir), array('.','..'));
+// 	foreach ($files as $file) {
+// 		(is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+// 	}
+// 	return rmdir($dir);
+// }
+
 /**
- * remove recursively a folder
+ * remove a "plain" folder (return error if it contains sub-folder)
  */
-function delTree($dir) {
+function removePlainFolder($dir) {
 	$files = array_diff(scandir($dir), array('.','..'));
 	foreach ($files as $file) {
-		(is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+		$sub = "$dir/$file";
+		if (is_dir($sub)) {
+			global $log, $current_user;
+			$log->warn("$current_user failed to delete $dir");
+			internalError("The folder $dir is not a plain folder");
+		}
+		unlink($sub);
 	}
 	return rmdir($dir);
 }
@@ -127,7 +161,7 @@ function rm($parentPath, $itemName) {
 
 		$path = joinPaths($parentPath, $itemName);
 		if (is_dir($path)) {
-			delTree($path);
+			removePlainFolder($path);
 		} else {
 			if (!unlink($path)) {
 				internalError('Failed to remove the file "' . $path . '"');
