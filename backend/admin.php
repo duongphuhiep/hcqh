@@ -95,11 +95,17 @@ function checkAuthorizedPath($parentPath) {
 function ren($parentPath, $currentName, $newName) {
 	try {
 		checkAuthorizedPath($parentPath);
+
 		if (IsNullOrEmptyString($currentName)) {
 			badRequest("Cannot rename " . $parentPath . " because of empty currentName");
 		}
 		if (IsNullOrEmptyString($newName)) {
 			badRequest("Cannot rename " . $parentPath . " because of empty newName");
+		}
+		if (IsDangerousName($newName)) {
+			global $log, $current_user;
+			$log->warn("$current_user failed to rename in $parentPath from $currentName to $newName - detect dangerous name");
+			badRequest("Cannot rename " . $parentPath . " because of invalid newName");
 		}
 
 		$newFile = joinPaths($parentPath, $newName);
@@ -157,6 +163,11 @@ function rm($parentPath, $itemName) {
 		checkAuthorizedPath($parentPath);
 		if (IsNullOrEmptyString($itemName)) {
 			badRequest("Cannot remove " . $parentPath . " itemName must not empty");
+		}
+		if (IsDangerousName($itemName)) {
+			global $log, $current_user;
+			$log->warn("$current_user failed to delete $parentPath   $itemName - detect dangerous name");
+			badRequest("Cannot remove " . $itemName . " because of invalid name");
 		}
 
 		$path = joinPaths($parentPath, $itemName);

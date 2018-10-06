@@ -1,7 +1,7 @@
 <?php
 
 //sleep(1);
-define("ROOT_DIR", "../../"); //gulp will replace it with define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
+define("ROOT_DIR", "../"); //gulp will replace it with define("ROOT_DIR", "../../"); or define("ROOT_DIR", "../");
 define("BASE_DIR", "../");
 define("APP_ID", "786362358731-q3s0lph8krhk90sc2bp1eujokfjbburt.apps.googleusercontent.com");
 
@@ -14,7 +14,15 @@ function startsWith($haystack, $needle) {
 }
 
 function IsNullOrEmptyString($s){
-	return (!isset($s) || trim($s)==='');
+	if (!isset($s)) return true;
+	$s = trim($s);
+	return ($s==='' || empty($s));
+}
+
+function IsDangerousName($s) {
+	if ($s==='.' || $s==='./' || $s==='..') return true;
+	if (strpos($s, '/..')!==false || strpos($s, '../')!==false) return true;
+	return false;
 }
 
 /* join paths without double slashes */
@@ -48,7 +56,19 @@ function reponseJson($obj) {
  * @return array
  */
 function ls($path) {
+	//return array_diff(scandir($path), array('.','..'));
 	$all = scandir($path);
-	return array_slice($all, 2); //remove the "." and ".." folder
-}
 
+	//remove the "." and ".." folder
+	$resu = array();
+
+	$arrlength = count($all);
+	for($i = 0; $i < $arrlength; $i++) {
+		$x = $all[$i];
+		if ($x !== "." && $x !== "..") {
+			array_push($resu, $x);
+		}
+	}
+
+	return $resu;
+}

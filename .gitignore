@@ -7,3 +7,7 @@ npm-debug.*
 backend_mock/SinonTest.html
 content/
 ftpsync.settings
+.history/
+vendor/
+logs/
+backend\\logs\\*
