@@ -1,0 +1,101 @@
+{ 
+	Fichier này chứa configuration của Banner, Banner chiếm diện tích lớn nhất ngay trên trang Acceuil, 
+	nên cần phải được manipuler hết sức cẩn thận
+
+	1) Trong fichier này tất cả những phần nằm trong ngoặc nhọn (accolades) đều là "nháp", sẽ bị lờ đi 
+	như thể không tồn tại (ví dụ những lời dặn dò này đều nằm trong ngoặc nhọn)
+
+	2) Có thể Upload bao nhiêu hình banner vào mục này cũng được, nhưng khi đưa ra ngoài, thì chỉ nên 
+	configurer 5 pages banner au maximum.
+
+	3) Tên ảnh sử dụng trong các trang banner phải tuyệt đối chính xác, nếu không sẽ bị hỏng ở bên 
+	ngoài trang Web. Ví dụ upload một cái ảnh tên là "invalid.png" lên, nhưng khi dùng nó lại đề
+	tên là "invalid 1000.png" là không được..
+
+	4) Ưu tiên sử dụng ảnh gốc có độ nét cao. Có thể chỉnh sửa ảnh đôi chút về màu sắc, độ tương phản.. 
+        nhưng nên tránh những chỉnh sửa nặng nề như "xóa nền", thêm bớt chi tiết. Nếu không thể tránh được 
+        thì nên tìm ảnh khác (không nhất thiết phải là ảnh Hợp Ca). Xóa nền sẽ làm cho ảnh giả tạo vì mất  
+	đi ánh sáng tự nhiên. Việc thay thế nền ảnh thường làm giảm chất lượng ảnh đi hơn 50% trừ khi ảnh 
+        được chụp trong studio..
+
+        5) Không được lier trang banner tới một trang Web không tồn tại. Ví dụ "post: Bieu dien Choisy"
+        Không có bất cứ bài viết nào có identifiant là "Bieu dien Choisy" cả. Nếu configurer trang Banner
+        với mục "post" như trên thì trang Banner sẽ hiện ra nút "Xem Chi Tiết", khi người dùng bấm vào nút
+        đó sẽ được dẫn đến 1 trang báo lỗi. Vậy khi trang Banner không được lier tới bài viết nào thì đừng
+        viết mục "post"
+
+	Đọc kỹ cách configurer banner trong tài liệu:
+	https://github.com/duongphuhiep/hcqh/wiki/AUG-Overview#qu%E1%BA%A3n-l%C3%BD-banner
+
+
+(image: 2018 e 1.jpg)            
+title: Hợp ca Quê Hương tham dự Festival Voix sur Berges 2018         
+body: Đoàn thể đến từ nhiều quốc gia thể loại từ cổ điển đến Jazz            
+post: http://www.voixsurberges.com/    
+--
+image:     
+title: 2018     
+body:  Gần đây Hợp ca Quê Hương đón nhận trong hàng ngũ bạn bè quốc tế     
+post:     
+--
+image: Tiep TBT.jpg                   
+title: 2018 Đón Tiep TBT Nguyen Phu Trong           
+body: Khanh thanh CCE   
+post:  
+--
+image: 2017 UNESCO 3.jpg                              
+title: Hồi ký
+body: 2017 Lễ kỷ niệm 30 năm Nghị quyết UNESCO  
+Chủ tịch Hồ Chí Minh nhà văn hóa lớn. Anh hùng giải phóng dân tộc Việt Nam       
+post: 22/11/2017 tại Trụ sở UNESCO          
+--  
+images: 
+title: Một vài hình ảnh {2017-03-09 FESTIVAL INTERNATIONAL DE CHANT CHORAL PARIS-Ile DE FRANCE 
+body: 2017 FESTIVAL INTERNATIONAL DE CHANT CHORAL PARIS-Ile DE FRANCE  
+--
+(image: 2018 Made 2.jpg)               
+title: 2018 FESTIVAL INTERNATIONAL tại Nhà thờ MADELEINE PARIS 
+Ile DE FRANCE Etats-Unis Italie Lettonie Madagascar          
+body: Ngày 02.03.2018 tại Eglise Saint Joseph l’Artisan đồng diễn : Hợp Ca Quê Hương The Thatcher School Chamber Singers Californie Chorale Fiderama Madagascar              
+post:   
+--
+image: 2015 b 1.jpg   
+title: 2018 TẾT MẬU TUẤT cũng như mọi năm song hành với HNVNTP   
+body: Pavillon BALTARD 
+post:
+-- 
+(image: banner unesco.jpg)           
+title: 2019 Đoàn CT Quốc Hội Nguyễn Thị Kim Ngân gặp gỡ việt kiều tại UNESCO    
+body: Chính thức thăm Cộng hòa Pháp và khen tặng HNVNTP huân chương Độc Lập hạng nhất   
+post:
+-- 
+image: 2019 unesco kim ngan.jpg  
+title: 2019 Đoàn Quốc Hội Nguyễn Thị Kim Ngân tại UNESCO 
+body: Chính thức thăm Cộng hòa Pháp và khen tặng HNVNTP huân chương Độc Lập hạng nhất
+post:  
+-- 
+image: 2016 Paris.jpg           
+title: Hợp ca Quê Hương sẵn sàng đón tiếp bạn. Bienvenue à l'Ensemble vocal Quê Hương  
+body: Hợp ca Quê Hương một bản trường ca hướng về cội nguồn bao gồm nhiều Thế hệ - Thế hệ ý thức Độc Lập-Chủ quyền - Thế hệ chống ngoại xâm bảo vệ Độc Lập Chủ quyền - Thế hệ việt kiều định cư xa Việt Nam và gần đây sinh viên và thực tập sinh đến từ Việt Nam.  
+post: 2016-01-17 Gioi thieu  
+-- 
+image: a 1.jpg                     
+title: 2016 DVD đầu tay với dàn Nhạc Giao Hưởng           
+body: Kết hợp với dàn Giao hưởng Tp Rouen vùng Normandie Cộng Hòa Pháp    
+post:
+--  
+image: 2010 Les Invalides.jpg    
+title: 2010 Kỷ niệm 1000 năm Thănglong-Hanoi   
+body: Ecole Militaire des Invalides
+post: 
+--
+image: 2012 UNESCO .jpg  
+title: 2012 Sân Khấu Thử Nghiệm hòa hợp Vọng Cổ - Hợp Xướng     
+body: Trình diễn lần đầu trước quần chúng quốc tế  
+post:  
+--
+image: 2015 b 3.jpg    
+title: 2015 Kết hợp với Dàn Giao Hưởng Nhạc Viện Rouen  
+body: Đồng diễn với Dàn Polyphonique de Choisy le Roi
+post:
+--

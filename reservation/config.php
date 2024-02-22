@@ -2,9 +2,9 @@
 define('DBHOST', "hopcaquehuong.db.9404273.hostedresource.com");
 define('DBLOGIN', "hopcaquehuong");
 define('DBNAME', "hopcaquehuong");
-define('DBPASS', "QueHuong.09");
-define('NBPLACES', 450);
-define('DEBUG', false);
+define('DBPASS', "secret");
+define('NBPLACES', 311);
+define('DEBUG', true);
 
 function getGUID(){
 	if (function_exists('com_create_guid')){

@@ -19,12 +19,25 @@ body {
 }
 
 .retry-link {
-	text-decoration: none; 
+	text-decoration: none;
 	color: white;
 	text-decoration: underline;
 }
 .retry-link:hover {
-	text-decoration: underline; 
+	text-decoration: underline;
 	color: white;
 	font-size: 120%;
+}
+
+.section {
+	background: #DCDCDC;
+	padding: 10px;
+	margin: 30px;
+}
+.lab {
+	font-size: 140%;
+}
+.val {
+	font-size: 180%;
+	font-weight: bold;
 }

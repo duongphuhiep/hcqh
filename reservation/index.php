@@ -29,9 +29,11 @@ if ($count >= NBPLACES) {
 	?>
 	<div class="container text-center">
 		<div class="alert alert-info">
-			Malheureusement, Il n'y a plus de places disponibles :(
+			La réservation est fermé
 		</div>
-		Si on peut s'arranger plus de places (par example quelqu'un s'annule sa réservation), alors le siteweb va re-ouvrit à nouveau.
+		<h1>
+			<a href="number.php">Veuillez récupérer votre numéro de réservation ici</a>
+		</h1>
 	</div>
 	<?php
 }

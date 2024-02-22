@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+
+<pre>
+<?php
+
+$ar = array('Ha', "10", 'Nguyen');
+echo var_dump($ar[0]);
+echo var_dump($ar[1]);
+echo count($ar);
+
+function myTest() {
+  define("GREETING", "Welcome to W3Schools.com!");
+}
+
+myTest();
+echo greeting;
+
+var_dump($_POST);
+?>
+</pre>
+
+<p>Bat dau form</p>
+
+<form action="form.php" method="post">
+First Name: <input type="text" name='prenom'>
+<br/>
+Last Name: <input type="text" name='nom'>
+<p/>
+<input type="submit" text="gui di">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /V2/
+Disallow: /_dist/
+Disallow: /backend/
+Disallow: /stats/
+

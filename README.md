@@ -1,7 +1,18 @@
+# (Last) News
 
-Goto [wiki](https://github.com/duongphuhiep/hcqh/wiki) for detail and updated information.
+The Website <hopcaquehuong.org> had been closed on Feb 2024. A backup of the published website (and all the content) is available in the [_published](_published) folder.
+
+**For Windows Users**: You won't be able to `git clone` this repository to Windows, because some files name in the `content/` folders contains special characters. Windows users could use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to works with this repository.
+
+You can also download the repository as a zip file (but again, Windows users might not be able to unzip the files on Windows)
+
+![download zip](https://github.com/duongphuhiep/hcqh/assets/1638594/30a89892-bd98-4eb1-a586-9e84d488891d)
+
+---
 
 # Overview
+
+Goto [wiki](https://github.com/duongphuhiep/hcqh/wiki) for detail and updated information.
 
 The Hop ca Que-Huong website project comprehends 3 applications (2 front-end applications and 1 backend service):
  

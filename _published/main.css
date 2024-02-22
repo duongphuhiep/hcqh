@@ -1,0 +1,13 @@
+body{margin-top:50px}.fadeInOnScroll{opacity:.8}.crawler{display:none}
+@media screen and (min-height: 400px) and (min-width: 640px) {
+  #language_selector {
+    padding: 0.5%;
+    color: #fff;
+    font-size: 15px;
+    background-color: #337ab7;
+    border-top-color: #2e6da4;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-radius: 4px;
+  }
+}
